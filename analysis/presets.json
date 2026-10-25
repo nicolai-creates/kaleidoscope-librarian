@@ -1,15 +1,119 @@
 {
  "synth": "Vadjuse Kaleidoscope",
  "kind": "single-voice preset",
- "count": 39,
- "skipped_files": [
-  "imp.bin"
+ "generator": "kpm export json",
+ "layout": [
+  {
+   "label": "magic",
+   "offset": "0x00-0x03",
+   "note": "ff ff ff ff"
+  },
+  {
+   "label": "header",
+   "offset": "0x04-0x05",
+   "note": "07 ff in 35 files"
+  },
+  {
+   "label": "sec_a",
+   "offset": "0x06-0x19",
+   "note": "high variance: osc / filter / main?"
+  },
+  {
+   "label": "sec_b",
+   "offset": "0x1b-0x1c"
+  },
+  {
+   "label": "rec_b",
+   "offset": "0x1d-0x1f",
+   "note": "record A"
+  },
+  {
+   "label": "sec_b2",
+   "offset": "0x20-0x24"
+  },
+  {
+   "label": "sec_c",
+   "offset": "0x26-0x2b",
+   "note": "0x2a-0x2b always 04"
+  },
+  {
+   "label": "rec_c",
+   "offset": "0x2c-0x2e",
+   "note": "record A"
+  },
+  {
+   "label": "rec_d",
+   "offset": "0x30-0x32",
+   "note": "record A"
+  },
+  {
+   "label": "rec_e",
+   "offset": "0x34-0x36",
+   "note": "record A"
+  },
+  {
+   "label": "pair_f",
+   "offset": "0x38-0x39",
+   "note": "ff 07 in 37 files"
+  },
+  {
+   "label": "rec_f",
+   "offset": "0x3a-0x3e",
+   "note": "record B; default 00 00 40 3c 3c"
+  },
+  {
+   "label": "rec_g",
+   "offset": "0x40-0x44",
+   "note": "record B; default 00 00 40 3c 3c"
+  },
+  {
+   "label": "rec_h",
+   "offset": "0x46-0x4a",
+   "note": "record B; default 00 00 40 3c 3c"
+  },
+  {
+   "label": "rec_i",
+   "offset": "0x4c-0x4e",
+   "note": "record B (short); default 00 00 40"
+  },
+  {
+   "label": "rec_j",
+   "offset": "0x50-0x52",
+   "note": "record B (short); default 00 00 40"
+  },
+  {
+   "label": "sec_k",
+   "offset": "0x54-0x54",
+   "note": "0f in every file"
+  },
+  {
+   "label": "sec_l",
+   "offset": "0x70-0x71",
+   "note": "10 04 in most files"
+  },
+  {
+   "label": "seq",
+   "offset": "0x72-0x72",
+   "note": "save sequence number? unique per preset"
+  },
+  {
+   "label": "sec_m",
+   "offset": "0x74-0x74",
+   "note": "04 in most files"
+  },
+  {
+   "label": "name",
+   "offset": "0x80-0x8a",
+   "note": "1-9,a-z (0 assumed); 00-padded"
+  }
  ],
+ "count": 39,
  "presets": [
   {
    "name": "17153125",
    "file": "imp001.bin",
    "slot": 1,
+   "seq": 47,
    "name_codes": [
     1,
     7,
@@ -21,15 +125,27 @@
     5
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -54,14 +170,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       100,
       10,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       41,
@@ -69,21 +198,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -91,7 +228,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -99,11 +237,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -111,7 +256,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -121,7 +267,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -131,7 +278,8 @@
       98
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -139,7 +287,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -147,53 +296,204 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      47
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      47
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      1,
+      7,
+      1,
+      5,
+      3,
+      1,
+      2,
+      5,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 0,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "l2",
    "file": "imp002.bin",
    "slot": 2,
+   "seq": 71,
    "name_codes": [
     22,
     2
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -218,14 +518,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       118,
       5,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -233,21 +546,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       11,
@@ -255,7 +576,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       0,
@@ -263,11 +585,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -275,7 +604,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -285,7 +615,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -295,7 +626,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -303,7 +635,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -311,39 +644,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      20,
-      71
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      20
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      71
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      22,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 0,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "spacehunt",
    "file": "imp003.bin",
    "slot": 3,
+   "seq": 11,
    "name_codes": [
     29,
     26,
@@ -356,15 +828,27 @@
     30
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       68,
@@ -389,14 +873,27 @@
       36
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       55,
       4,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       26,
@@ -404,21 +901,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       255,
       255,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       80,
@@ -426,7 +931,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       114,
@@ -434,11 +940,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -446,7 +959,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -456,7 +970,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -466,7 +981,8 @@
       0
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -474,7 +990,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -482,39 +999,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      11
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      11
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      29,
+      26,
+      11,
+      13,
+      15,
+      18,
+      31,
+      24,
+      30,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 15,
-    "hex": "0000000000000000000000000011211113411115611117f1ffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    17,
+    33,
+    17,
+    19,
+    65,
+    17,
+    21,
+    97,
+    17,
+    23,
+    241,
+    255,
+    255,
+    255,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "motokick",
-   "file": "imp004.bin",
+   "file": "imp004_motokick.bin",
    "slot": 4,
+   "seq": 10,
    "name_codes": [
     23,
     25,
@@ -526,15 +1182,27 @@
     21
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       71,
@@ -559,14 +1227,27 @@
       48
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       54,
       4,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       31,
@@ -574,21 +1255,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       90,
       0,
       255,
       255,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       95,
@@ -596,7 +1285,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       98,
@@ -604,11 +1294,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -616,7 +1313,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -626,7 +1324,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -636,7 +1335,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -644,7 +1344,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -652,39 +1353,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      10
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      10
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      25,
+      30,
+      25,
+      21,
+      19,
+      13,
+      21,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e3bbd180b5e11c61ca6c6d17a11646d1cce91588b03ae69b5ba349f8027dae1118878508f39d50931c4e1f2a39bda359464c7695974a727864ab4be67c1c35d8437be5129f249ff84d48a9cdae996253c1a294751a3ee80fd4647a920a13db68b5fcf02d0a0b65251e41d0b7d714305a16bb0e85a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    187,
+    209,
+    128,
+    181,
+    225,
+    28,
+    97,
+    202,
+    108,
+    109,
+    23,
+    161,
+    22,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    230,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    135,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    78,
+    31,
+    42,
+    57,
+    189,
+    163,
+    89,
+    70,
+    76,
+    118,
+    149,
+    151,
+    74,
+    114,
+    120,
+    100,
+    171,
+    75,
+    230,
+    124,
+    28,
+    53,
+    216,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    169,
+    205,
+    174,
+    153,
+    98,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    15,
+    212,
+    100,
+    122,
+    146,
+    10,
+    19,
+    219,
+    104,
+    181,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    30,
+    65,
+    208,
+    183,
+    215,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    133,
+    167
+   ]
   },
   {
    "name": "neurokick",
    "file": "imp005.bin",
    "slot": 5,
+   "seq": 12,
    "name_codes": [
     24,
     15,
@@ -697,15 +1537,27 @@
     21
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       87,
@@ -730,14 +1582,27 @@
       73
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       47,
       11,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       25,
@@ -745,21 +1610,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       90,
       0,
       255,
       255,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       80,
@@ -767,7 +1640,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       114,
@@ -775,11 +1649,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -787,7 +1668,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -797,7 +1679,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -807,7 +1690,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -815,7 +1699,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -823,39 +1708,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      12
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      12
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      24,
+      15,
+      31,
+      28,
+      25,
+      21,
+      19,
+      13,
+      21,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e3bbd180b5e11c61ca6c6d17a11646d1cce91588b03ae69b5ba349f8027dae1118878508f39d50931c4e1f2a39bda359464c7695974a727864ab4be67c1c35d8437be5129f249ff84d48a9cdae996253c1a294751a3ee80fd4647a920a13db68b5fcf02d0a0b65251e41d0b7d714305a16bb0e85a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    187,
+    209,
+    128,
+    181,
+    225,
+    28,
+    97,
+    202,
+    108,
+    109,
+    23,
+    161,
+    22,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    230,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    135,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    78,
+    31,
+    42,
+    57,
+    189,
+    163,
+    89,
+    70,
+    76,
+    118,
+    149,
+    151,
+    74,
+    114,
+    120,
+    100,
+    171,
+    75,
+    230,
+    124,
+    28,
+    53,
+    216,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    169,
+    205,
+    174,
+    153,
+    98,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    15,
+    212,
+    100,
+    122,
+    146,
+    10,
+    19,
+    219,
+    104,
+    181,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    30,
+    65,
+    208,
+    183,
+    215,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    133,
+    167
+   ]
   },
   {
    "name": "pwmdron",
    "file": "imp006.bin",
    "slot": 6,
+   "seq": 17,
    "name_codes": [
     26,
     33,
@@ -866,15 +1890,27 @@
     24
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       67,
@@ -899,14 +1935,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       111,
       1,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       1,
       0,
       64,
@@ -914,21 +1963,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       88,
@@ -936,7 +1993,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       38,
@@ -944,11 +2002,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -956,7 +2021,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -966,7 +2032,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -976,7 +2043,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -984,7 +2052,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -992,39 +2061,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      17
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      17
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      26,
+      33,
+      23,
+      14,
+      28,
+      25,
+      24,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "acidrave3",
    "file": "imp007.bin",
    "slot": 7,
+   "seq": 35,
    "name_codes": [
     11,
     13,
@@ -1037,15 +2245,27 @@
     3
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       3,
       27
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       66,
@@ -1070,14 +2290,27 @@
       53
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       127,
       3,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       63,
@@ -1085,21 +2318,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       140,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       87,
       5,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       80,
@@ -1107,7 +2348,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       61,
@@ -1115,11 +2357,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       7,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -1127,7 +2376,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1137,7 +2387,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -1147,7 +2398,8 @@
       76
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -1155,7 +2407,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -1163,39 +2416,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      35
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      35
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      11,
+      13,
+      19,
+      14,
+      28,
+      11,
+      32,
+      15,
+      3,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "sineburn",
    "file": "imp008.bin",
    "slot": 8,
+   "seq": 29,
    "name_codes": [
     29,
     19,
@@ -1207,15 +2599,27 @@
     24
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -1240,14 +2644,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       86,
       5,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       45,
@@ -1255,21 +2672,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -1277,7 +2702,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -1285,11 +2711,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -1297,7 +2730,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1307,7 +2741,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -1317,7 +2752,8 @@
       96
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -1325,7 +2761,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -1333,54 +2770,205 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      29
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      29
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      29,
+      19,
+      24,
+      15,
+      12,
+      31,
+      28,
+      24,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "ash",
    "file": "imp009.bin",
    "slot": 9,
+   "seq": 30,
    "name_codes": [
     11,
     29,
     18
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -1405,14 +2993,27 @@
       96
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       52,
       5,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       29,
@@ -1420,21 +3021,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -1442,7 +3051,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -1450,11 +3060,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -1462,7 +3079,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1472,7 +3090,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -1482,7 +3101,8 @@
       120
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -1490,7 +3110,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -1498,39 +3119,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      30
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      30
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      11,
+      29,
+      18,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "scratch",
    "file": "imp010.bin",
    "slot": 10,
+   "seq": 67,
    "name_codes": [
     29,
     13,
@@ -1541,15 +3301,27 @@
     18
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -1574,14 +3346,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       84,
       10,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       98,
@@ -1589,21 +3374,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       27,
       3,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       132,
@@ -1611,7 +3404,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       110,
@@ -1619,11 +3413,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -1631,7 +3432,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1641,7 +3443,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -1651,7 +3454,8 @@
       97
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -1659,7 +3463,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -1667,39 +3472,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      67
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      67
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      29,
+      13,
+      28,
+      11,
+      30,
+      13,
+      18,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "melanholia",
    "file": "imp011.bin",
    "slot": 11,
+   "seq": 43,
    "name_codes": [
     23,
     15,
@@ -1713,15 +3657,27 @@
     11
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       58,
@@ -1746,14 +3702,27 @@
       84
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       98,
       10,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       64,
@@ -1761,21 +3730,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       82,
       2,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       106,
@@ -1783,7 +3760,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -1791,11 +3769,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -1803,7 +3788,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1813,7 +3799,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       1,
@@ -1823,7 +3810,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -1831,7 +3819,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -1839,39 +3828,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      43
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      43
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      15,
+      22,
+      11,
+      24,
+      18,
+      25,
+      22,
+      19,
+      11,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e63bd180b5e11561ca4c6d17a11262d1cce91588b03a669b5bb349f8027dae1118868508f39dd0971c4e1f2a39bdab49424c76959f4a707865af0be67c0c35d8037b65129f249ff84d08a9cdae996253c1e282751a3ee80fd4607a920a13db68a5fcf02d0a0b65351a45d0b79714305a16bb0e80a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    76,
+    109,
+    23,
+    161,
+    18,
+    98,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    102,
+    155,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    208,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    112,
+    120,
+    101,
+    175,
+    11,
+    230,
+    124,
+    12,
+    53,
+    216,
+    3,
+    123,
+    101,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    8,
+    169,
+    205,
+    174,
+    153,
+    98,
+    83,
+    193,
+    226,
+    130,
+    117,
+    26,
+    62,
+    232,
+    15,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    53,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    128,
+    167
+   ]
   },
   {
    "name": "energycore",
    "file": "imp012.bin",
    "slot": 12,
+   "seq": 20,
    "name_codes": [
     15,
     24,
@@ -1885,15 +4013,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -1918,14 +4058,27 @@
       106
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       43,
       12,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       112,
@@ -1933,21 +4086,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       73,
       4,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       137,
@@ -1955,7 +4116,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -1963,11 +4125,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       5,
       0,
       191,
@@ -1975,7 +4144,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -1985,7 +4155,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       1,
@@ -1995,7 +4166,8 @@
       110
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2003,7 +4175,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2011,39 +4184,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      20
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      20
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      15,
+      24,
+      15,
+      28,
+      17,
+      35,
+      13,
+      25,
+      28,
+      15,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "lostinspacy",
    "file": "imp013.bin",
    "slot": 13,
+   "seq": 41,
    "name_codes": [
     22,
     25,
@@ -2058,15 +4370,27 @@
     35
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -2091,14 +4415,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       19,
@@ -2106,21 +4443,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       52,
       12,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       124,
@@ -2128,7 +4473,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -2136,11 +4482,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -2148,7 +4501,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -2158,7 +4512,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -2168,7 +4523,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2176,7 +4532,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2184,39 +4541,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      20,
-      41
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      20
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      41
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      22,
+      25,
+      29,
+      30,
+      19,
+      24,
+      29,
+      26,
+      11,
+      13,
+      35
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "unstable",
    "file": "imp014.bin",
    "slot": 14,
+   "seq": 36,
    "name_codes": [
     31,
     24,
@@ -2228,15 +4724,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       56,
@@ -2261,14 +4769,27 @@
       96
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       101,
       3,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       39,
@@ -2276,21 +4797,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       74,
       4,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       65,
@@ -2298,7 +4827,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -2306,11 +4836,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -2318,7 +4855,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -2328,7 +4866,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -2338,7 +4877,8 @@
       113
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2346,7 +4886,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2354,39 +4895,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      36
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      36
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      31,
+      24,
+      29,
+      30,
+      11,
+      12,
+      22,
+      15,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "marble",
    "file": "imp015.bin",
    "slot": 15,
+   "seq": 31,
    "name_codes": [
     23,
     11,
@@ -2396,15 +5076,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -2429,14 +5121,27 @@
       60
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       34,
       7,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       24,
       6,
       16,
@@ -2444,21 +5149,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       45,
       8,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       87,
@@ -2466,7 +5179,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       74,
@@ -2474,11 +5188,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -2486,7 +5207,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       7,
@@ -2496,7 +5218,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -2506,7 +5229,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2514,7 +5238,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2522,39 +5247,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      31
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      31
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      11,
+      28,
+      12,
+      22,
+      15,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "pondfish",
    "file": "imp016.bin",
    "slot": 16,
+   "seq": 42,
    "name_codes": [
     26,
     25,
@@ -2566,15 +5430,27 @@
     18
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -2599,14 +5475,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      36,
+      36
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       94,
       7,
-      10,
+      10
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       12,
       65,
@@ -2614,21 +5503,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       255,
       255,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       10
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       5,
@@ -2636,7 +5533,8 @@
       10
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -2644,11 +5542,18 @@
       10
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       10,
       64,
@@ -2656,7 +5561,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -2666,7 +5572,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -2676,7 +5583,8 @@
       0
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2684,7 +5592,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2692,39 +5601,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       18,
-      6,
-      42
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      6
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      42
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       6
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      26,
+      25,
+      24,
+      14,
+      16,
+      19,
+      29,
+      18,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd184b7e115e1ca6c6d17a11262d1cce91580a03ae69b5ba349f8027dae1118868508f39d70971c4e1f2a39bcab49424c76959f4a727865ab0be67c0c35d9437be5129e249ff84d48a9cdaa996053c1a294751a3ee82fd4607a920a1bdb68b5fcf06d0a0b65351ac1d0b7d714305a16bb0e80a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    132,
+    183,
+    225,
+    21,
+    225,
+    202,
+    108,
+    109,
+    23,
+    161,
+    18,
+    98,
+    209,
+    204,
+    233,
+    21,
+    128,
+    160,
+    58,
+    230,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    112,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    188,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    53,
+    217,
+    67,
+    123,
+    229,
+    18,
+    158,
+    36,
+    159,
+    248,
+    77,
+    72,
+    169,
+    205,
+    170,
+    153,
+    96,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    27,
+    219,
+    104,
+    181,
+    252,
+    240,
+    109,
+    10,
+    11,
+    101,
+    53,
+    26,
+    193,
+    208,
+    183,
+    215,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    128,
+    167
+   ]
   },
   {
    "name": "semishimmr",
    "file": "imp017.bin",
    "slot": 17,
+   "seq": 62,
    "name_codes": [
     29,
     15,
@@ -2738,15 +5786,27 @@
     28
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -2771,14 +5831,27 @@
       48
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       130,
       9,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       12,
       70,
@@ -2786,21 +5859,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       65,
       7,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -2808,7 +5889,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -2816,11 +5898,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -2828,7 +5917,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -2838,7 +5928,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -2848,7 +5939,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -2856,7 +5948,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -2864,39 +5957,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      62
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      62
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      29,
+      15,
+      23,
+      19,
+      29,
+      18,
+      19,
+      23,
+      23,
+      28,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "iamwhoami",
    "file": "imp018.bin",
    "slot": 18,
+   "seq": 63,
    "name_codes": [
     19,
     11,
@@ -2909,15 +6141,27 @@
     19
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       64,
@@ -2942,14 +6186,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       112,
       9,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       4,
       64,
@@ -2957,21 +6214,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       2,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       63,
       7,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -2979,7 +6244,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -2987,11 +6253,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -2999,7 +6272,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -3009,7 +6283,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -3019,7 +6294,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -3027,7 +6303,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -3035,39 +6312,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      63
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      63
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      19,
+      11,
+      23,
+      33,
+      18,
+      25,
+      11,
+      23,
+      19,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "oracle",
    "file": "imp019.bin",
    "slot": 19,
+   "seq": 64,
    "name_codes": [
     25,
     28,
@@ -3077,15 +6493,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       64,
@@ -3110,14 +6538,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       106,
       2,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       12,
       52,
@@ -3125,21 +6566,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       65,
       2,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       94,
@@ -3147,7 +6596,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       67,
@@ -3155,11 +6605,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -3167,7 +6624,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -3177,7 +6635,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -3187,7 +6646,8 @@
       96
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -3195,7 +6655,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -3203,39 +6664,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      64
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      64
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      25,
+      28,
+      11,
+      13,
+      22,
+      15,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "motor",
    "file": "imp020.bin",
    "slot": 20,
+   "seq": 1,
    "name_codes": [
     23,
     25,
@@ -3244,15 +6844,27 @@
     28
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       2,
       15
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -3277,14 +6889,27 @@
       91
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       90,
       9,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       19,
       50,
@@ -3292,21 +6917,29 @@
       1
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       90,
       1,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       50,
       15,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       23,
@@ -3314,7 +6947,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       98,
@@ -3322,11 +6956,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       31,
       0,
       64,
@@ -3334,7 +6975,8 @@
       36
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       31,
@@ -3344,7 +6986,8 @@
       24
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       31,
@@ -3354,7 +6997,8 @@
       31
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       31,
@@ -3362,7 +7006,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       31,
@@ -3370,39 +7015,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      1
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      1
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      25,
+      30,
+      25,
+      28,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "lazermercy",
    "file": "imp021.bin",
    "slot": 21,
+   "seq": 23,
    "name_codes": [
     22,
     11,
@@ -3416,15 +7200,27 @@
     35
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       52,
@@ -3449,14 +7245,27 @@
       65
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       11,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       12,
       0,
       18,
@@ -3464,21 +7273,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       72,
       4,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       76,
@@ -3486,7 +7303,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       42,
@@ -3494,11 +7312,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       5,
       0,
       191,
@@ -3506,7 +7331,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -3516,7 +7342,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       7,
@@ -3526,7 +7353,8 @@
       114
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -3534,7 +7362,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -3542,39 +7371,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      23
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      23
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      22,
+      11,
+      36,
+      15,
+      28,
+      23,
+      15,
+      28,
+      13,
+      35,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "electrobow",
    "file": "imp022.bin",
    "slot": 22,
+   "seq": 26,
    "name_codes": [
     15,
     22,
@@ -3588,15 +7556,27 @@
     33
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       57,
@@ -3621,14 +7601,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       50,
       12,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       35,
@@ -3636,21 +7629,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       63,
       7,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       76,
@@ -3658,7 +7659,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -3666,11 +7668,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -3678,7 +7687,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -3688,7 +7698,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       7,
@@ -3698,7 +7709,8 @@
       127
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -3706,7 +7718,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -3714,39 +7727,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      26
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      26
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      15,
+      22,
+      15,
+      13,
+      30,
+      28,
+      25,
+      12,
+      25,
+      33,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b5e11ce1ca446d17a11662d1cce91588b03ae29b5ba749f8027dae1118868508f39d50971c4e1f2a39b9ab49424c76959f4a607864ab5be67c0c35d9437be5129f249ff84d48a9cdaa996253c1a294751abee82fd4607a920a13d968b5fcf06d0a0b65251a4550b7971c305a14bb0e80a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    181,
+    225,
+    28,
+    225,
+    202,
+    68,
+    109,
+    23,
+    161,
+    22,
+    98,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    226,
+    155,
+    91,
+    167,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    185,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    96,
+    120,
+    100,
+    171,
+    91,
+    230,
+    124,
+    12,
+    53,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    169,
+    205,
+    170,
+    153,
+    98,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    190,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    181,
+    252,
+    240,
+    109,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    80,
+    183,
+    151,
+    28,
+    48,
+    90,
+    20,
+    187,
+    14,
+    128,
+    167
+   ]
   },
   {
    "name": "elephat",
    "file": "imp023.bin",
    "slot": 23,
+   "seq": 25,
    "name_codes": [
     15,
     22,
@@ -3757,15 +7909,27 @@
     30
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       64,
@@ -3790,14 +7954,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       25,
@@ -3805,21 +7982,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       3,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -3827,7 +8012,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -3835,11 +8021,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -3847,7 +8040,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -3857,7 +8051,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -3867,7 +8062,8 @@
       127
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -3875,7 +8071,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -3883,39 +8080,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      25
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      25
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      15,
+      22,
+      15,
+      26,
+      18,
+      11,
+      30,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b5e11ce1ca446d17a11662d1cce91588b03ae29b5ba749f8027dae1118868508f39d50971c4e1f2a39b9ab49424c76959f4a607864ab5be67c0c35d9437be5129f249ff84d48a9cdaa996253c1a294751abee82fd4607a920a13d968b5fcf06d0a0b65251a4550b7971c305a14bb0e80a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    181,
+    225,
+    28,
+    225,
+    202,
+    68,
+    109,
+    23,
+    161,
+    22,
+    98,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    226,
+    155,
+    91,
+    167,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    185,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    96,
+    120,
+    100,
+    171,
+    91,
+    230,
+    124,
+    12,
+    53,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    169,
+    205,
+    170,
+    153,
+    98,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    190,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    181,
+    252,
+    240,
+    109,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    80,
+    183,
+    151,
+    28,
+    48,
+    90,
+    20,
+    187,
+    14,
+    128,
+    167
+   ]
   },
   {
    "name": "bucket",
    "file": "imp024.bin",
    "slot": 24,
+   "seq": 32,
    "name_codes": [
     12,
     31,
@@ -3925,15 +8261,27 @@
     30
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       39,
@@ -3958,14 +8306,27 @@
       84
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       57,
       7,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       4,
       0,
       41,
@@ -3973,21 +8334,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -3995,7 +8364,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4003,11 +8373,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4015,7 +8392,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4025,7 +8403,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -4035,7 +8414,8 @@
       108
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4043,7 +8423,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4051,39 +8432,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      32
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      32
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      12,
+      31,
+      13,
+      21,
+      15,
+      30,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "membrane",
    "file": "imp025.bin",
    "slot": 25,
+   "seq": 33,
    "name_codes": [
     23,
     15,
@@ -4095,15 +8615,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       43,
@@ -4128,14 +8660,27 @@
       84
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       12,
       0,
       60,
@@ -4143,21 +8688,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       3,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       4,
@@ -4165,7 +8718,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4173,11 +8727,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4185,7 +8746,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4195,7 +8757,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -4205,7 +8768,8 @@
       96
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4213,7 +8777,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4221,39 +8786,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      33
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      33
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      15,
+      23,
+      12,
+      28,
+      11,
+      24,
+      15,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 0,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch2",
    "file": "imp026.bin",
    "slot": 26,
+   "seq": 53,
    "name_codes": [
     17,
     22,
@@ -4264,15 +8968,27 @@
     2
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       116,
@@ -4297,14 +9013,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -4312,21 +9041,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -4334,7 +9071,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4342,11 +9080,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4354,7 +9099,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4364,7 +9110,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -4374,7 +9121,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4382,7 +9130,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4390,39 +9139,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      53
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      53
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      2,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch3",
    "file": "imp027.bin",
    "slot": 27,
+   "seq": 55,
    "name_codes": [
     17,
     22,
@@ -4433,15 +9321,27 @@
     3
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       37,
@@ -4466,14 +9366,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -4481,21 +9394,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -4503,7 +9424,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4511,11 +9433,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4523,7 +9452,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4533,7 +9463,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -4543,7 +9474,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4551,7 +9483,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4559,39 +9492,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      55
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      55
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      3,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e73bd180b5f11ce1ca6d6d17211660d1cce91580a03a66bb5ba349f8027dae1118868508f39d50971c4e1f2a39bdab49424c76959f4a727864ab1be67c0c35d9037b65129e249ff84d48e9cdae996253c1e284751abee80fd4607a920a03d968b5fcf02d0a0b65351e4dd0b79714305a16bb0e84e7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    231,
+    59,
+    209,
+    128,
+    181,
+    241,
+    28,
+    225,
+    202,
+    109,
+    109,
+    23,
+    33,
+    22,
+    96,
+    209,
+    204,
+    233,
+    21,
+    128,
+    160,
+    58,
+    102,
+    187,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    100,
+    171,
+    27,
+    230,
+    124,
+    12,
+    53,
+    217,
+    3,
+    123,
+    101,
+    18,
+    158,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    98,
+    83,
+    193,
+    226,
+    132,
+    117,
+    26,
+    190,
+    232,
+    15,
+    212,
+    96,
+    122,
+    146,
+    10,
+    3,
+    217,
+    104,
+    181,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    53,
+    30,
+    77,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    231
+   ]
   },
   {
    "name": "glitch4",
    "file": "imp028.bin",
    "slot": 28,
+   "seq": 56,
    "name_codes": [
     17,
     22,
@@ -4602,15 +9674,27 @@
     4
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       57,
@@ -4635,14 +9719,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -4650,21 +9747,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -4672,7 +9777,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4680,11 +9786,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4692,7 +9805,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4702,7 +9816,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -4712,7 +9827,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4720,7 +9836,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4728,39 +9845,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      56
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      56
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      4,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch5",
    "file": "imp029.bin",
    "slot": 29,
+   "seq": 57,
    "name_codes": [
     17,
     22,
@@ -4771,15 +10027,27 @@
     5
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       48,
@@ -4804,14 +10072,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       7,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       12,
       0,
       64,
@@ -4819,21 +10100,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -4841,7 +10130,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -4849,11 +10139,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -4861,7 +10158,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -4871,7 +10169,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -4881,7 +10180,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -4889,7 +10189,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -4897,39 +10198,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      57
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      57
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      5,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch6",
    "file": "imp030.bin",
    "slot": 30,
+   "seq": 58,
    "name_codes": [
     17,
     22,
@@ -4940,15 +10380,27 @@
     6
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       31,
@@ -4973,14 +10425,27 @@
       40
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       48,
       10,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       1,
       64,
@@ -4988,21 +10453,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -5010,7 +10483,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -5018,11 +10492,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -5030,7 +10511,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -5040,7 +10522,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -5050,7 +10533,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -5058,7 +10542,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -5066,39 +10551,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      58
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      58
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      6,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch7",
    "file": "imp031.bin",
    "slot": 31,
+   "seq": 59,
    "name_codes": [
     17,
     22,
@@ -5109,15 +10733,27 @@
     7
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       59,
@@ -5142,14 +10778,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -5157,21 +10806,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       86,
@@ -5179,7 +10836,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -5187,11 +10845,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -5199,7 +10864,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -5209,7 +10875,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -5219,7 +10886,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -5227,7 +10895,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -5235,39 +10904,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      59
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      59
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      7,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "glitch8",
    "file": "imp032.bin",
    "slot": 32,
+   "seq": 60,
    "name_codes": [
     17,
     22,
@@ -5278,15 +11086,27 @@
     8
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       42,
@@ -5311,14 +11131,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -5326,21 +11159,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       86,
@@ -5348,7 +11189,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -5356,11 +11198,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -5368,7 +11217,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -5378,7 +11228,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -5388,7 +11239,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -5396,7 +11248,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -5404,39 +11257,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      60
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      60
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      17,
+      22,
+      19,
+      30,
+      13,
+      18,
+      8,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "noise",
    "file": "imp033.bin",
    "slot": 33,
+   "seq": 66,
    "name_codes": [
     24,
     25,
@@ -5445,15 +11437,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       60,
@@ -5478,14 +11482,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       0,
       0,
       64,
@@ -5493,21 +11510,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       142,
@@ -5515,7 +11540,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -5523,11 +11549,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -5535,7 +11568,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -5545,7 +11579,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -5555,7 +11590,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -5563,7 +11599,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -5571,39 +11608,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      66
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      66
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      24,
+      25,
+      19,
+      29,
+      15,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "1b2122211",
    "file": "imp034.bin",
    "slot": 34,
+   "seq": 48,
    "name_codes": [
     1,
     12,
@@ -5616,15 +11792,27 @@
     1
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -5649,14 +11837,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       56,
       10,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       1,
       64,
@@ -5664,21 +11865,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       64,
@@ -5686,7 +11895,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -5694,11 +11904,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -5706,7 +11923,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -5716,7 +11934,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -5726,7 +11945,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -5734,7 +11954,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -5742,39 +11963,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      48
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      48
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      1,
+      12,
+      2,
+      1,
+      2,
+      2,
+      2,
+      1,
+      1,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e63bd180b5e11561ca4c6d17a11262d1cce91588b03a669b5bb349f8027dae1118868508f39dd0971c4e1f2a39bdab49424c76959f4a707865af0be67c0c35d8037b65129f249ff84d08a9cdae996253c1e282751a3ee80fd4607a920a13db68a5fcf02d0a0b65351a45d0b79714305a16bb0e80a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    76,
+    109,
+    23,
+    161,
+    18,
+    98,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    102,
+    155,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    208,
+    151,
+    28,
+    78,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    112,
+    120,
+    101,
+    175,
+    11,
+    230,
+    124,
+    12,
+    53,
+    216,
+    3,
+    123,
+    101,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    8,
+    169,
+    205,
+    174,
+    153,
+    98,
+    83,
+    193,
+    226,
+    130,
+    117,
+    26,
+    62,
+    232,
+    15,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    53,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    128,
+    167
+   ]
   },
   {
    "name": "punchface",
    "file": "imp035.bin",
    "slot": 35,
+   "seq": 3,
    "name_codes": [
     26,
     31,
@@ -5787,15 +12147,27 @@
     15
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       4,
       21
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -5820,14 +12192,27 @@
       67
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       70,
       16,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       2,
       0,
       70,
@@ -5835,21 +12220,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       140,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       97,
       3,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       134,
@@ -5857,7 +12250,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       151,
@@ -5865,11 +12259,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       15,
-      2,
+      2
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       31,
       0,
       64,
@@ -5877,7 +12278,8 @@
       36
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       31,
@@ -5887,7 +12289,8 @@
       24
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       31,
@@ -5897,7 +12300,8 @@
       31
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       31,
@@ -5905,7 +12309,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       31,
@@ -5913,39 +12318,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      3
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      3
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      26,
+      31,
+      24,
+      13,
+      18,
+      16,
+      11,
+      13,
+      15,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "melosnr",
    "file": "imp036.bin",
    "slot": 36,
+   "seq": 46,
    "name_codes": [
     23,
     15,
@@ -5956,15 +12500,27 @@
     28
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       52,
@@ -5989,14 +12545,27 @@
       72
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       64,
       0,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       36,
       0,
       39,
@@ -6004,21 +12573,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       0,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       83,
@@ -6026,7 +12603,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       80,
@@ -6034,11 +12612,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -6046,7 +12631,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -6056,7 +12642,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       5,
@@ -6066,7 +12653,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -6074,7 +12662,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -6082,39 +12671,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      46
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      46
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      23,
+      15,
+      22,
+      25,
+      29,
+      24,
+      28,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e33bd180b5e11561ca4d6d1fa11246d1cce91588a03a669b5ba349f8027dae1118868508f39df0971c6e1f2a39bdab49424c76959f4a727865ab0be67c0c15d8037be4129a249ff84d0829c9aa99e253c1f294751aaee82fd4607a920a13d968a5fcf06d0a0b25251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    227,
+    59,
+    209,
+    128,
+    181,
+    225,
+    21,
+    97,
+    202,
+    77,
+    109,
+    31,
+    161,
+    18,
+    70,
+    209,
+    204,
+    233,
+    21,
+    136,
+    160,
+    58,
+    102,
+    155,
+    91,
+    163,
+    73,
+    248,
+    2,
+    125,
+    174,
+    17,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    240,
+    151,
+    28,
+    110,
+    31,
+    42,
+    57,
+    189,
+    171,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    114,
+    120,
+    101,
+    171,
+    11,
+    230,
+    124,
+    12,
+    21,
+    216,
+    3,
+    123,
+    228,
+    18,
+    154,
+    36,
+    159,
+    248,
+    77,
+    8,
+    41,
+    201,
+    170,
+    153,
+    226,
+    83,
+    193,
+    242,
+    148,
+    117,
+    26,
+    174,
+    232,
+    47,
+    212,
+    96,
+    122,
+    146,
+    10,
+    19,
+    217,
+    104,
+    165,
+    252,
+    240,
+    109,
+    10,
+    11,
+    37,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   },
   {
    "name": "rocksnr",
    "file": "imp037.bin",
    "slot": 37,
+   "seq": 51,
    "name_codes": [
     28,
     25,
@@ -6125,15 +12853,27 @@
     28
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       50,
@@ -6158,14 +12898,27 @@
       58
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       131,
       11,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       59,
       0,
       67,
@@ -6173,21 +12926,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       124,
@@ -6195,7 +12956,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -6203,11 +12965,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -6215,7 +12984,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -6225,7 +12995,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -6235,7 +13006,8 @@
       0
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -6243,7 +13015,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -6251,39 +13024,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      51
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      51
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      28,
+      25,
+      13,
+      21,
+      29,
+      24,
+      28,
+      0,
+      0,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "oldbastard",
    "file": "imp038.bin",
    "slot": 38,
+   "seq": 54,
    "name_codes": [
     25,
     22,
@@ -6297,15 +13209,27 @@
     14
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       7,
       255
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       53,
@@ -6330,14 +13254,27 @@
       57
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       0,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       96,
       4,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       5,
       0,
       91,
@@ -6345,21 +13282,29 @@
       0
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       120,
       15,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       64,
       0,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       88,
@@ -6367,7 +13312,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       64,
@@ -6375,11 +13321,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       0,
       0,
       64,
@@ -6387,7 +13340,8 @@
       60
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       0,
@@ -6397,7 +13351,8 @@
       60
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       0,
@@ -6407,7 +13362,8 @@
       60
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       0,
@@ -6415,7 +13371,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       0,
@@ -6423,39 +13380,178 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      54
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      54
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      25,
+      22,
+      14,
+      12,
+      11,
+      29,
+      30,
+      11,
+      28,
+      14,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 12,
-    "hex": "000000000000000000000000000000000000000000000000000000000000000000001f011221211223411225f1ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31,
+    1,
+    18,
+    33,
+    33,
+    18,
+    35,
+    65,
+    18,
+    37,
+    241,
+    255,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
   },
   {
    "name": "aliengirl",
    "file": "imp039.bin",
    "slot": 39,
+   "seq": 9,
    "name_codes": [
     11,
     22,
@@ -6468,15 +13564,27 @@
     22
    ],
    "magic_ok": true,
-   "fields": {
-    "header": {
+   "fields": [
+    {
+     "label": "magic",
+     "offset": "0x00-0x03",
+     "bytes": [
+      255,
+      255,
+      255,
+      255
+     ]
+    },
+    {
+     "label": "header",
      "offset": "0x04-0x05",
      "bytes": [
       2,
       15
      ]
     },
-    "sec_a": {
+    {
+     "label": "sec_a",
      "offset": "0x06-0x19",
      "bytes": [
       63,
@@ -6501,14 +13609,27 @@
       93
      ]
     },
-    "sec_b": {
-     "offset": "0x1b-0x24",
+    {
+     "label": "sec_b",
+     "offset": "0x1b-0x1c",
      "bytes": [
       1,
-      1,
+      1
+     ]
+    },
+    {
+     "label": "rec_b",
+     "offset": "0x1d-0x1f",
+     "bytes": [
       97,
       9,
-      0,
+      0
+     ]
+    },
+    {
+     "label": "sec_b2",
+     "offset": "0x20-0x24",
+     "bytes": [
       13,
       19,
       93,
@@ -6516,21 +13637,29 @@
       1
      ]
     },
-    "sec_c": {
-     "offset": "0x26-0x2e",
+    {
+     "label": "sec_c",
+     "offset": "0x26-0x2b",
      "bytes": [
       90,
       3,
       15,
       0,
       4,
-      4,
+      4
+     ]
+    },
+    {
+     "label": "rec_c",
+     "offset": "0x2c-0x2e",
+     "bytes": [
       113,
       15,
       0
      ]
     },
-    "slot_d": {
+    {
+     "label": "rec_d",
      "offset": "0x30-0x32",
      "bytes": [
       13,
@@ -6538,7 +13667,8 @@
       0
      ]
     },
-    "slot_e": {
+    {
+     "label": "rec_e",
      "offset": "0x34-0x36",
      "bytes": [
       117,
@@ -6546,11 +13676,18 @@
       0
      ]
     },
-    "slot_f": {
-     "offset": "0x38-0x3e",
+    {
+     "label": "pair_f",
+     "offset": "0x38-0x39",
      "bytes": [
       255,
-      7,
+      7
+     ]
+    },
+    {
+     "label": "rec_f",
+     "offset": "0x3a-0x3e",
+     "bytes": [
       31,
       0,
       64,
@@ -6558,7 +13695,8 @@
       36
      ]
     },
-    "slot_g": {
+    {
+     "label": "rec_g",
      "offset": "0x40-0x44",
      "bytes": [
       31,
@@ -6568,7 +13706,8 @@
       24
      ]
     },
-    "slot_h": {
+    {
+     "label": "rec_h",
      "offset": "0x46-0x4a",
      "bytes": [
       31,
@@ -6578,7 +13717,8 @@
       31
      ]
     },
-    "slot_i": {
+    {
+     "label": "rec_i",
      "offset": "0x4c-0x4e",
      "bytes": [
       31,
@@ -6586,7 +13726,8 @@
       64
      ]
     },
-    "slot_j": {
+    {
+     "label": "rec_j",
      "offset": "0x50-0x52",
      "bytes": [
       31,
@@ -6594,34 +13735,172 @@
       64
      ]
     },
-    "sec_k": {
+    {
+     "label": "sec_k",
      "offset": "0x54-0x54",
      "bytes": [
       15
      ]
     },
-    "sec_l": {
-     "offset": "0x70-0x72",
+    {
+     "label": "sec_l",
+     "offset": "0x70-0x71",
      "bytes": [
       16,
-      4,
-      9
-     ],
-     "note": "last byte differs in every file (checksum/seed/id?)"
+      4
+     ]
     },
-    "sec_m": {
+    {
+     "label": "seq",
+     "offset": "0x72-0x72",
+     "bytes": [
+      9
+     ]
+    },
+    {
+     "label": "sec_m",
      "offset": "0x74-0x74",
      "bytes": [
       4
      ]
+    },
+    {
+     "label": "name",
+     "offset": "0x80-0x8a",
+     "bytes": [
+      11,
+      22,
+      19,
+      15,
+      24,
+      17,
+      19,
+      28,
+      22,
+      0,
+      0
+     ]
     }
-   },
-   "tail": {
-    "offset": "0x8b-0xff",
-    "nonzero_bytes": 117,
-    "hex": "e6bbd180b7e11461ca656d1fa11266d1cce91588b03a62bb5bb349f8027daeb118868508f39d50931c0e1f2a39bda349424c76959f4a627865af1be67c1c05d9437be5129f249ff84d48e9cdae99e253c1a294751a3ee82fd4605a920a13db68a5fcf02d0a0b65251a45d0b79714305a16bb0e84a7",
-    "note": "zero in some files, noise-like in others: probably uninitialised memory, not preset data"
-   }
+   ],
+   "tail": [
+    230,
+    187,
+    209,
+    128,
+    183,
+    225,
+    20,
+    97,
+    202,
+    101,
+    109,
+    31,
+    161,
+    18,
+    102,
+    209,
+    204,
+    233,
+    21,
+    136,
+    176,
+    58,
+    98,
+    187,
+    91,
+    179,
+    73,
+    248,
+    2,
+    125,
+    174,
+    177,
+    24,
+    134,
+    133,
+    8,
+    243,
+    157,
+    80,
+    147,
+    28,
+    14,
+    31,
+    42,
+    57,
+    189,
+    163,
+    73,
+    66,
+    76,
+    118,
+    149,
+    159,
+    74,
+    98,
+    120,
+    101,
+    175,
+    27,
+    230,
+    124,
+    28,
+    5,
+    217,
+    67,
+    123,
+    229,
+    18,
+    159,
+    36,
+    159,
+    248,
+    77,
+    72,
+    233,
+    205,
+    174,
+    153,
+    226,
+    83,
+    193,
+    162,
+    148,
+    117,
+    26,
+    62,
+    232,
+    47,
+    212,
+    96,
+    90,
+    146,
+    10,
+    19,
+    219,
+    104,
+    165,
+    252,
+    240,
+    45,
+    10,
+    11,
+    101,
+    37,
+    26,
+    69,
+    208,
+    183,
+    151,
+    20,
+    48,
+    90,
+    22,
+    187,
+    14,
+    132,
+    167
+   ]
   }
  ]
 }
