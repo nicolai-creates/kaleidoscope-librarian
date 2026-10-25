@@ -562,6 +562,13 @@ func isCommand(s string) bool {
 	return false
 }
 
+// warning is shown at the bottom of the CLI help and as a popup when the TUI starts.
+var warning = []string{
+	"WARNING: kpm is experimental. The preset format is only partly known,",
+	"and kpm writes and renames files in place. Things might break.",
+	"Keep a backup of your presets before using it.",
+}
+
 func usage() {
 	fmt.Fprint(os.Stderr, `usage:
   kpm [dir]                         interactive TUI
@@ -574,7 +581,9 @@ func usage() {
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
   -n: dry run
+
 `)
+	fmt.Fprintln(os.Stderr, strings.Join(warning, "\n"))
 }
 
 func fatal(err error) {
@@ -988,6 +997,7 @@ func runTUI(dir string) error {
 	if len(ps) == 0 {
 		u.setErr("no .bin files in " + dir)
 	}
+	u.popup(append(warning, "", "Press any key to continue."))
 	for {
 		u.draw()
 		ev, ok := s.PollEvent().(*tcell.EventKey)
@@ -1212,6 +1222,51 @@ func (u *ui) prompt(label, initial string) (string, bool) {
 			buf = buf[:0]
 		case tcell.KeyRune:
 			buf = append(buf, ev.Rune())
+		}
+	}
+}
+
+// popup shows lines in a centered box until a key is pressed.
+func (u *ui) popup(lines []string) {
+	for {
+		u.draw()
+		w, h := u.s.Size()
+		bw := 0
+		for _, l := range lines {
+			bw = max(bw, len([]rune(l)))
+		}
+		bw, bh := min(bw+4, w), min(len(lines)+2, h)
+		x0, y0 := (w-bw)/2, (h-bh)/2
+		st := stWarn.Bold(true)
+		for y := y0; y < y0+bh; y++ {
+			for x := x0; x < x0+bw; x++ {
+				top, bottom, left, right := y == y0, y == y0+bh-1, x == x0, x == x0+bw-1
+				r := ' '
+				switch {
+				case top && left:
+					r = '┌'
+				case top && right:
+					r = '┐'
+				case bottom && left:
+					r = '└'
+				case bottom && right:
+					r = '┘'
+				case top || bottom:
+					r = '─'
+				case left || right:
+					r = '│'
+				}
+				u.s.SetContent(x, y, r, nil, st)
+			}
+		}
+		for i, l := range lines {
+			if 1+i < bh-1 {
+				u.str(x0+2, y0+1+i, bw-4, st, l)
+			}
+		}
+		u.s.Show()
+		if _, ok := u.s.PollEvent().(*tcell.EventKey); ok {
+			return
 		}
 	}
 }
