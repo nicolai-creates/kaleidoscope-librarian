@@ -7,7 +7,7 @@ Generated files, all produced by `kpm` from the layout in `main.go`:
 - `presets.csv`: `kpm export csv "Factory Presets"` (one row per preset, one column per byte, magic and name excluded)
 - `stats.txt`: `kpm stats "Factory Presets"` (per-byte distinct values / min / max / most common values, and tail groups)
 
-Re-run these after changing the layout. Offsets are hex. "Slot" is the number in the filename.
+Re-run these after changing the layout. Offsets are hex. "Slot" is the number in the filename. Usable slots are 1-126; slot 127 is the init preset and always loads as an empty preset on the synth.
 
 ## Confirmed
 | Offset | Field | Notes |
@@ -69,6 +69,8 @@ The glitch presets are close variants of each other. Bytes that differ between t
 The tail is probably leftover buffer content and not part of the preset. The small blocks have a nibble pattern (`x1 y2 ...`) and might be a fragment of some other structure.
 
 ## Open questions
+Vadjuse has agreed to this project and will provide the official format description (announced 2026-10-26). Once it arrives, check the findings above against it and update the layout in `main.go`.
+
 Mapping the fields to Kaleidoscope's controls (oscillator, wavefolder/hard-sync, LP/HP filter, comb, overdrive, FM and audio routers, ADSR, AD, 16-step modulator, modulation matrix) needs either the vendor's format description or controlled experiments. For the experiments: change one parameter on the device, export, diff.
 - Is the record flag `0a` (pondfish) a per-record switch, or a sign of an older firmware/format version (pondfish also differs at 0x70, 0x71, 0x74)?
 - How are header and pair_f related (both are non-standard in acidrave3 and punchface)?

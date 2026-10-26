@@ -1,4 +1,6 @@
-// kpm - Kaleidoscope preset manager.
+// SPDX-License-Identifier: MIT
+
+// kpm - Kaleidoscope Preset Manager.
 //
 // Manages Vadjuse Kaleidoscope single-voice presets (impNNN.bin, 256 bytes).
 // See analysis/FORMAT.md for what is known about the format. The field layout below
@@ -15,6 +17,7 @@
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
+//	kpm version                       print the version
 //
 // -n is a dry run. Without a dir, the current directory is used, or
 // "Factory Presets" if the current directory holds no .bin files.
@@ -39,6 +42,16 @@ import (
 
 // ---------------------------------------------------------------------------
 // Format
+
+// version is the kpm release; override with -ldflags "-X main.version=...".
+var version = "0.1"
+
+// Usable preset slots. Slot 127 is the init preset: it always loads as an
+// empty preset on the synth.
+const (
+	minSlot = 1
+	maxSlot = 126
+)
 
 const (
 	presetSize = 256
@@ -214,6 +227,14 @@ func (p *Preset) Slot() (slot int, suffix string, ok bool) {
 	}
 	slot, _ = strconv.Atoi(m[1])
 	return slot, m[2], true
+}
+
+func slotOK(s int) bool { return s >= minSlot && s <= maxSlot }
+
+// SlotOK reports whether the filename's slot is one the synth can load.
+func (p *Preset) SlotOK() bool {
+	s, _, ok := p.Slot()
+	return ok && slotOK(s)
 }
 
 // SuffixState is "" (no name in filename), "=" (matches) or "!" (differs).
@@ -422,8 +443,8 @@ func opFileToName(p *Preset) error {
 // opMove changes the slot number in the filename, refusing if another
 // preset in the set already uses the slot.
 func opMove(p *Preset, slot int, all []*Preset) error {
-	if slot < 0 || slot > 999 {
-		return fmt.Errorf("slot %d out of range", slot)
+	if slot < minSlot || slot > maxSlot {
+		return fmt.Errorf("slot %d out of range %d-%d", slot, minSlot, maxSlot)
 	}
 	cur, suf, ok := p.Slot()
 	if !ok {
@@ -455,6 +476,9 @@ func summaryLines(p *Preset) []string {
 	slot := "-"
 	if s, _, ok := p.Slot(); ok {
 		slot = fmt.Sprintf("%03d", s)
+		if !slotOK(s) {
+			slot += fmt.Sprintf(" (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
+		}
 	}
 	nameRaw := hexBytes(p.Data[nameOff : nameOff+nameLen])
 	magicState := "ok"
@@ -546,6 +570,8 @@ func main() {
 		err = cmdExport(args)
 	case "stats":
 		err = cmdStats(args)
+	case "version", "--version":
+		fmt.Println("kpm", version)
 	case "help", "-h", "--help":
 		usage()
 	}
@@ -556,7 +582,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "export", "stats", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -570,6 +596,7 @@ var warning = []string{
 }
 
 func usage() {
+	fmt.Fprintf(os.Stderr, "kpm %s - Kaleidoscope Preset Manager\n\n", version)
 	fmt.Fprint(os.Stderr, `usage:
   kpm [dir]                         interactive TUI
   kpm list [dir]                    one line per preset
@@ -580,6 +607,7 @@ func usage() {
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
+  kpm version                       print the version
   -n: dry run
 
 `)
@@ -1108,7 +1136,7 @@ func (u *ui) handleRune(r rune) bool {
 		if p == nil {
 			return true
 		}
-		in, ok := u.prompt("move to slot (0-999): ", "")
+		in, ok := u.prompt(fmt.Sprintf("move to slot (%d-%d): ", minSlot, maxSlot), "")
 		if !ok {
 			return true
 		}
@@ -1332,7 +1360,7 @@ func (u *ui) draw() {
 	if hasMarker(u.dir) {
 		marker = "import marker " + markerFile + " present"
 	}
-	u.str(1, 0, w-2, stHeader, fmt.Sprintf("kpm · %s · %d presets · %s · view: %s", u.dir, len(u.ps), marker, viewNames[u.view]))
+	u.str(1, 0, w-2, stHeader, fmt.Sprintf("kpm %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, viewNames[u.view]))
 
 	lw := min(listWidth, w/2)
 	rows := h - 2
@@ -1349,7 +1377,7 @@ func (u *ui) draw() {
 		switch {
 		case !p.Valid():
 			st = stErr
-		case p.SuffixState() == "!" || !p.MagicOK():
+		case p.SuffixState() == "!" || !p.MagicOK() || !p.SlotOK():
 			st = stWarn
 		}
 		if idx == u.cur {
@@ -1398,7 +1426,7 @@ func (u *ui) drawInfo(p *Preset, x0, y0, w, h int) {
 		st := stDefault
 		if strings.HasPrefix(l, "error") || strings.Contains(l, "BAD") {
 			st = stErr
-		} else if strings.Contains(l, "differs") {
+		} else if strings.Contains(l, "differs") || strings.Contains(l, "not loadable") {
 			st = stWarn
 		}
 		lines = append(lines, styledLine{[]styledSeg{{stDim, l[:7]}, {st, l[7:]}}})
