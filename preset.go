@@ -1,0 +1,294 @@
+// SPDX-License-Identifier: MIT
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"regexp"
+	"sort"
+	"strconv"
+	"strings"
+)
+
+// ---------------------------------------------------------------------------
+// Preset files
+
+// fileRe matches impNNN.bin and impNNN_<name>.bin (also '-', ' ' or '.' as separator).
+var fileRe = regexp.MustCompile(`(?i)^imp(\d{3})(?:[_ .-](.*))?\.bin$`)
+
+type Preset struct {
+	Path string
+	Data []byte
+	Err  error // set if the file is unreadable or not a preset
+}
+
+func loadPreset(path string) *Preset {
+	p := &Preset{Path: path}
+	p.Data, p.Err = os.ReadFile(path)
+	if p.Err == nil && len(p.Data) != presetSize {
+		p.Err = fmt.Errorf("size %d, want %d", len(p.Data), presetSize)
+	}
+	return p
+}
+
+func (p *Preset) File() string { return filepath.Base(p.Path) }
+func (p *Preset) Valid() bool  { return p.Err == nil }
+
+func (p *Preset) Name() string {
+	if !p.Valid() {
+		return ""
+	}
+	return decodeName(p.Data[nameOff : nameOff+nameLen])
+}
+
+func (p *Preset) MagicOK() bool {
+	return p.Valid() && string(p.Data[:4]) == string(magic)
+}
+
+// Slot returns the slot number and name suffix from the filename.
+func (p *Preset) Slot() (slot int, suffix string, ok bool) {
+	m := fileRe.FindStringSubmatch(p.File())
+	if m == nil {
+		return -1, "", false
+	}
+	slot, _ = strconv.Atoi(m[1])
+	return slot, m[2], true
+}
+
+func slotOK(s int) bool { return s >= minSlot && s <= maxSlot }
+
+// SlotOK reports whether the filename's slot is one the synth can load.
+func (p *Preset) SlotOK() bool {
+	s, _, ok := p.Slot()
+	return ok && slotOK(s)
+}
+
+// SuffixState is "" (no name in filename), "=" (matches) or "!" (differs).
+func (p *Preset) SuffixState() string {
+	_, suf, ok := p.Slot()
+	switch {
+	case !ok || suf == "":
+		return ""
+	case sanitizeName(suf) == p.Name():
+		return "="
+	}
+	return "!"
+}
+
+func (p *Preset) save() error {
+	return writeAtomic(p.Path, p.Data)
+}
+
+func writeAtomic(path string, data []byte) error {
+	mode := os.FileMode(0o644)
+	if st, err := os.Stat(path); err == nil {
+		mode = st.Mode().Perm()
+	}
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".kpm-*")
+	if err != nil {
+		return err
+	}
+	defer os.Remove(tmp.Name())
+	if _, err := tmp.Write(data); err != nil {
+		tmp.Close()
+		return err
+	}
+	if err := tmp.Close(); err != nil {
+		return err
+	}
+	if err := os.Chmod(tmp.Name(), mode); err != nil {
+		return err
+	}
+	return os.Rename(tmp.Name(), path)
+}
+
+func (p *Preset) renameFile(base string) error {
+	if base == p.File() {
+		return nil
+	}
+	target := filepath.Join(filepath.Dir(p.Path), base)
+	if _, err := os.Stat(target); err == nil {
+		return fmt.Errorf("%s already exists", base)
+	}
+	if err := os.Rename(p.Path, target); err != nil {
+		return err
+	}
+	p.Path = target
+	return nil
+}
+
+// markerFile is the empty file that tells the synth to import the presets
+// in its folder. The synth deletes it after the import.
+const markerFile = "imp.bin"
+
+func isMarker(path string) bool { return strings.EqualFold(filepath.Base(path), markerFile) }
+
+func hasMarker(dir string) bool {
+	_, err := os.Stat(filepath.Join(dir, markerFile))
+	return err == nil
+}
+
+// toggleMarker creates the import marker, or removes it if present and empty.
+func toggleMarker(dir string) (created bool, err error) {
+	path := filepath.Join(dir, markerFile)
+	st, err := os.Stat(path)
+	if err != nil {
+		return true, os.WriteFile(path, nil, 0o644)
+	}
+	if st.Size() != 0 {
+		return false, fmt.Errorf("%s is not empty, not removing it", markerFile)
+	}
+	return false, os.Remove(path)
+}
+
+func scanDir(dir string) ([]*Preset, error) {
+	paths, err := filepath.Glob(filepath.Join(dir, "*.bin"))
+	if err != nil {
+		return nil, err
+	}
+	var ps []*Preset
+	for _, path := range paths {
+		if !isMarker(path) {
+			ps = append(ps, loadPreset(path))
+		}
+	}
+	sortPresets(ps)
+	return ps, nil
+}
+
+func sortPresets(ps []*Preset) {
+	sort.SliceStable(ps, func(i, j int) bool {
+		si, _, oki := ps[i].Slot()
+		sj, _, okj := ps[j].Slot()
+		if oki != okj {
+			return oki
+		}
+		if si != sj {
+			return si < sj
+		}
+		return ps[i].File() < ps[j].File()
+	})
+}
+
+// ---------------------------------------------------------------------------
+// Operations. target* compute the result without touching disk (dry run),
+// op* apply it.
+
+func targetNameToFile(p *Preset) (string, error) {
+	slot, _, ok := p.Slot()
+	if !ok {
+		return "", fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+	}
+	if p.Name() == "" {
+		return "", fmt.Errorf("%s: preset has no name", p.File())
+	}
+	return fmt.Sprintf("imp%03d_%s.bin", slot, p.Name()), nil
+}
+
+func targetStrip(p *Preset) (string, error) {
+	slot, _, ok := p.Slot()
+	if !ok {
+		return "", fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+	}
+	return fmt.Sprintf("imp%03d.bin", slot), nil
+}
+
+func targetFileToName(p *Preset) (string, error) {
+	_, suf, ok := p.Slot()
+	if !ok || suf == "" {
+		return "", fmt.Errorf("%s: filename carries no name", p.File())
+	}
+	name := sanitizeName(suf)
+	if name == "" {
+		return "", fmt.Errorf("%s: no valid name characters in %q", p.File(), suf)
+	}
+	return name, nil
+}
+
+func checkValid(p *Preset) error {
+	if !p.Valid() {
+		return fmt.Errorf("%s: %v", p.File(), p.Err)
+	}
+	return nil
+}
+
+// opRename sets the stored name. If the filename carries a name, it is
+// updated too so both stay in sync.
+func opRename(p *Preset, name string) error {
+	if err := checkValid(p); err != nil {
+		return err
+	}
+	enc, err := encodeName(name)
+	if err != nil {
+		return err
+	}
+	old := append([]byte(nil), p.Data[nameOff:nameOff+nameLen]...)
+	copy(p.Data[nameOff:], enc)
+	if err := p.save(); err != nil {
+		copy(p.Data[nameOff:], old)
+		return err
+	}
+	if _, suf, ok := p.Slot(); ok && suf != "" {
+		return opNameToFile(p)
+	}
+	return nil
+}
+
+func opNameToFile(p *Preset) error {
+	if err := checkValid(p); err != nil {
+		return err
+	}
+	base, err := targetNameToFile(p)
+	if err != nil {
+		return err
+	}
+	return p.renameFile(base)
+}
+
+func opStrip(p *Preset) error {
+	base, err := targetStrip(p)
+	if err != nil {
+		return err
+	}
+	return p.renameFile(base)
+}
+
+func opFileToName(p *Preset) error {
+	if err := checkValid(p); err != nil {
+		return err
+	}
+	name, err := targetFileToName(p)
+	if err != nil {
+		return err
+	}
+	enc, _ := encodeName(name)
+	copy(p.Data[nameOff:], enc)
+	return p.save()
+}
+
+// opMove changes the slot number in the filename, refusing if another
+// preset in the set already uses the slot.
+func opMove(p *Preset, slot int, all []*Preset) error {
+	if slot < minSlot || slot > maxSlot {
+		return fmt.Errorf("slot %d out of range %d-%d", slot, minSlot, maxSlot)
+	}
+	cur, suf, ok := p.Slot()
+	if !ok {
+		return fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+	}
+	if cur == slot {
+		return nil
+	}
+	for _, o := range all {
+		if s, _, ok := o.Slot(); ok && s == slot && o != p {
+			return fmt.Errorf("slot %03d is used by %s", slot, o.File())
+		}
+	}
+	base := fmt.Sprintf("imp%03d.bin", slot)
+	if suf != "" {
+		base = fmt.Sprintf("imp%03d_%s.bin", slot, suf)
+	}
+	return p.renameFile(base)
+}
