@@ -172,15 +172,27 @@ Not covered by the factory names: `0`, `j`, `q`, `x`. `j`/`q`/`x` follow from th
 
 The tail is probably leftover buffer content and not part of the preset. The small blocks have a nibble pattern (`x1 y2 ...`) and might be a fragment of some other structure.
 
-## Open questions
-The current analysis is based on the factory presets and the user manual alone. Raw values have not yet been checked against values set on the device.
+## Limits of this analysis
+This is a reverse-engineering result, not a specification. It is based on:
+- the 39 factory presets, saved with firmware older than v76,
+- the user manual (July 2025), which predates several firmware changes and does not describe the file format,
+- six presets exported from one device running firmware v81 (beta), with known parameter changes.
 
-- Value scaling of PERI, RELE, GLID and the other time parameters.
-- The rule behind the track-dependent values (`05`/`0a`, `12`/`24`) when saving from tracks 2-4.
+The manufacturer has not reviewed or confirmed any of it.
+
+What that means in practice:
+- **Field positions** (which byte is which parameter) are well supported: the CC numbering explains every byte of the parameter area, and every device test hit the expected byte.
+- **Value encodings** are confirmed only for the parameters listed under Device tests: track numbers and masks, TSEL, BPM, TRAN, DEPT, FILT, the MIDI channels, the step modulator and the PARM list. For MIDL, RESO, vENV-PERI, mENV-PERI and GLID only the end points are known (`00` = minimum, `7f` = maximum).
+- **Not decoded:** how raw values map to displayed values for the time parameters (PERI, RELE, RISE, FALL, and GLID, which needs a separate look), SHAP, SUST, MULT, MIX, DRIV (its lookup table changed in v76), FEDB, DELA (rhythmic range 0-35 vs. notes), FINE, VOLU, FMVO, and the QNT modes added in v76 (sample & hold, envelope follower). Also undecoded: SCAL beyond OFF and nMAJ, and TSEL beyond EDIT (1HOT since v76).
+- **Firmware:** everything from the device was tested on v81 only. Other versions may store values differently, and presets from before v76 have no step modulator data (see Device tests).
+- **Tail (0x8b-0xff):** apart from the step values at 0x8c-0x9b, treated as leftover data, not verified.
+- **kpm** only reads parameters. It changes nothing but the name (0x80-0x8a) and filenames.
+
+## Open questions
+- The rule behind the track-dependent values (`05`/`0a`, `12`/`24`) when saving from tracks 2-4, i.e. the high bits of DEST/LINK/FMSR.
 - What 0x2a/0x2b (`04` everywhere) are.
-- The high bits of DEST/LINK/FMSR after loading into another track.
 - How vCH encodes polyphonic channels, and mCH `04`/`14` in the factory presets.
-- Whether the other PARM fields use the same numbering as sMX (very likely), and whether it changed between firmware versions.
+- Whether the other PARM fields use the same numbering as sMX (very likely).
 - TSRC codes for smEN and TSEL.
 - Does `0a` really encode `0` in names?
 
