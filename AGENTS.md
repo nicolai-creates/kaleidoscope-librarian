@@ -24,4 +24,4 @@ kpm is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usa
   `./kpm export csv "Factory Presets" > analysis/presets.csv`,
   `./kpm stats "Factory Presets" > analysis/stats.txt`,
   and update analysis/FORMAT.md.
-- Bump `version` in main.go for releases.
+- For releases: bump `version` in main.go (and the sample screen in README.md), add an entry to RELEASE.md, tag `vX.Y.Z`.
