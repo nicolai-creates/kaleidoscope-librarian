@@ -630,13 +630,30 @@ func paramLines(p *Preset, dec bool, lines *[]styledLine) (groupStart []int) {
 		if f.Len > 1 {
 			*lines = append(*lines, styledLine{append(segs, styledSeg{stDim, f.Note})})
 			b := p.Data[f.Off : f.Off+f.Len]
-			l := "              " + padBytes(b, bytesW)
+			steps := f.Label == "sSEQ-VALU"
+			w := bytesW
+			if steps {
+				w = 4 // room for a sign and three digits, see the value row
+			}
+			l := "              " + padBytes(b, w)
 			if f.Label == "name" {
 				l += "   \"" + p.Name() + "\""
 			}
 			*lines = append(*lines, line(stDefault, l))
 			if dec {
-				*lines = append(*lines, line(stDefault, "              "+decBytes(b)))
+				ds := decBytes(b)
+				if steps {
+					ds = padInts(b, w, func(c byte) int { return int(c) })
+				}
+				*lines = append(*lines, line(stDefault, "              "+ds))
+			}
+			if steps {
+				vals := padInts(b, w, func(c byte) int { return int(int8(c - 0x40)) })
+				st := stDefault
+				if !hasStepMod(p) {
+					st = stDim // leftover data, saved before v76
+				}
+				*lines = append(*lines, line(st, "              "+vals))
 			}
 			return
 		}
@@ -767,6 +784,15 @@ func abs(x int) int {
 		return -x
 	}
 	return x
+}
+
+// padInts formats f(byte) as decimals, each right-aligned in w columns.
+func padInts(b []byte, w int, f func(byte) int) string {
+	s := make([]string, len(b))
+	for i, c := range b {
+		s[i] = fmt.Sprintf("%*d", w, f(c))
+	}
+	return strings.Join(s, " ")
 }
 
 // padBytes formats bytes as hex, each right-aligned in w columns.
