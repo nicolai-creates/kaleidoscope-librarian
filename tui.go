@@ -14,13 +14,13 @@ import (
 // TUI
 
 const (
-	viewParams = iota
-	viewDevice
+	viewDevice = iota
+	viewParams
 	viewDump
 	numViews
 )
 
-var viewNames = [numViews]string{"parameters", "device", "hex dump"}
+var viewNames = [numViews]string{"device", "parameters", "hex dump"}
 
 type ui struct {
 	s         tcell.Screen
@@ -55,13 +55,13 @@ var (
 // shortHelp is the status line; viewHelp adds the keys of the current view.
 const shortHelp = "↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit"
 
-var viewHelp = [numViews]string{"  d dec  0-7 section", "  1-7 group", ""}
+var viewHelp = [numViews]string{"  1-7 group", "  d dec  0-7 section", ""}
 
 var longHelp = []string{
 	"kpm keys",
 	"",
 	"↑ ↓  j k  PgUp PgDn  Home End   move in the preset list",
-	"Tab  v                          next view: parameters, device, hex dump",
+	"Tab  v                          next view: device, parameters, hex dump",
 	"J  K                            scroll the info pane",
 	"mouse wheel                     scrolls the pane under the pointer",
 	"d                               parameters view: decimal values on/off",
@@ -685,7 +685,7 @@ func deviceLines(p *Preset, w int, lines *[]styledLine) (groupStart []int) {
 				l.segs = append(l.segs, styledSeg{stDim, "(display only)"})
 			}
 			for _, lab := range pg.Enc {
-				name := paramName(lab)
+				name := fmt.Sprintf("%-4s", paramName(lab))
 				val, st := "·", stDim
 				if fi, ok := fieldByLabel[lab]; ok {
 					f := layout[fi]

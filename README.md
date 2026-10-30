@@ -9,17 +9,17 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
  001  17153125       imp001.bin           │ file   imp003.bin
  002  l2             imp002.bin           │ slot   003
  003  spacehunt      imp003.bin           │ name   spacehunt
- 004  motokick       imp004.bin           │ magic  ok
- 005  neurokick      imp005.bin           │ fname  none
- 006  pwmdron        imp006.bin           │ saved  to slot 11 (PRST-SLOT, 0x72)
- 007  acidrave3      imp007.bin           │
- 008  sineburn       imp008.bin           │ 1 Waveform
- 009  ash            imp009.bin           │ ADTV  MIDL 64       MULT 127      MIX 13        DRIV 91
- 010  scratch        imp010.bin           │ SUBT  FILT C2h      RESO 46       DELA 5        FEDB 92
- 011  melanholia     imp011.bin           │ FREQ  TRAN 0        FINE 68       GLID 36       SCAL OFF
- 012  energycore     imp012.bin           │ MAST  VOLU 127      FMVO 26       FMSR 1···     SEND 1234
- 013  lostinspacy    imp013.bin           │ 2 Volume envelope
- 014  unstable       imp014.bin           │ vENV  SHAP 0        PERI 36       SUST 36       RELE 61
+ 004  motokick       imp004.bin           │ fname  none
+ 005  neurokick      imp005.bin           │ saved  to slot 11 (PRST-SLOT, 0x72)
+ 006  pwmdron        imp006.bin           │
+ 007  acidrave3      imp007.bin           │ 1 Waveform
+ 008  sineburn       imp008.bin           │ ADTV  MIDL 64       MULT 127      MIX  13       DRIV 91
+ 009  ash            imp009.bin           │ SUBT  FILT C2h      RESO 46       DELA 5        FEDB 92
+ 010  scratch        imp010.bin           │ FREQ  TRAN 0        FINE 68       GLID 36       SCAL OFF
+ 011  melanholia     imp011.bin           │ MAST  VOLU 127      FMVO 26       FMSR 1···     SEND 1234
+ 012  energycore     imp012.bin           │ 2 Volume envelope
+ 013  lostinspacy    imp013.bin           │ vENV  SHAP 0        PERI 36       SUST 36       RELE 61
+ 014  unstable       imp014.bin           │ vSEQ  EOC  0        LINK 1···     PATN 255      PSIZ 7
  ...
 ↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit  1-7 group
 ```
@@ -68,7 +68,7 @@ kpm version                       print the version
 | `s` / `S` | strip the name from the filename (selected / all) |
 | `m` | move the preset to another slot |
 | `i` | create or remove the `imp.bin` import marker |
-| `v` / Tab | switch view: parameters, device, hex dump |
+| `v` / Tab | switch view: device, parameters, hex dump |
 | `d` | parameters view: decimal values on/off (on by default) |
 | `1`-`7` | jump to a page group (parameters and device view) |
 | `0` | parameters view: jump to the bytes outside any page |
@@ -78,7 +78,7 @@ kpm version                       print the version
 | `g` | reload the folder |
 | `q` / Esc | quit |
 
-The **parameters** view lists every stored value with its byte offset, ordered like the synth: page group, page, encoder. The **device** view shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **hex dump** colours the bytes by field.
+The **device** view (the default) shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **parameters** view lists every stored value with its byte offset, ordered like the synth: page group, page, encoder. The **hex dump** colours the bytes by field.
 
 Actions on all presets ask for confirmation first. In the list, yellow marks a preset whose filename name differs from the stored name, whose slot is outside 1-126, or whose magic bytes are wrong.
 

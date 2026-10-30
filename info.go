@@ -22,18 +22,16 @@ func summaryLines(p *Preset) []string {
 			slot += fmt.Sprintf(" (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
 		}
 	}
-	magicState := "ok"
-	if !p.MagicOK() {
-		magicState = "BAD " + hexBytes(p.Data[:4])
-	}
 	sufState := map[string]string{"": "none", "=": "matches name", "!": "differs from name"}[p.SuffixState()]
 	l = append(l,
 		"slot   "+slot,
 		"name   "+p.Name(),
-		"magic  "+magicState,
 		"fname  "+sufState,
 		fmt.Sprintf("saved  to slot %d (PRST-SLOT, 0x%02x)", p.Data[slotOff], slotOff),
 	)
+	if !p.MagicOK() { // only worth a line when wrong
+		l = append(l, "magic  BAD "+hexBytes(p.Data[:4]))
+	}
 	return l
 }
 
