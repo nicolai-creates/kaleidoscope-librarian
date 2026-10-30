@@ -23,10 +23,10 @@ A preset holds the parameters of one track (the synth has 4). The user manual (K
 The manual's MIDI parameter table gives every parameter a CC number. **The byte at offset n holds the parameter with CC n.** This explains every byte of the old positional layout:
 - Every `ff` byte in 0x04-0x7f (identical in all 39 files) is a CC that stores no value: the ALIA parameters of the nine modulation matrices (CC 37, 47, 51, 55, 63, 69, 75, 79, 83; ALIA only mirrors the modulated parameter), and the unused CCs 26, 85-111, 115, 117-127. Firmware v81 also writes 85-92 (see Device tests).
 - Every other byte in that range is a parameter from the table, except 0x70 and 0x71 (CC 112, 113), which the manual does not list.
-- The two "records" of the earlier analysis are the modulation matrices. The CC order puts DEPT first in vMX/mMX (`DEPT, PARM, DEST`) and last in aMX/fMX/kMX/wMX/pMX (`PARM, DEST, DEPT`). The 5-byte records are the aftertouch, velocity and keytrack matrices followed by RISE and FALL of their smoothing page; mod wheel and pitch bend have no smoothing page, hence 3 bytes.
+- The two "records" of the earlier analysis are the modulation matrices. The CC order puts DEPT first in vMX/mMX (`DEPT, PARM, DEST`) and last in aMX/fMX/kMX/wMX/bMX (`PARM, DEST, DEPT`). The 5-byte records are the aftertouch, velocity and keytrack matrices followed by RISE and FALL of their smoothing page; mod wheel and pitch bend have no smoothing page, hence 3 bytes.
 - Values sit where the manual's ranges put the midpoint: MIDL `40` (0.5), every DEPT `40` (0), TRAN and FINE `3f`, mENV-SHAP `40`. BPM is `78` = 120 in 33 files, `5a` = 90, `8c` = 140. Both pattern fields default to PSIZ `07` (8 steps, 0-based) with PATN `ff` (all steps on).
 
-Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed FOLD to MULT (v76) and SBTV to SUBT (v80). The pages are grouped as on the page selector (8 groups of 4 pages; group 7 holds the step modulator since v76, group 8 is empty):
+Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed FOLD to MULT (v76) and SBTV to SUBT (v80). The display also shows pMX as bMX and the MIDI channels as vCHN, mCHN, pCHN. The pages are grouped as on the page selector (8 groups of 4 pages; group 7 holds the step modulator since v76, group 8 is empty):
 
 | Group | Pages |
 |---|---|
@@ -34,8 +34,8 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | Volume envelope | vENV, vSEQ, vMX1, vMX2 |
 | Modulation envelope | mENV, mSEQ, mMX1, mMX2 |
 | Configuration | MIDI, INTF, PRST, SCOP |
-| External modulators 1 | aENV, aMX, fENV, fMX |
-| External modulators 2 | kENV, kMX, wMX, pMX |
+| External modulators 1 | aMX, aENV, fMX, fENV |
+| External modulators 2 | kMX, kENV, wMX, bMX |
 | Step modulator (v76) | sSEQ, sMX |
 
 | Offset | CC | Label | Observed in the factory presets |
@@ -87,14 +87,14 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | 0x40-0x44 | 64-68 | fMX-PARM, DEST, DEPT, fENV-RISE, FALL | default `00 00 40 3c 3c` |
 | 0x46-0x4a | 70-74 | kMX-PARM, DEST, DEPT, kENV-RISE, FALL | default `00 00 40 3c 3c` |
 | 0x4c-0x4e | 76-78 | wMX-PARM, DEST, DEPT | default `00 00 40` |
-| 0x50-0x52 | 80-82 | pMX-PARM, DEST, DEPT | default `00 00 40` |
+| 0x50-0x52 | 80-82 | bMX-PARM, DEST, DEPT (pMX in the manual) | default `00 00 40` |
 | 0x54 | 84 | MAST-SEND | `0f` in every file (all four outputs) |
-| 0x70 | 112 | MIDI-vCH | `10` + channel-1, displayed `mn<n>`; `10` in 38, `12` pondfish |
-| 0x71 | 113 | MIDI-mCH | track-1, displayed `tr<n>` (`00` = tr1); `04` in 36, `14` l2 and lostinspacy, `06` pondfish (meaning of these not known) |
+| 0x70 | 112 | MIDI-vCHN | `10` + channel-1, displayed `mn<n>`; `10` in 38, `12` pondfish |
+| 0x71 | 113 | MIDI-mCHN | track-1, displayed `tr<n>` (`00` = tr1); `04` in 36, `14` l2 and lostinspacy, `06` pondfish (meaning of these not known) |
 | 0x72 | 114 | PRST-SLOT | unique per file, 1-71 |
-| 0x74 | 116 | MIDI-pCH | channel-1, displayed `mn<n>`; `04` in 38, `06` pondfish |
+| 0x74 | 116 | MIDI-pCHN | channel-1, displayed `mn<n>`; `04` in 38, `06` pondfish |
 
-motor, punchface and aliengirl share one non-default modulation setup: PARM `1f` (31) in aMX, fMX, kMX, wMX and pMX, with aENV and fENV smoothing `24`/`18` instead of `3c`.
+motor, punchface and aliengirl share one non-default modulation setup: PARM `1f` (31) in aMX, fMX, kMX, wMX and bMX, with aENV and fENV smoothing `24`/`18` instead of `3c`.
 
 ## Device tests (firmware v81)
 Test files in `refactoring-01/` and `refactoring-02/`, exported from a Kaleidoscope with firmware v81. They are built on the factory presets and, like those, not part of the repository. The changelog is at https://github.com/vadjuse/kaleidoscope/blob/main/Release%20FWs/changelog.txt.
@@ -135,7 +135,7 @@ Bytes written by v81 but `ff` or tail in the factory presets (step modulator, ad
 | 0x8c-0x9b | sSEQ-VALU | 16 steps, `40` + value (-36..36) |
 
 ### PARM list
-All PARM fields (vMX1/2, mMX1/2, aMX, fMX, kMX, wMX, pMX, sMX) select the modulated parameter by index. The order as shown on the display with v81; the index is confirmed for sMX (FILT = 5):
+All PARM fields (vMX1/2, mMX1/2, aMX, fMX, kMX, wMX, bMX, sMX) select the modulated parameter by index. The order as shown on the display with v81; the index is confirmed for sMX (FILT = 5):
 
 | Index | Parameter | Index | Parameter | Index | Parameter | Index | Parameter |
 |---|---|---|---|---|---|---|---|
@@ -148,7 +148,7 @@ All PARM fields (vMX1/2, mMX1/2, aMX, fMX, kMX, wMX, pMX, sMX) select the modula
 | 6 | RESO | 14 | vSHP | 22 | mQN1 | 30 | EMPT |
 | 7 | DELA | 15 | vPER | 23 | mQN2 | 31 | EMPT |
 
-GLID and RELE were added as destinations in v76. The factory presets use indices up to 22, plus 31 in the aMX/fMX/kMX/wMX/pMX of motor, punchface and aliengirl. 31 is EMPT in v81, and motor loaded on v81 shows EMPT there too, so these slots are simply unused. The manual gives kMX, wMX and pMX a range of 1-16 only.
+GLID and RELE were added as destinations in v76. The factory presets use indices up to 22, plus 31 in the aMX/fMX/kMX/wMX/bMX of motor, punchface and aliengirl. 31 is EMPT in v81, and motor loaded on v81 shows EMPT there too, so these slots are simply unused. The manual gives kMX, wMX and bMX a range of 1-16 only.
 
 The cursor position is not stored. Presets saved before v76 have tail bytes at 0x8c-0x9b and `ff` at 0x55-0x5c, so an old preset may load with random step values.
 

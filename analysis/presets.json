@@ -344,17 +344,17 @@
    "note": "mod wheel: modulation depth, 0x40 = 0, wraps"
   },
   {
-   "label": "pMX-PARM",
+   "label": "bMX-PARM",
    "offset": "0x50-0x50",
    "note": "pitch bend: parameter (PARM list)"
   },
   {
-   "label": "pMX-DEST",
+   "label": "bMX-DEST",
    "offset": "0x51-0x51",
    "note": "pitch bend: destination track, 0-based"
   },
   {
-   "label": "pMX-DEPT",
+   "label": "bMX-DEPT",
    "offset": "0x52-0x52",
    "note": "pitch bend: modulation depth, 0x40 = 0, wraps"
   },
@@ -394,22 +394,22 @@
    "note": "randomness 0-32"
   },
   {
-   "label": "MIDI-vCH",
+   "label": "MIDI-vCHN",
    "offset": "0x70-0x70",
    "note": "vol env channel: 10 + n-1 = mn\u003cn\u003e"
   },
   {
-   "label": "MIDI-mCH",
+   "label": "MIDI-mCHN",
    "offset": "0x71-0x71",
    "note": "mod env: 00 + n-1 = tr\u003cn\u003e"
   },
   {
    "label": "PRST-SLOT",
    "offset": "0x72-0x72",
-   "note": "slot the preset was saved from?"
+   "note": "slot the preset was saved to"
   },
   {
-   "label": "MIDI-pCH",
+   "label": "MIDI-pCHN",
    "offset": "0x74-0x74",
    "note": "parameter channel: n-1 = mn\u003cn\u003e"
   },
@@ -923,21 +923,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -993,14 +993,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -1014,7 +1014,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -1671,21 +1671,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -1741,14 +1741,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       20
@@ -1762,7 +1762,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -2426,21 +2426,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -2496,14 +2496,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -2517,7 +2517,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -3180,21 +3180,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -3250,14 +3250,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -3271,7 +3271,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -3935,21 +3935,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -4005,14 +4005,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -4026,7 +4026,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -4688,21 +4688,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -4758,14 +4758,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -4779,7 +4779,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -5443,21 +5443,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -5513,14 +5513,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -5534,7 +5534,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -6197,21 +6197,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -6267,14 +6267,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -6288,7 +6288,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -6946,21 +6946,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -7016,14 +7016,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -7037,7 +7037,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -7699,21 +7699,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -7769,14 +7769,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -7790,7 +7790,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -8455,21 +8455,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -8525,14 +8525,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -8546,7 +8546,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -9211,21 +9211,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -9281,14 +9281,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -9302,7 +9302,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -9968,21 +9968,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -10038,14 +10038,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       20
@@ -10059,7 +10059,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -10722,21 +10722,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -10792,14 +10792,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -10813,7 +10813,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -11474,21 +11474,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -11544,14 +11544,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -11565,7 +11565,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -12228,21 +12228,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       10
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -12298,14 +12298,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       18
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       6
@@ -12319,7 +12319,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       6
@@ -12984,21 +12984,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -13054,14 +13054,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -13075,7 +13075,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -13739,21 +13739,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -13809,14 +13809,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -13830,7 +13830,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -14491,21 +14491,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -14561,14 +14561,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -14582,7 +14582,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -15242,21 +15242,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       31
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -15312,14 +15312,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -15333,7 +15333,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -15998,21 +15998,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -16068,14 +16068,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -16089,7 +16089,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -16754,21 +16754,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -16824,14 +16824,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -16845,7 +16845,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -17507,21 +17507,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -17577,14 +17577,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -17598,7 +17598,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -18259,21 +18259,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -18329,14 +18329,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -18350,7 +18350,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -19013,21 +19013,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -19083,14 +19083,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -19104,7 +19104,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -19766,21 +19766,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -19836,14 +19836,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -19857,7 +19857,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -20519,21 +20519,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -20589,14 +20589,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -20610,7 +20610,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -21272,21 +21272,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -21342,14 +21342,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -21363,7 +21363,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -22025,21 +22025,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -22095,14 +22095,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -22116,7 +22116,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -22778,21 +22778,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -22848,14 +22848,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -22869,7 +22869,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -23531,21 +23531,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -23601,14 +23601,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -23622,7 +23622,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -24284,21 +24284,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -24354,14 +24354,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -24375,7 +24375,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -25035,21 +25035,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -25105,14 +25105,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -25126,7 +25126,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -25790,21 +25790,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -25860,14 +25860,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -25881,7 +25881,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -26545,21 +26545,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       31
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -26615,14 +26615,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -26636,7 +26636,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -27298,21 +27298,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -27368,14 +27368,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -27389,7 +27389,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -28051,21 +28051,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -28121,14 +28121,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -28142,7 +28142,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -28807,21 +28807,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -28877,14 +28877,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -28898,7 +28898,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4
@@ -29562,21 +29562,21 @@
      ]
     },
     {
-     "label": "pMX-PARM",
+     "label": "bMX-PARM",
      "offset": "0x50-0x50",
      "bytes": [
       31
      ]
     },
     {
-     "label": "pMX-DEST",
+     "label": "bMX-DEST",
      "offset": "0x51-0x51",
      "bytes": [
       0
      ]
     },
     {
-     "label": "pMX-DEPT",
+     "label": "bMX-DEPT",
      "offset": "0x52-0x52",
      "bytes": [
       64
@@ -29632,14 +29632,14 @@
      ]
     },
     {
-     "label": "MIDI-vCH",
+     "label": "MIDI-vCHN",
      "offset": "0x70-0x70",
      "bytes": [
       16
      ]
     },
     {
-     "label": "MIDI-mCH",
+     "label": "MIDI-mCHN",
      "offset": "0x71-0x71",
      "bytes": [
       4
@@ -29653,7 +29653,7 @@
      ]
     },
     {
-     "label": "MIDI-pCH",
+     "label": "MIDI-pCHN",
      "offset": "0x74-0x74",
      "bytes": [
       4

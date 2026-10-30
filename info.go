@@ -22,7 +22,6 @@ func summaryLines(p *Preset) []string {
 			slot += fmt.Sprintf(" (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
 		}
 	}
-	nameRaw := hexBytes(p.Data[nameOff : nameOff+nameLen])
 	magicState := "ok"
 	if !p.MagicOK() {
 		magicState = "BAD " + hexBytes(p.Data[:4])
@@ -31,10 +30,9 @@ func summaryLines(p *Preset) []string {
 	l = append(l,
 		"slot   "+slot,
 		"name   "+p.Name(),
-		"raw    "+nameRaw,
 		"magic  "+magicState,
 		"fname  "+sufState,
-		fmt.Sprintf("slot?  0x%02x = %02x (%d), PRST-SLOT", slotOff, p.Data[slotOff], p.Data[slotOff]),
+		fmt.Sprintf("saved  to slot %d (PRST-SLOT, 0x%02x)", p.Data[slotOff], slotOff),
 	)
 	return l
 }
