@@ -65,7 +65,7 @@ func exportJSON(ps []*Preset) error {
 		Name      string   `json:"name"`
 		File      string   `json:"file"`
 		Slot      int      `json:"slot"`
-		Seq       int      `json:"seq"`
+		SavedSlot int      `json:"saved_slot"`
 		NameCodes []int    `json:"name_codes"`
 		MagicOK   bool     `json:"magic_ok"`
 		Fields    []jField `json:"fields"`
@@ -85,7 +85,7 @@ func exportJSON(ps []*Preset) error {
 	for _, p := range ps {
 		slot, _, _ := p.Slot()
 		jp := jPreset{
-			Name: p.Name(), File: p.File(), Slot: slot, Seq: int(p.Data[0x72]),
+			Name: p.Name(), File: p.File(), Slot: slot, SavedSlot: int(p.Data[slotOff]),
 			NameCodes: ints(bytes.TrimRight(p.Data[nameOff:nameOff+nameLen], "\x00")),
 			MagicOK:   p.MagicOK(),
 			Tail:      ints(p.Data[nameOff+nameLen:]),
@@ -142,7 +142,7 @@ func cmdStats(args []string) error {
 		return errors.New("no presets")
 	}
 	fmt.Printf("# per-byte statistics over %d presets (kpm stats)\n", len(ps))
-	fmt.Println("# off  field    distinct  min  max  values (count), most common first")
+	fmt.Println("# off  field     distinct  min  max  values (count), most common first")
 	for o := 0; o < nameOff+nameLen; o++ {
 		counts := map[byte]int{}
 		lo, hi := 255, 0
@@ -173,7 +173,7 @@ func cmdStats(args []string) error {
 		if fi := fieldAt[o]; fi >= 0 {
 			label = layout[fi].Label
 		}
-		fmt.Printf("0x%02x  %-8s %8d  %3d  %3d  %s\n", o, label, len(counts), lo, hi, strings.Join(top, " "))
+		fmt.Printf("0x%02x  %-9s %8d  %3d  %3d  %s\n", o, label, len(counts), lo, hi, strings.Join(top, " "))
 	}
 
 	tails := map[string][]int{}

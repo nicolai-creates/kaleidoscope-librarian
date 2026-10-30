@@ -34,7 +34,7 @@ func summaryLines(p *Preset) []string {
 		"raw    "+nameRaw,
 		"magic  "+magicState,
 		"fname  "+sufState,
-		fmt.Sprintf("seq?   0x72 = %02x (%d)", p.Data[0x72], p.Data[0x72]),
+		fmt.Sprintf("slot?  0x%02x = %02x (%d), PRST-SLOT", slotOff, p.Data[slotOff], p.Data[slotOff]),
 	)
 	return l
 }
@@ -56,22 +56,27 @@ func decBytes(b []byte) string {
 }
 
 // fieldBlocks returns, per layout field, a header line and value lines with
-// perRow bytes each.
+// perRow bytes each. A single-byte field is one line: label, offset, value
+// and note.
 func fieldBlocks(p *Preset, dec bool, perRow int) [][]string {
 	var out [][]string
 	for _, f := range layout {
-		hdr := fmt.Sprintf("%-7s 0x%02x-0x%02x  %s", f.Label, f.Off, f.Off+f.Len-1, f.Note)
-		if f.Len == 1 {
-			hdr = fmt.Sprintf("%-7s 0x%02x       %s", f.Label, f.Off, f.Note)
-		}
-		block := []string{hdr}
 		b := p.Data[f.Off : f.Off+f.Len]
+		if f.Len == 1 {
+			v := hexBytes(b) + " "
+			if dec {
+				v = decBytes(b)
+			}
+			out = append(out, []string{fmt.Sprintf("%-9s 0x%02x  %s  %s", f.Label, f.Off, v, f.Note)})
+			continue
+		}
+		block := []string{fmt.Sprintf("%-9s 0x%02x-0x%02x  %s", f.Label, f.Off, f.Off+f.Len-1, f.Note)}
 		for i := 0; i < len(b); i += perRow {
 			row := b[i:min(i+perRow, len(b))]
 			if dec {
-				block = append(block, "        "+decBytes(row))
+				block = append(block, "          "+decBytes(row))
 			} else {
-				block = append(block, "        "+hexBytes(row))
+				block = append(block, "          "+hexBytes(row))
 			}
 		}
 		if f.Label == "name" {
