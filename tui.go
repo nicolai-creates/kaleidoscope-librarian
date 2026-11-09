@@ -83,6 +83,7 @@ var longHelp = []string{
 	"s / S                           strip the name from the filename (selected / all)",
 	"m                               move the preset to another slot",
 	"i                               create or remove the imp.bin import marker",
+	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
 	"g                               reload the folder",
 	"? h                             this help",
 	"q  Esc                          quit",
@@ -239,6 +240,22 @@ func (u *ui) handleRune(r rune) bool {
 		u.single(p, opStrip, "filename reset to impNNN.bin")
 	case 'S':
 		u.all("strip names from all filenames", opStrip)
+	case 'e':
+		in, ok := u.prompt(fmt.Sprintf("request export of slots (e.g. 5, 1-10, 3,7; %d-%d): ", minSlot, maxSlot), "")
+		if !ok || strings.TrimSpace(in) == "" {
+			return true
+		}
+		slots, err := parseSlots(in)
+		if err != nil {
+			u.setErr(err.Error())
+			return true
+		}
+		create, skipped, err := targetRequests(u.dir, slots)
+		if err == nil {
+			err = opRequests(u.dir, create)
+		}
+		u.reload()
+		u.result(err, fmt.Sprintf("%d export requests created, %d skipped (exist); marker %s set", len(create), len(skipped), expMarkerFile))
 	case 'm':
 		if p == nil {
 			return true

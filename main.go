@@ -15,6 +15,7 @@
 //	kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
 //	kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
+//	kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
 //	kpm version                       print the version
@@ -61,6 +62,8 @@ func main() {
 		err = cmdRename(args)
 	case "name2file", "file2name", "strip":
 		err = cmdBatch(cmd, args)
+	case "request":
+		err = cmdRequest(args)
 	case "export":
 		err = cmdExport(args)
 	case "stats":
@@ -77,7 +80,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "export", "stats", "version", "--version", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "request", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -100,6 +103,7 @@ func usage() {
   kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
   kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
+  kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
   kpm version                       print the version
@@ -225,6 +229,39 @@ func cmdRename(args []string) error {
 		return err
 	}
 	fmt.Printf("%s: %q -> %q\n", p.File(), old, p.Name())
+	return nil
+}
+
+// cmdRequest creates empty expNNN.bin files and the exp.bin marker: the
+// synth fills them with the presets of those slots.
+func cmdRequest(args []string) error {
+	fs := flag.NewFlagSet("request", flag.ExitOnError)
+	dry := fs.Bool("n", false, "dry run")
+	fs.Parse(args)
+	if fs.NArg() != 2 {
+		return errors.New("usage: kpm request [-n] DIR SLOTS")
+	}
+	dir := fs.Arg(0)
+	slots, err := parseSlots(fs.Arg(1))
+	if err != nil {
+		return err
+	}
+	create, skipped, err := targetRequests(dir, slots)
+	if err != nil {
+		return err
+	}
+	for _, f := range skipped {
+		fmt.Printf("%s exists, skipped\n", f)
+	}
+	if len(create) == 0 {
+		return nil
+	}
+	if !*dry {
+		if err := opRequests(dir, create); err != nil {
+			return err
+		}
+	}
+	fmt.Printf("export requests: %s (marker %s)\n", strings.Join(create, " "), expMarkerFile)
 	return nil
 }
 

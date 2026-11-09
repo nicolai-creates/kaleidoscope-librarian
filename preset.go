@@ -345,3 +345,92 @@ func opMove(p *Preset, slot int, all []*Preset) error {
 	}
 	return p.renameFile(p.fileName(slot, suf))
 }
+
+// ---------------------------------------------------------------------------
+// Transfers with the synth: export requests.
+
+// parseSlots reads a slot list like "5", "1-10" or "3,7,9-12".
+func parseSlots(s string) ([]int, error) {
+	seen := map[int]bool{}
+	var slots []int
+	for _, part := range strings.Split(s, ",") {
+		part = strings.TrimSpace(part)
+		lo, hi, isRange := strings.Cut(part, "-")
+		a, err := strconv.Atoi(strings.TrimSpace(lo))
+		if err != nil {
+			return nil, fmt.Errorf("not a slot: %q", part)
+		}
+		b := a
+		if isRange {
+			if b, err = strconv.Atoi(strings.TrimSpace(hi)); err != nil {
+				return nil, fmt.Errorf("not a slot: %q", part)
+			}
+		}
+		if a > b {
+			return nil, fmt.Errorf("slots %q: start after end", part)
+		}
+		if !slotOK(a) || !slotOK(b) {
+			return nil, fmt.Errorf("slots %q out of range %d-%d", part, minSlot, maxSlot)
+		}
+		for n := a; n <= b; n++ {
+			if !seen[n] {
+				seen[n] = true
+				slots = append(slots, n)
+			}
+		}
+	}
+	sort.Ints(slots)
+	return slots, nil
+}
+
+// usedSlots returns the slots that already have a file of the given kind in
+// dir (with or without a name in the filename).
+func usedSlots(dir, kind string) (map[int]string, error) {
+	ps, err := scanDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	used := map[int]string{}
+	for _, p := range ps {
+		if s, _, ok := p.Slot(); ok && p.Kind() == kind {
+			used[s] = p.File()
+		}
+	}
+	return used, nil
+}
+
+// targetRequests returns the export request files to create in dir and the
+// slots skipped because a file for them exists already.
+func targetRequests(dir string, slots []int) (create []string, skipped []string, err error) {
+	used, err := usedSlots(dir, "exp")
+	if err != nil {
+		return nil, nil, err
+	}
+	for _, s := range slots {
+		if f, ok := used[s]; ok {
+			skipped = append(skipped, f)
+		} else {
+			create = append(create, fmt.Sprintf("exp%03d.bin", s))
+		}
+	}
+	return create, skipped, nil
+}
+
+// opRequests creates the empty export requests and the export marker.
+func opRequests(dir string, create []string) error {
+	for _, f := range create {
+		fh, err := os.OpenFile(filepath.Join(dir, f), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o644)
+		if err != nil {
+			return err
+		}
+		fh.Close()
+	}
+	return createMarker(dir, expMarkerFile)
+}
+
+func createMarker(dir, name string) error {
+	if hasFile(dir, name) {
+		return nil
+	}
+	return os.WriteFile(filepath.Join(dir, name), nil, 0o644)
+}
