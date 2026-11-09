@@ -1,4 +1,4 @@
-module kpm
+module kalib
 
 go 1.27.3
 

@@ -6,7 +6,7 @@ package main
 
 import "fmt"
 
-// findVolume is not implemented on this platform; use KPM_DEVICE.
+// findVolume is not implemented on this platform; use KALIB_DEVICE.
 func findVolume(label string) (string, bool) { return "", false }
 
 // ejectVolume is not implemented on this platform.

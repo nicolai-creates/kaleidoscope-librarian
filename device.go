@@ -12,7 +12,7 @@ import (
 const deviceLabel = "KLRU"
 
 // deviceEnv overrides the search with the folder of the synth's drive.
-const deviceEnv = "KPM_DEVICE"
+const deviceEnv = "KALIB_DEVICE"
 
 var errNoDevice = fmt.Errorf("synth not found: no drive named %s is mounted (set %s to its folder)", deviceLabel, deviceEnv)
 

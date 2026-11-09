@@ -84,7 +84,7 @@ const shortHelp = "↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit
 var viewHelp = [numViews]string{"  1-7 group", "  d dec  0-7 section", ""}
 
 var longHelp = []string{
-	"kpm keys",
+	"kalib keys",
 	"",
 	"↑ ↓  j k  PgUp PgDn  Home End   move in the preset list",
 	"Tab  v                          next view: device, parameters, hex dump",
@@ -704,7 +704,7 @@ func (u *ui) draw() {
 	if u.view == viewParams && u.dec {
 		view += " +dec"
 	}
-	u.str(1, 0, w-2, stHeader, fmt.Sprintf("kpm %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, view))
+	u.str(1, 0, w-2, stHeader, fmt.Sprintf("kalib %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, view))
 
 	lw := min(listWidth, w/2)
 	u.lw = lw

@@ -1,13 +1,13 @@
 # Notes for coding agents
 
-kpm is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usage and analysis/FORMAT.md for the format.
+kalib is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usage and analysis/FORMAT.md for the format.
 
 ## Code
 - `format.go`: preset size, slot range, field `layout`, name charset. Field changes go here.
 - `preset.go`: loading, saving (atomic), file renames, and the operations (`target*` = dry run, `op*` = apply).
 - `device.go` + `device_<os>.go`: finding (`findVolume`) and ejecting (`ejectVolume`) the synth's drive `KLRU` per platform; only Linux is tested. Check other platforms with `GOOS=darwin|windows go vet .`.
 - `info.go`: info text shared by CLI and TUI. `export.go`: `export` and `stats`. `tui.go`: tcell UI. `main.go`: CLI and version.
-- Build and check: `go vet . && go build -o kpm .`
+- Build and check: `go vet . && go build -o kalib .`
 
 ## Domain facts
 - Presets are `impNNN.bin`, 256 bytes. Slots 0-127 as in vadjuse's manager; 127 is the init preset (always empty on the synth), slot 0 is untested.
@@ -22,8 +22,8 @@ kpm is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usa
 ## Rules
 - Never commit `Factory Presets/` or the device test exports `refactoring-*/` (both gitignored); test writes on a copy, never on the originals.
 - After changing `layout`, regenerate the analysis files:
-  `./kpm export json "Factory Presets" > analysis/presets.json`,
-  `./kpm export csv "Factory Presets" > analysis/presets.csv`,
-  `./kpm stats "Factory Presets" > analysis/stats.txt`,
+  `./kalib export json "Factory Presets" > analysis/presets.json`,
+  `./kalib export csv "Factory Presets" > analysis/presets.csv`,
+  `./kalib stats "Factory Presets" > analysis/stats.txt`,
   and update analysis/FORMAT.md.
 - For releases: bump `version` in main.go (and the sample screen in README.md), add an entry to RELEASE.md, tag `vX.Y.Z`.

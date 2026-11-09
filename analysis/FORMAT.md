@@ -2,10 +2,10 @@
 
 Source: `Factory Presets/` (39 presets, plus an empty `imp.bin`: an import marker that tells the synth to import the presets in the folder; the synth deletes it after importing).
 
-Generated files, all produced by `kpm` from the layout in `format.go`:
-- `presets.json`: `kpm export json "Factory Presets"` (layout, then every preset with its fields and tail)
-- `presets.csv`: `kpm export csv "Factory Presets"` (one row per preset, one column per byte, magic and name excluded)
-- `stats.txt`: `kpm stats "Factory Presets"` (per-byte distinct values / min / max / most common values, and tail groups)
+Generated files, all produced by `kalib` from the layout in `format.go`:
+- `presets.json`: `kalib export json "Factory Presets"` (layout, then every preset with its fields and tail)
+- `presets.csv`: `kalib export csv "Factory Presets"` (one row per preset, one column per byte, magic and name excluded)
+- `stats.txt`: `kalib stats "Factory Presets"` (per-byte distinct values / min / max / most common values, and tail groups)
 
 Re-run these after changing the layout. Offsets are hex. "Slot" is the number in the filename. Slots are 0-127 (as in vadjuse's manager); slot 127 is the init preset and always loads as an empty preset on the synth, and whether slot 0 is usable is not known.
 
@@ -33,7 +33,7 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | Waveform | ADTV, SUBT (SBTV in the manual), FREQ, MAST |
 | Volume envelope | vENV, vSEQ, vMX1, vMX2 |
 | Modulation envelope | mENV, mSEQ, mMX1, mMX2 |
-| Configuration | MIDI, INTF, PRST, SCOP (scope, display only: nothing stored, kpm leaves it out) |
+| Configuration | MIDI, INTF, PRST, SCOP (scope, display only: nothing stored, kalib leaves it out) |
 | External modulators 1 | aMX, aENV, fMX, fENV |
 | External modulators 2 | kMX, kENV, wMX, bMX |
 | Step modulator (v76) | sSEQ, sMX |
@@ -161,9 +161,9 @@ pondfish (slot 16) is the only file with DEST `0a` in all nine matrices, LINK `2
 ## Name (0x80-0x8a)
 11 bytes. Not null-terminated at 11 chars (`lostinspacy`).
 
-Name charset: `00` = blank, `01`-`0a` = `0`-`9`, `0b`-`24` = `a`-`z`. Trailing blanks are padding; a blank inside a name is a space (`space 3`, `ringoffs 1`). No punctuation. vadjuse's table uses `A`-`Z`; kpm shows letters in lower case.
+Name charset: `00` = blank, `01`-`0a` = `0`-`9`, `0b`-`24` = `a`-`z`. Trailing blanks are padding; a blank inside a name is a space (`space 3`, `ringoffs 1`). No punctuation. vadjuse's table uses `A`-`Z`; kalib shows letters in lower case.
 
-Source: the name table in vadjuse's preset manager (https://github.com/vadjuse/kaleidoscope_preset_manager_cli, MIT), which lists the characters `_ 0-9 A-Z` by code. Confirmed by the device exports: exp102..exp105 were named after their slot and decode to `102`..`105`. With it the factory names read `06042014` (a date), `0b1011100` (a binary literal) and `glitch1`..`glitch7` in slots 26-32. Until kpm 0.3.2 digits were decoded one too high (`01` = `1`) and decoding stopped at the first `00`.
+Source: the name table in vadjuse's preset manager (https://github.com/vadjuse/kaleidoscope_preset_manager_cli, MIT), which lists the characters `_ 0-9 A-Z` by code. Confirmed by the device exports: exp102..exp105 were named after their slot and decode to `102`..`105`. With it the factory names read `06042014` (a date), `0b1011100` (a binary literal) and `glitch1`..`glitch7` in slots 26-32. Until kalib 0.3.2 digits were decoded one too high (`01` = `1`) and decoding stopped at the first `00`.
 
 ## Tail (0x8b-0xff)
 - 3 files are all zero (slots 1, 2, 25).
@@ -185,7 +185,7 @@ The synth talks to the computer through files in the root of its USB drive (`KLR
 | `blink.bin` | firmware waiting to be installed |
 | `kaleidoscope.json` | `{"firmware": "<name>"}`, name of the last firmware sent |
 
-vadjuse's manager accepts slots 0-127 for import and export; kpm does the same.
+vadjuse's manager accepts slots 0-127 for import and export; kalib does the same.
 
 ## Limits of this analysis
 This is a reverse-engineering result, not a specification. It is based on:
@@ -202,7 +202,7 @@ What that means in practice:
 - **Not decoded:** how raw values map to displayed values for the time parameters (PERI, RELE, RISE, FALL, and GLID, which needs a separate look), SHAP, SUST, MULT, MIX, DRIV (its lookup table changed in v76), FEDB, DELA (rhythmic range 0-35 vs. notes), FINE, VOLU, FMVO, and the QNT modes added in v76 (sample & hold, envelope follower). Also undecoded: SCAL beyond OFF and nMAJ, and TSEL beyond EDIT (1HOT since v76).
 - **Firmware:** everything from the device was tested on v81 only. Other versions may store values differently, and presets from before v76 have no step modulator data (see Device tests).
 - **Tail (0x8b-0xff):** apart from the step values at 0x8c-0x9b, treated as leftover data, not verified.
-- **kpm** only reads parameters. It changes nothing but the name (0x80-0x8a) and filenames.
+- **kalib** only reads parameters. It changes nothing but the name (0x80-0x8a) and filenames.
 
 ## Open questions
 - The rule behind the track-dependent values (`05`/`0a`, `12`/`24`) when saving from tracks 2-4, i.e. the high bits of DEST/LINK/FMSR.

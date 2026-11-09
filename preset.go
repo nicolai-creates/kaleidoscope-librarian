@@ -118,7 +118,7 @@ func writeAtomic(path string, data []byte) error {
 	if st, err := os.Stat(path); err == nil {
 		mode = st.Mode().Perm()
 	}
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".kpm-*")
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".kalib-*")
 	if err != nil {
 		return err
 	}

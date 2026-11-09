@@ -1,15 +1,16 @@
 # Releases
 
-Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, a minor version (0.x) may change output formats.
+Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0, a minor version (0.x) may change output formats.
 
 ## Unreleased
 
-- Export requests: `kpm request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) or all slots (`all`, a full backup) plus the `exp.bin` marker. Slots with an existing exp file are skipped.
-- Import into a slot: `kpm import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
+- **Renamed** from kpm (Kaleidoscope Preset Manager) to kalib (Kaleidoscope Librarian): the command is `kalib`, the environment variable `KPM_DEVICE` is now `KALIB_DEVICE`. Older entries below use the old name.
+- Export requests: `kalib request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) or all slots (`all`, a full backup) plus the `exp.bin` marker. Slots with an existing exp file are skipped.
+- Import into a slot: `kalib import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 
-- Full backup: `kpm clean` (TUI `X`) deletes old export files after listing them, `kpm request all` asks for every slot, `kpm fetch TARGET` (TUI `b`) copies the exported presets to a folder (`$KPM_FETCH_DIR` if TARGET is omitted). TUI `e` offers to delete old export files before requesting, in a popup that lists them (`+` shows all).
-- Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kpm device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KPM_DEVICE` overrides the search.
-- Eject the synth's drive: `kpm eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
+- Full backup: `kalib clean` (TUI `X`) deletes old export files after listing them, `kalib request all` asks for every slot, `kalib fetch TARGET` (TUI `b`) copies the exported presets to a folder (`$KALIB_FETCH_DIR` if TARGET is omitted). TUI `e` offers to delete old export files before requesting, in a popup that lists them (`+` shows all).
+- Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kalib device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KALIB_DEVICE` overrides the search.
+- Eject the synth's drive: `kalib eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
 
 ## 0.4 (2026-11-09)
 

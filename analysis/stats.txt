@@ -1,4 +1,4 @@
-# per-byte statistics over 39 presets (kpm stats)
+# per-byte statistics over 39 presets (kalib stats)
 # off  field     distinct  min  max  values (count), most common first
 0x00  magic            1  255  255  ff(39)
 0x01  magic            1  255  255  ff(39)

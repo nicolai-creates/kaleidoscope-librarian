@@ -1,7 +1,7 @@
 {
  "synth": "Vadjuse Kaleidoscope",
  "kind": "single-voice preset",
- "generator": "kpm export json",
+ "generator": "kalib export json",
  "layout": [
   {
    "label": "magic",

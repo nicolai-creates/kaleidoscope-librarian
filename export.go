@@ -78,7 +78,7 @@ func exportJSON(ps []*Preset) error {
 		Layout    []jField  `json:"layout"`
 		Count     int       `json:"count"`
 		Presets   []jPreset `json:"presets"`
-	}{Synth: "Vadjuse Kaleidoscope", Kind: "single-voice preset", Generator: "kpm export json", Count: len(ps)}
+	}{Synth: "Vadjuse Kaleidoscope", Kind: "single-voice preset", Generator: "kalib export json", Count: len(ps)}
 	for _, f := range layout {
 		doc.Layout = append(doc.Layout, jField{Label: f.Label, Offset: fieldRange(f), Note: f.Note})
 	}
@@ -141,7 +141,7 @@ func cmdStats(args []string) error {
 	if len(ps) == 0 {
 		return errors.New("no presets")
 	}
-	fmt.Printf("# per-byte statistics over %d presets (kpm stats)\n", len(ps))
+	fmt.Printf("# per-byte statistics over %d presets (kalib stats)\n", len(ps))
 	fmt.Println("# off  field     distinct  min  max  values (count), most common first")
 	for o := 0; o < nameOff+nameLen; o++ {
 		counts := map[byte]int{}

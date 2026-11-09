@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-// kpm - Kaleidoscope Preset Manager.
+// kalib - Kaleidoscope Librarian.
 //
 // Manages Vadjuse Kaleidoscope single-voice presets (impNNN.bin, 256 bytes).
 // See analysis/FORMAT.md for what is known about the format. The field layout
@@ -8,25 +8,25 @@
 //
 // Usage:
 //
-//	kpm [dir]                         interactive TUI (default)
-//	kpm list [dir]                    one line per preset
-//	kpm info FILE...                  fields and hex dump
-//	kpm rename FILE NAME              set the preset name stored in the file
-//	kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
-//	kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
-//	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-//	kpm device                        print where the synth's drive (KLRU) is mounted
-//	kpm eject                         flush and eject the synth's drive
-//	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
-//	kpm fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
-//	kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
-//	kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
-//	kpm export json|csv [dir]         decoded dump of all presets to stdout
-//	kpm stats [dir]                   per-byte statistics across all presets
-//	kpm version                       print the version
+//	kalib [dir]                         interactive TUI (default)
+//	kalib list [dir]                    one line per preset
+//	kalib info FILE...                  fields and hex dump
+//	kalib rename FILE NAME              set the preset name stored in the file
+//	kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
+//	kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
+//	kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
+//	kalib device                        print where the synth's drive (KLRU) is mounted
+//	kalib eject                         flush and eject the synth's drive
+//	kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
+//	kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
+//	kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+//	kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
+//	kalib export json|csv [dir]         decoded dump of all presets to stdout
+//	kalib stats [dir]                   per-byte statistics across all presets
+//	kalib version                       print the version
 //
 // -n is a dry run. request, import, fetch and clean use the synth's drive
-// if DIR is omitted; fetch takes TARGET from $KPM_FETCH_DIR if omitted. Without a dir, the current directory is used, or
+// if DIR is omitted; fetch takes TARGET from $KALIB_FETCH_DIR if omitted. Without a dir, the current directory is used, or
 // "Factory Presets" if the current directory holds no .bin files.
 package main
 
@@ -40,7 +40,7 @@ import (
 	"strings"
 )
 
-// version is the kpm release; override with -ldflags "-X main.version=...".
+// version is the kalib release; override with -ldflags "-X main.version=...".
 var version = "0.4"
 
 // ---------------------------------------------------------------------------
@@ -98,7 +98,7 @@ func main() {
 	case "stats":
 		err = cmdStats(args)
 	case "version", "--version":
-		fmt.Println("kpm", version)
+		fmt.Println("kalib", version)
 	case "help", "-h", "--help":
 		usage()
 	}
@@ -117,38 +117,38 @@ func isCommand(s string) bool {
 
 // warning is shown at the bottom of the CLI help and as a popup when the TUI starts.
 var warning = []string{
-	"WARNING: kpm is experimental. The preset format is only partly known,",
-	"and kpm writes and renames files in place. Things might break.",
+	"WARNING: kalib is experimental. The preset format is only partly known,",
+	"and kalib writes and renames files in place. Things might break.",
 	"Keep a backup of your presets before using it.",
 }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "kpm %s - Kaleidoscope Preset Manager\n\n", version)
+	fmt.Fprintf(os.Stderr, "kalib %s - Kaleidoscope Librarian\n\n", version)
 	fmt.Fprint(os.Stderr, `usage:
-  kpm [dir]                         interactive TUI
-  kpm list [dir]                    one line per preset
-  kpm info FILE...                  fields and hex dump
-  kpm rename FILE NAME              set the stored preset name
-  kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
-  kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
-  kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-  kpm device                        print where the synth's drive (KLRU) is mounted
-  kpm eject                         flush and eject the synth's drive
-  kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
-  kpm fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
-  kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
-  kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
-  kpm export json|csv [dir]         decoded dump of all presets to stdout
-  kpm stats [dir]                   per-byte statistics across all presets
-  kpm version                       print the version
-  -n: dry run; DIR defaults to the synth's drive, TARGET to $KPM_FETCH_DIR
+  kalib [dir]                         interactive TUI
+  kalib list [dir]                    one line per preset
+  kalib info FILE...                  fields and hex dump
+  kalib rename FILE NAME              set the stored preset name
+  kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
+  kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
+  kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
+  kalib device                        print where the synth's drive (KLRU) is mounted
+  kalib eject                         flush and eject the synth's drive
+  kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
+  kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
+  kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+  kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
+  kalib export json|csv [dir]         decoded dump of all presets to stdout
+  kalib stats [dir]                   per-byte statistics across all presets
+  kalib version                       print the version
+  -n: dry run; DIR defaults to the synth's drive, TARGET to $KALIB_FETCH_DIR
 
 `)
 	fmt.Fprintln(os.Stderr, strings.Join(warning, "\n"))
 }
 
 func fatal(err error) {
-	fmt.Fprintln(os.Stderr, "kpm:", err)
+	fmt.Fprintln(os.Stderr, "kalib:", err)
 	os.Exit(1)
 }
 
@@ -282,7 +282,7 @@ func cmdRequest(args []string) error {
 	dry := fs.Bool("n", false, "dry run")
 	fs.Parse(args)
 	if fs.NArg() < 1 || fs.NArg() > 2 {
-		return errors.New("usage: kpm request [-n] [DIR] SLOTS")
+		return errors.New("usage: kalib request [-n] [DIR] SLOTS")
 	}
 	dir, err := dirOrDevice(fs.Args()[:fs.NArg()-1])
 	if err != nil {
@@ -309,13 +309,13 @@ func cmdRequest(args []string) error {
 	}
 	fmt.Printf("export requests: %s (marker %s)\n", strings.Join(create, " "), expMarkerFile)
 	if len(skipped) > 0 {
-		fmt.Println("note: skipped slots keep their old export; kpm clean deletes old exports first")
+		fmt.Println("note: skipped slots keep their old export; kalib clean deletes old exports first")
 	}
 	return nil
 }
 
 // fetchEnv names the default target folder of fetch.
-const fetchEnv = "KPM_FETCH_DIR"
+const fetchEnv = "KALIB_FETCH_DIR"
 
 // cmdFetch copies the presets the synth has exported (non-empty
 // expNNN.bin) from DIR to TARGET, e.g. as a backup.
@@ -324,7 +324,7 @@ func cmdFetch(args []string) error {
 	dry := fs.Bool("n", false, "dry run")
 	fs.Parse(args)
 	if fs.NArg() > 2 {
-		return errors.New("usage: kpm fetch [-n] [TARGET [DIR]]")
+		return errors.New("usage: kalib fetch [-n] [TARGET [DIR]]")
 	}
 	to := os.Getenv(fetchEnv)
 	if fs.NArg() > 0 {
@@ -366,7 +366,7 @@ func cmdClean(args []string) error {
 	yes := fs.Bool("y", false, "do not ask")
 	fs.Parse(args)
 	if fs.NArg() > 1 {
-		return errors.New("usage: kpm clean [-n] [-y] [DIR]")
+		return errors.New("usage: kalib clean [-n] [-y] [DIR]")
 	}
 	dir, err := dirOrDevice(fs.Args())
 	if err != nil {
@@ -404,7 +404,7 @@ func cmdImport(args []string) error {
 	dry := fs.Bool("n", false, "dry run")
 	fs.Parse(args)
 	if fs.NArg() < 2 || fs.NArg() > 3 {
-		return errors.New("usage: kpm import [-n] FILE SLOT [DIR]")
+		return errors.New("usage: kalib import [-n] FILE SLOT [DIR]")
 	}
 	p := loadPreset(fs.Arg(0))
 	slot, err := strconv.Atoi(fs.Arg(1))
@@ -463,7 +463,7 @@ func cmdBatch(cmd string, args []string) error {
 			}
 		}
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "kpm:", err)
+			fmt.Fprintln(os.Stderr, "kalib:", err)
 			failed++
 			continue
 		}

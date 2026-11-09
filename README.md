@@ -1,13 +1,13 @@
-# kpm - Kaleidoscope Preset Manager
+# kalib - Kaleidoscope Librarian
 
 A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) Kaleidoscope synthesizer: inspect presets, rename them, keep preset names and filenames in sync, move presets between slots.
 
-**Vision:** kpm is a librarian for the Kaleidoscope: it organizes preset files on your computer and moves presets and firmware to and from the synth through its USB drive. (Firmware transfer is not there yet.)
+**Vision:** kalib is a librarian for the Kaleidoscope: it organizes preset files on your computer and moves presets and firmware to and from the synth through its USB drive. (Firmware transfer is not there yet.)
 
-> **Experimental.** The preset format is only partly known, and kpm writes and renames files in place. Things might break. Keep a backup of your presets before using it.
+> **Experimental.** The preset format is only partly known, and kalib writes and renames files in place. Things might break. Keep a backup of your presets before using it.
 
 ```
- kpm 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
+ kalib 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
  001  06042014       imp001.bin           │ name   spacehunt    ·  imp003.bin
  002  l1             imp002.bin           │ slot   003          ·  saved to 11
  003  spacehunt      imp003.bin           │
@@ -31,48 +31,48 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 Requires Go 1.27 or newer.
 
 ```sh
-go build -o kpm .
+go build -o kalib .
 ```
 
 ## Preset files
 
 - One preset per file, `impNNN.bin`, 256 bytes. `NNN` is the slot, 000-127 (the range vadjuse's preset manager accepts). Slot 127 is the init preset and always loads as an empty preset on the synth; whether slot 000 is usable is not known.
-- The preset name is stored inside the file: up to 11 characters, `a`-`z`, digits and spaces. In filenames kpm writes a space as `_`.
+- The preset name is stored inside the file: up to 11 characters, `a`-`z`, digits and spaces. In filenames kalib writes a space as `_`.
 - An empty `imp.bin` in the folder is the import marker: it tells the synth to import the presets in that folder. The synth deletes it after the import.
-- Exports from the synth are `expNNN.bin`, the preset of slot NNN. An empty `expNNN.bin` together with an empty `exp.bin` (export marker) asks the synth to export that slot. kpm lists exported presets like `imp` files (renaming, name in filename, move all work) and shows unanswered requests dimmed.
+- Exports from the synth are `expNNN.bin`, the preset of slot NNN. An empty `expNNN.bin` together with an empty `exp.bin` (export marker) asks the synth to export that slot. kalib lists exported presets like `imp` files (renaming, name in filename, move all work) and shows unanswered requests dimmed.
 
-kpm can add the preset name to the filename (`imp003.bin` → `imp003_spacehunt.bin`) to make a folder easier to browse. The synth probably expects plain `impNNN.bin` names, so strip the names again (`S` in the TUI, `kpm strip`) before handing the folder back to the synth.
+kalib can add the preset name to the filename (`imp003.bin` → `imp003_spacehunt.bin`) to make a folder easier to browse. The synth probably expects plain `impNNN.bin` names, so strip the names again (`S` in the TUI, `kalib strip`) before handing the folder back to the synth.
 
 ## Usage
 
 ```
-kpm [dir]                         interactive TUI
-kpm list [dir]                    one line per preset
-kpm info FILE...                  fields and hex dump
-kpm rename FILE NAME              set the stored preset name
-kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
-kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
-kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-kpm device                        print where the synth's drive (KLRU) is mounted
-kpm eject                         flush and eject the synth's drive
-kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
-kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
-kpm fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
-kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
-kpm export json|csv [dir]         decoded dump of all presets to stdout
-kpm stats [dir]                   per-byte statistics across all presets
-kpm version                       print the version
+kalib [dir]                         interactive TUI
+kalib list [dir]                    one line per preset
+kalib info FILE...                  fields and hex dump
+kalib rename FILE NAME              set the stored preset name
+kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
+kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
+kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
+kalib device                        print where the synth's drive (KLRU) is mounted
+kalib eject                         flush and eject the synth's drive
+kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
+kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
+kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
+kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+kalib export json|csv [dir]         decoded dump of all presets to stdout
+kalib stats [dir]                   per-byte statistics across all presets
+kalib version                       print the version
 ```
 
-`-n` is a dry run. Without a directory, kpm uses the current directory, or `Factory Presets` if the current directory holds no `.bin` files.
+`-n` is a dry run. Without a directory, kalib uses the current directory, or `Factory Presets` if the current directory holds no `.bin` files.
 
-Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kpm import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. Neither command overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
+Transfers with the synth (as in vadjuse's preset manager): `kalib request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kalib import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. Neither command overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
 
-A full backup of the synth: `kpm clean` deletes old export files from the drive (`expNNN.bin`, `exp.bin`, `expc.bin`; it lists them and asks first, `-y` skips the question), `kpm request all` asks for every slot, and after the synth has exported, `kpm fetch ~/kaleidoscope/backup-2026-11-09` copies the exported presets (non-empty `expNNN.bin`) unchanged to that folder, creating it if needed. Without TARGET, fetch uses `$KPM_FETCH_DIR`. It skips slots that already have an exp file in the target, so use a new folder per backup. Old exports matter because `request` skips slots that have an exp file; in the TUI, `e` offers to delete them first.
+A full backup of the synth: `kalib clean` deletes old export files from the drive (`expNNN.bin`, `exp.bin`, `expc.bin`; it lists them and asks first, `-y` skips the question), `kalib request all` asks for every slot, and after the synth has exported, `kalib fetch ~/kaleidoscope/backup-2026-11-09` copies the exported presets (non-empty `expNNN.bin`) unchanged to that folder, creating it if needed. Without TARGET, fetch uses `$KALIB_FETCH_DIR`. It skips slots that already have an exp file in the target, so use a new folder per backup. Old exports matter because `request` skips slots that have an exp file; in the TUI, `e` offers to delete them first.
 
-kpm finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request`, `import`, `fetch` and `clean` use it when DIR is left out (`kpm request 1-10`, `kpm import mypreset.bin 12`). `KPM_DEVICE=/path` overrides the search.
+kalib finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request`, `import`, `fetch` and `clean` use it when DIR is left out (`kalib request 1-10`, `kalib import mypreset.bin 12`). `KALIB_DEVICE=/path` overrides the search.
 
-`kpm eject` (TUI `E`) flushes and ejects the drive, so the synth sees complete files: on Linux with `udisksctl` (unmount, then power off), on macOS with `diskutil eject`, on Windows directly through the drive (flush, lock, dismount, eject). Close shells and file managers that have the drive open first.
+`kalib eject` (TUI `E`) flushes and ejects the drive, so the synth sees complete files: on Linux with `udisksctl` (unmount, then power off), on macOS with `diskutil eject`, on Windows directly through the drive (flush, lock, dismount, eject). Close shells and file managers that have the drive open first.
 
 Finding and ejecting are tested on Linux only so far; macOS and Windows are untested.
 
@@ -88,7 +88,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `m` | move the preset to another slot |
 | `i` | create or remove the `imp.bin` import marker |
 | `e` | ask the synth to export slots: empty `expNNN.bin` files plus `exp.bin`; offers to delete old export files first |
-| `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KPM_FETCH_DIR` |
+| `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KALIB_FETCH_DIR` |
 | `X` | delete export files (`expNNN.bin`, `exp.bin`, `expc.bin`) after showing them |
 | `D` | open the synth's drive |
 | `E` | eject the synth's drive |
@@ -111,7 +111,7 @@ Actions on all presets ask for confirmation first. In the list, yellow marks a p
 
 What is known about the file format is in [analysis/FORMAT.md](analysis/FORMAT.md). It is based on the 39 factory presets, the user manual and a few test exports from a synth running firmware v81. Every parameter byte is mapped to its parameter, but only part of the value encodings is confirmed: time parameters such as glide, envelope period and release are not decoded yet. See [Limits of this analysis](analysis/FORMAT.md#limits-of-this-analysis) before relying on it.
 
-`analysis/presets.json`, `presets.csv` and `stats.txt` are generated by `kpm export` and `kpm stats`.
+`analysis/presets.json`, `presets.csv` and `stats.txt` are generated by `kalib export` and `kalib stats`.
 
 ## License
 
