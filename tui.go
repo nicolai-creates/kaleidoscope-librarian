@@ -37,6 +37,7 @@ type ui struct {
 	status    string
 	statusErr bool
 	copyDir   string // last target folder of 'c'
+	fetchDir  string // last target folder of 'b'
 }
 
 func expandHome(p string) string {
@@ -100,6 +101,7 @@ var longHelp = []string{
 	"m                               move the preset to another slot",
 	"i                               create or remove the imp.bin import marker",
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
+	"b                               fetch exported presets (expNNN.bin) to a folder, e.g. a backup",
 	"X                               delete export files (expNNN.bin, exp.bin, expc.bin)",
 	"c                               copy the preset to a folder for import into a slot",
 	"D                               open the synth's drive (KLRU)",
@@ -301,6 +303,28 @@ func (u *ui) handleRune(r rune) bool {
 		err = opClean(u.dir, files)
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export files deleted", len(files)))
+	case 'b':
+		if u.fetchDir == "" {
+			u.fetchDir = os.Getenv(fetchEnv)
+		}
+		to, ok := u.prompt("fetch exported presets to folder: ", u.fetchDir)
+		if !ok || strings.TrimSpace(to) == "" {
+			return true
+		}
+		to = expandHome(strings.TrimSpace(to))
+		u.fetchDir = to
+		fetch, skipped, err := targetFetch(u.dir, to)
+		if err == nil && len(fetch) == 0 {
+			err = fmt.Errorf("nothing to fetch from %s", u.dir)
+		}
+		if err == nil {
+			err = opFetch(to, fetch)
+		}
+		if err == nil && len(skipped) > 0 {
+			u.askList([]string{fmt.Sprintf("%d presets copied to %s, %d skipped:", len(fetch), to, len(skipped))},
+				skipped, "any key  continue", "")
+		}
+		u.result(err, fmt.Sprintf("%d presets copied to %s, %d skipped", len(fetch), to, len(skipped)))
 	case 'c':
 		if p == nil || !p.Valid() {
 			return true

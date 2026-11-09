@@ -57,6 +57,7 @@ kpm device                        print where the synth's drive (KLRU) is mounte
 kpm eject                         flush and eject the synth's drive
 kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
+kpm fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
 kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
 kpm export json|csv [dir]         decoded dump of all presets to stdout
 kpm stats [dir]                   per-byte statistics across all presets
@@ -67,9 +68,9 @@ kpm version                       print the version
 
 Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kpm import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. Neither command overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
 
-`kpm clean` deletes old export files from the drive (`expNNN.bin`, `exp.bin`, `expc.bin`; it lists them and asks first, `-y` skips the question). Do this before `kpm request all` (every slot, a full backup of the synth): `request` skips slots that have an exp file; in the TUI, `e` offers to delete them first.
+A full backup of the synth: `kpm clean` deletes old export files from the drive (`expNNN.bin`, `exp.bin`, `expc.bin`; it lists them and asks first, `-y` skips the question), `kpm request all` asks for every slot, and after the synth has exported, `kpm fetch ~/kaleidoscope/backup-2026-11-09` copies the exported presets (non-empty `expNNN.bin`) unchanged to that folder, creating it if needed. Without TARGET, fetch uses `$KPM_FETCH_DIR`. It skips slots that already have an exp file in the target, so use a new folder per backup. Old exports matter because `request` skips slots that have an exp file; in the TUI, `e` offers to delete them first.
 
-kpm finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request`, `import` and `clean` use it when DIR is left out (`kpm request 1-10`, `kpm import mypreset.bin 12`). `KPM_DEVICE=/path` overrides the search.
+kpm finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request`, `import`, `fetch` and `clean` use it when DIR is left out (`kpm request 1-10`, `kpm import mypreset.bin 12`). `KPM_DEVICE=/path` overrides the search.
 
 `kpm eject` (TUI `E`) flushes and ejects the drive, so the synth sees complete files: on Linux with `udisksctl` (unmount, then power off), on macOS with `diskutil eject`, on Windows directly through the drive (flush, lock, dismount, eject). Close shells and file managers that have the drive open first.
 
@@ -87,6 +88,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `m` | move the preset to another slot |
 | `i` | create or remove the `imp.bin` import marker |
 | `e` | ask the synth to export slots: empty `expNNN.bin` files plus `exp.bin`; offers to delete old export files first |
+| `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KPM_FETCH_DIR` |
 | `X` | delete export files (`expNNN.bin`, `exp.bin`, `expc.bin`) after showing them |
 | `D` | open the synth's drive |
 | `E` | eject the synth's drive |

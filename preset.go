@@ -511,3 +511,49 @@ func opClean(dir string, files []string) error {
 	}
 	return nil
 }
+
+// targetFetch returns the exported presets in dir to copy to the folder to
+// (unanswered requests are left out) and the files skipped because to holds
+// an export for that slot already, or because they are not a preset.
+func targetFetch(dir, to string) (fetch []*Preset, skipped []string, err error) {
+	ps, err := scanDir(dir)
+	if err != nil {
+		return nil, nil, err
+	}
+	used := map[int]string{}
+	if st, err := os.Stat(to); err == nil {
+		if !st.IsDir() {
+			return nil, nil, fmt.Errorf("%s is not a folder", to)
+		}
+		if used, err = usedSlots(to, "exp"); err != nil {
+			return nil, nil, err
+		}
+	}
+	for _, p := range ps {
+		s, _, ok := p.Slot()
+		switch {
+		case !ok || p.Kind() != "exp" || p.Request():
+		case !p.Valid():
+			skipped = append(skipped, fmt.Sprintf("%s: %v", p.File(), p.Err))
+		case used[s] != "":
+			skipped = append(skipped, fmt.Sprintf("%s: %s exists in %s", p.File(), used[s], to))
+		default:
+			fetch = append(fetch, p)
+		}
+	}
+	return fetch, skipped, nil
+}
+
+// opFetch copies the presets unchanged, under the same filename, to the
+// folder to, which it creates if needed.
+func opFetch(to string, fetch []*Preset) error {
+	if err := os.MkdirAll(to, 0o755); err != nil {
+		return err
+	}
+	for _, p := range fetch {
+		if err := writeAtomic(filepath.Join(to, p.File()), p.Data); err != nil {
+			return err
+		}
+	}
+	return nil
+}
