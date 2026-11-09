@@ -5,6 +5,7 @@ kpm is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usa
 ## Code
 - `format.go`: preset size, slot range, field `layout`, name charset. Field changes go here.
 - `preset.go`: loading, saving (atomic), file renames, and the operations (`target*` = dry run, `op*` = apply).
+- `device.go` + `device_<os>.go`: finding (`findVolume`) and ejecting (`ejectVolume`) the synth's drive `KLRU` per platform; only Linux is tested. Check other platforms with `GOOS=darwin|windows go vet .`.
 - `info.go`: info text shared by CLI and TUI. `export.go`: `export` and `stats`. `tui.go`: tcell UI. `main.go`: CLI and version.
 - Build and check: `go vet . && go build -o kpm .`
 
