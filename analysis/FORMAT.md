@@ -17,7 +17,7 @@ A preset holds the parameters of one track (the synth has 4). The user manual (K
 | 0x00-0x03 | magic `ff ff ff ff` (CC 0-3 are unused) |
 | 0x04-0x7f | parameters, indexed by MIDI CC number |
 | 0x80-0x8a | name |
-| 0x8b-0xff | tail, probably not preset data |
+| 0x8b-0xff | tail, probably not preset data (vadjuse's manager needs only 157 bytes, 0x00-0x9c) |
 
 ## Parameters are indexed by MIDI CC number
 The manual's MIDI parameter table gives every parameter a CC number. **The byte at offset n holds the parameter with CC n.** This explains every byte of the old positional layout:
@@ -172,13 +172,29 @@ Source: the name table in vadjuse's preset manager (https://github.com/vadjuse/k
 
 The tail is probably leftover buffer content and not part of the preset. The small blocks have a nibble pattern (`x1 y2 ...`) and might be a fragment of some other structure.
 
+## Files on the device
+The synth talks to the computer through files in the root of its USB drive (`KLRU`). From vadjuse's preset manager:
+
+| File | Meaning |
+|---|---|
+| `imp.bin` (empty) | import marker: the synth imports the `impNNN.bin` files and deletes the marker |
+| `impNNN.bin` | preset to import into slot NNN |
+| `exp.bin` (empty) | export marker |
+| `expNNN.bin` | empty: export request for slot NNN; after the export: the preset of slot NNN |
+| `expc.bin` | transfer file, deleted by the manager's `clean` (meaning not documented) |
+| `blink.bin` | firmware waiting to be installed |
+| `kaleidoscope.json` | `{"firmware": "<name>"}`, name of the last firmware sent |
+
+vadjuse's manager accepts slots 0-127 for import and export; kpm uses 1-126 (127 is the init preset).
+
 ## Limits of this analysis
 This is a reverse-engineering result, not a specification. It is based on:
 - the 39 factory presets, saved with firmware older than v76,
 - the user manual (July 2025), which predates several firmware changes and does not describe the file format,
-- six presets exported from one device running firmware v81 (beta), with known parameter changes.
+- six presets exported from one device running firmware v81 (beta), with known parameter changes,
+- vadjuse's preset manager (the manufacturer's own code) for the name charset and the files on the device.
 
-The manufacturer has not reviewed or confirmed any of it.
+The name charset and the device files come from the manufacturer's code. The manufacturer has not reviewed or confirmed anything else.
 
 What that means in practice:
 - **Field positions** (which byte is which parameter) are well supported: the CC numbering explains every byte of the parameter area, and every device test hit the expected byte.
