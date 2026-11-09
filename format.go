@@ -12,11 +12,13 @@ import (
 // ---------------------------------------------------------------------------
 // Format
 
-// Usable preset slots. Slot 127 is the init preset: it always loads as an
-// empty preset on the synth.
+// Preset slots, as accepted by vadjuse's preset manager. Slot 127 is the
+// init preset: it always loads as an empty preset on the synth. Whether
+// slot 0 is usable is not known.
 const (
-	minSlot = 1
-	maxSlot = 126
+	minSlot  = 0
+	maxSlot  = 127
+	initSlot = 127
 )
 
 const (

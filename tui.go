@@ -540,7 +540,7 @@ func (u *ui) drawInfo(p *Preset, x0, y0, w, h int) {
 		st := stDefault
 		if strings.HasPrefix(l, "error") || strings.Contains(l, "BAD") {
 			st = stErr
-		} else if strings.Contains(l, "differs") || strings.Contains(l, "not loadable") {
+		} else if strings.Contains(l, "differs") || strings.Contains(l, "not loadable") || strings.Contains(l, "init preset") {
 			st = stWarn
 		}
 		lines = append(lines, styledLine{[]styledSeg{{stDim, l[:7]}, {st, l[7:]}}})

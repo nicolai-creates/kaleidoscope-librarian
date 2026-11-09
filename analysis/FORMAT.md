@@ -7,7 +7,7 @@ Generated files, all produced by `kpm` from the layout in `format.go`:
 - `presets.csv`: `kpm export csv "Factory Presets"` (one row per preset, one column per byte, magic and name excluded)
 - `stats.txt`: `kpm stats "Factory Presets"` (per-byte distinct values / min / max / most common values, and tail groups)
 
-Re-run these after changing the layout. Offsets are hex. "Slot" is the number in the filename. Usable slots are 1-126; slot 127 is the init preset and always loads as an empty preset on the synth.
+Re-run these after changing the layout. Offsets are hex. "Slot" is the number in the filename. Slots are 0-127 (as in vadjuse's manager); slot 127 is the init preset and always loads as an empty preset on the synth, and whether slot 0 is usable is not known.
 
 A preset holds the parameters of one track (the synth has 4). The user manual (KALEIDOSCOPE user manual, EN, July 2025) describes the parameters but not the file format. It is not part of this repository.
 
@@ -185,7 +185,7 @@ The synth talks to the computer through files in the root of its USB drive (`KLR
 | `blink.bin` | firmware waiting to be installed |
 | `kaleidoscope.json` | `{"firmware": "<name>"}`, name of the last firmware sent |
 
-vadjuse's manager accepts slots 0-127 for import and export; kpm uses 1-126 (127 is the init preset).
+vadjuse's manager accepts slots 0-127 for import and export; kpm does the same.
 
 ## Limits of this analysis
 This is a reverse-engineering result, not a specification. It is based on:

@@ -90,10 +90,11 @@ const errNotPresetName = "%s: filename is not impNNN[_name].bin or expNNN[_name]
 
 func slotOK(s int) bool { return s >= minSlot && s <= maxSlot }
 
-// SlotOK reports whether the filename's slot is one the synth can load.
+// SlotOK reports whether the filename's slot is one the synth can load
+// (the init preset slot loads, but always as an empty preset).
 func (p *Preset) SlotOK() bool {
 	s, _, ok := p.Slot()
-	return ok && slotOK(s)
+	return ok && slotOK(s) && s != initSlot
 }
 
 // SuffixState is "" (no name in filename), "=" (matches) or "!" (differs).

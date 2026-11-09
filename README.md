@@ -34,7 +34,7 @@ go build -o kpm .
 
 ## Preset files
 
-- One preset per file, `impNNN.bin`, 256 bytes. `NNN` is the slot, 001-126. Slot 127 is the init preset and always loads as an empty preset on the synth.
+- One preset per file, `impNNN.bin`, 256 bytes. `NNN` is the slot, 000-127 (the range vadjuse's preset manager accepts). Slot 127 is the init preset and always loads as an empty preset on the synth; whether slot 000 is usable is not known.
 - The preset name is stored inside the file: up to 11 characters, `a`-`z`, digits and spaces. In filenames kpm writes a space as `_`.
 - An empty `imp.bin` in the folder is the import marker: it tells the synth to import the presets in that folder. The synth deletes it after the import.
 - Exports from the synth are `expNNN.bin`, the preset of slot NNN. An empty `expNNN.bin` together with an empty `exp.bin` (export marker) asks the synth to export that slot. kpm lists exported presets like `imp` files (renaming, name in filename, move all work) and shows unanswered requests dimmed.
@@ -81,7 +81,7 @@ kpm version                       print the version
 
 The **device** view (the default) shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **parameters** view lists every stored value with its byte offset, ordered like the synth: page group, page, encoder. The **hex dump** colours the bytes by field.
 
-Actions on all presets ask for confirmation first. In the list, yellow marks a preset whose filename name differs from the stored name, whose slot is outside 1-126, or whose magic bytes are wrong.
+Actions on all presets ask for confirmation first. In the list, yellow marks a preset whose filename name differs from the stored name, whose slot is 127 (init preset), or whose magic bytes are wrong.
 
 ## Format
 

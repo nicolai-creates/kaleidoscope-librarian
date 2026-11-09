@@ -33,8 +33,11 @@ func summaryLines(p *Preset) []string {
 		if p.Kind() == "exp" {
 			note += "  (exported from the synth)"
 		}
-		if !slotOK(s) {
+		switch {
+		case !slotOK(s):
 			note += fmt.Sprintf("  (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
+		case s == initSlot:
+			note += "  (init preset slot: loads as an empty preset on the synth)"
 		}
 	}
 	slot = fmt.Sprintf("slot   %-*s  ·  saved to %d%s", nameLen, slot, p.Data[slotOff], note)
