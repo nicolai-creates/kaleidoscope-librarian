@@ -4,7 +4,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0
 
 ## Unreleased
 
-- **Renamed** from kpm (Kaleidoscope Preset Manager) to kalib (Kaleidoscope Librarian): the command is `kalib`, the environment variable `KPM_DEVICE` is now `KALIB_DEVICE`. Older entries below use the old name.
+- **Renamed** from kpm (Kaleidoscope Preset Manager) to kalib (Kaleidoscope Librarian): the command is `kalib`, the environment variable `KPM_DEVICE` is now `KALIB_DEVICE`. The repository is now https://github.com/nicolai-creates/kaleidoscope-librarian. Older entries below use the old name.
 - Export requests: `kalib request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) or all slots (`all`, a full backup) plus the `exp.bin` marker. Slots with an existing exp file are skipped.
 - Import into a slot: `kalib import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 

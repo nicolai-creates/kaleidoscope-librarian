@@ -1,4 +1,4 @@
-# kalib - Kaleidoscope Librarian
+# Kaleidoscope Librarian (kalib)
 
 A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) Kaleidoscope synthesizer: inspect presets, rename them, keep preset names and filenames in sync, move presets between slots.
 
@@ -31,6 +31,8 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 Requires Go 1.27 or newer.
 
 ```sh
+git clone https://github.com/nicolai-creates/kaleidoscope-librarian
+cd kaleidoscope-librarian
 go build -o kalib .
 ```
 

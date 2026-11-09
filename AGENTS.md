@@ -1,6 +1,6 @@
 # Notes for coding agents
 
-kalib is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usage and analysis/FORMAT.md for the format.
+Kaleidoscope Librarian (short name and binary: kalib, repo: https://github.com/nicolai-creates/kaleidoscope-librarian) is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usage and analysis/FORMAT.md for the format.
 
 ## Code
 - `format.go`: preset size, slot range, field `layout`, name charset. Field changes go here.
