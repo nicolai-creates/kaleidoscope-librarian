@@ -184,7 +184,7 @@ func targetNameToFile(p *Preset) (string, error) {
 	if p.Name() == "" {
 		return "", fmt.Errorf("%s: preset has no name", p.File())
 	}
-	return fmt.Sprintf("imp%03d_%s.bin", slot, p.Name()), nil
+	return fmt.Sprintf("imp%03d_%s.bin", slot, nameToFile(p.Name())), nil
 }
 
 func targetStrip(p *Preset) (string, error) {

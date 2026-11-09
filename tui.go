@@ -206,7 +206,7 @@ func (u *ui) handleRune(r rune) bool {
 		if p == nil || !p.Valid() {
 			return true
 		}
-		name, ok := u.prompt("new name (a-z 0-9, max 11): ", p.Name())
+		name, ok := u.prompt("new name (a-z 0-9 space, max 11): ", p.Name())
 		if !ok || name == p.Name() {
 			return true
 		}

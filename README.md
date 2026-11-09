@@ -6,13 +6,13 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 
 ```
  kpm 0.3.2 · Factory Presets · 39 presets · import marker imp.bin present · view: device
- 001  17153125       imp001.bin           │ file   imp003.bin
- 002  l2             imp002.bin           │ slot   003
+ 001  06042014       imp001.bin           │ file   imp003.bin
+ 002  l1             imp002.bin           │ slot   003
  003  spacehunt      imp003.bin           │ name   spacehunt
  004  motokick       imp004.bin           │ fname  none
  005  neurokick      imp005.bin           │ saved  to slot 11 (PRST-SLOT, 0x72)
  006  pwmdron        imp006.bin           │
- 007  acidrave3      imp007.bin           │ 1 Waveform
+ 007  acidrave2      imp007.bin           │ 1 Waveform
  008  sineburn       imp008.bin           │ ADTV  MIDL 64       MULT 127      MIX  13       DRIV 91
  009  ash            imp009.bin           │ SUBT  FILT C2h      RESO 46       DELA 5        FEDB 92
  010  scratch        imp010.bin           │ FREQ  TRAN 0        FINE 68       GLID 36       SCAL OFF
@@ -35,7 +35,7 @@ go build -o kpm .
 ## Preset files
 
 - One preset per file, `impNNN.bin`, 256 bytes. `NNN` is the slot, 001-126. Slot 127 is the init preset and always loads as an empty preset on the synth.
-- The preset name is stored inside the file: up to 11 characters, lowercase `a`-`z` and digits.
+- The preset name is stored inside the file: up to 11 characters, `a`-`z`, digits and spaces. In filenames kpm writes a space as `_`.
 - An empty `imp.bin` in the folder is the import marker: it tells the synth to import the presets in that folder. The synth deletes it after the import.
 
 kpm can add the preset name to the filename (`imp003.bin` → `imp003_spacehunt.bin`) to make a folder easier to browse. The synth probably expects plain `impNNN.bin` names, so strip the names again (`S` in the TUI, `kpm strip`) before handing the folder back to the synth.

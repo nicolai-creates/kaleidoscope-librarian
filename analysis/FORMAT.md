@@ -40,7 +40,7 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 
 | Offset | CC | Label | Observed in the factory presets |
 |---|---|---|---|
-| 0x04 | 4 | vSEQ-PSIZ | `07` in 35 files; `02` motor, aliengirl; `03` acidrave3; `04` punchface |
+| 0x04 | 4 | vSEQ-PSIZ | `07` in 35 files; `02` motor, aliengirl; `03` acidrave2; `04` punchface |
 | 0x05 | 5 | vSEQ-PATN | `ff` in 35 files; `0f`, `1b`, `15` in the same four |
 | 0x06 | 6 | FREQ-FINE | 31-116, `3f` in 14 |
 | 0x07 | 7 | ADTV-DRIV | 29-94 |
@@ -81,8 +81,8 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | 0x2c-0x2e | 44-46 | mMX2-DEPT, PARM, DEST | |
 | 0x30-0x32 | 48-50 | vMX1-DEPT, PARM, DEST | |
 | 0x34-0x36 | 52-54 | vMX2-DEPT, PARM, DEST | |
-| 0x38 | 56 | mSEQ-PATN | `ff` in 37; `07` acidrave3, `0f` punchface |
-| 0x39 | 57 | mSEQ-PSIZ | `07` in 37; `04` acidrave3, `02` punchface |
+| 0x38 | 56 | mSEQ-PATN | `ff` in 37; `07` acidrave2, `0f` punchface |
+| 0x39 | 57 | mSEQ-PSIZ | `07` in 37; `04` acidrave2, `02` punchface |
 | 0x3a-0x3e | 58-62 | aMX-PARM, DEST, DEPT, aENV-RISE, FALL | default `00 00 40 3c 3c` |
 | 0x40-0x44 | 64-68 | fMX-PARM, DEST, DEPT, fENV-RISE, FALL | default `00 00 40 3c 3c` |
 | 0x46-0x4a | 70-74 | kMX-PARM, DEST, DEPT, kENV-RISE, FALL | default `00 00 40 3c 3c` |
@@ -90,7 +90,7 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | 0x50-0x52 | 80-82 | bMX-PARM, DEST, DEPT (pMX in the manual) | default `00 00 40` |
 | 0x54 | 84 | MAST-SEND | `0f` in every file (all four outputs) |
 | 0x70 | 112 | MIDI-vCHN | `10` + channel-1, displayed `mn<n>`; `10` in 38, `12` pondfish |
-| 0x71 | 113 | MIDI-mCHN | track-1, displayed `tr<n>` (`00` = tr1); `04` in 36, `14` l2 and lostinspacy, `06` pondfish (meaning of these not known) |
+| 0x71 | 113 | MIDI-mCHN | track-1, displayed `tr<n>` (`00` = tr1); `04` in 36, `14` l1 and lostinspacy, `06` pondfish (meaning of these not known) |
 | 0x72 | 114 | PRST-SLOT | unique per file, 1-71 |
 | 0x74 | 116 | MIDI-pCHN | channel-1, displayed `mn<n>`; `04` in 38, `06` pondfish |
 
@@ -153,17 +153,17 @@ GLID and RELE were added as destinations in v76. The factory presets use indices
 The cursor position is not stored. Presets saved before v76 have tail bytes at 0x8c-0x9b and `ff` at 0x55-0x5c, so an old preset may load with random step values.
 
 ### PRST-SLOT (0x72), no checksum
-The byte is CC 114, PRST-SLOT. It is the slot the preset was saved to (confirmed on the device), not the slot in the filename: `glitch2`..`glitch8` (file slots 26-32) hold 53, 55-60, and 54 is `oldbastard`. No byte behaves like a checksum, so a rename (0x80-0x8a only) needs no other change. One rename test on the device is still worthwhile.
+The byte is CC 114, PRST-SLOT. It is the slot the preset was saved to (confirmed on the device), not the slot in the filename: `glitch1`..`glitch7` (file slots 26-32) hold 53, 55-60, and 54 is `oldbastard`. No byte behaves like a checksum, so a rename (0x80-0x8a only) needs no other change. One rename test on the device is still worthwhile.
 
 ### pondfish
 pondfish (slot 16) is the only file with DEST `0a` in all nine matrices, LINK `24` in both sequencers, pCH `06` and cc112 `12`. It may have been saved from a different track or with older firmware.
 
 ## Name (0x80-0x8a)
-11 bytes, `00`-padded. Not null-terminated at 11 chars (`lostinspacy`).
+11 bytes. Not null-terminated at 11 chars (`lostinspacy`).
 
-Name charset: `01`-`09` = `1`-`9`, `0b`-`24` = `a`-`z`. Lowercase, no spaces or punctuation.
-Check: all 39 names decode to readable words, `glitch2`..`glitch8` fall in consecutive slots 26-32, and `z` = `24` is confirmed by `lazermercy`.
-Not covered by the factory names: `0`, `j`, `q`, `x`. `j`/`q`/`x` follow from the a-z run. `0` = `0a` is an assumption (it fills the gap after `9` = `09`) and should be tested on the device.
+Name charset: `00` = blank, `01`-`0a` = `0`-`9`, `0b`-`24` = `a`-`z`. Trailing blanks are padding; a blank inside a name is a space (`space 3`, `ringoffs 1`). No punctuation. vadjuse's table uses `A`-`Z`; kpm shows letters in lower case.
+
+Source: the name table in vadjuse's preset manager (https://github.com/vadjuse/kaleidoscope_preset_manager_cli, MIT), which lists the characters `_ 0-9 A-Z` by code. Confirmed by the device exports: exp102..exp105 were named after their slot and decode to `102`..`105`. With it the factory names read `06042014` (a date), `0b1011100` (a binary literal) and `glitch1`..`glitch7` in slots 26-32. Until kpm 0.3.2 digits were decoded one too high (`01` = `1`) and decoding stopped at the first `00`.
 
 ## Tail (0x8b-0xff)
 - 3 files are all zero (slots 1, 2, 25).
@@ -194,6 +194,5 @@ What that means in practice:
 - How vCH encodes polyphonic channels, and mCH `04`/`14` in the factory presets.
 - Whether the other PARM fields use the same numbering as sMX (very likely).
 - TSRC codes for smEN and TSEL.
-- Does `0a` really encode `0` in names?
 
 Controlled experiments answer most of these: change parameters to known displayed values on the device, save, export, diff.

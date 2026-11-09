@@ -416,7 +416,7 @@
   {
    "label": "name",
    "offset": "0x80-0x8a",
-   "note": "1-9,a-z (0 assumed); 00-padded"
+   "note": "00 blank, 01-0a 0-9, 0b-24 a-z; blank-padded"
   },
   {
    "label": "sSEQ-VALU",
@@ -427,7 +427,7 @@
  "count": 39,
  "presets": [
   {
-   "name": "17153125",
+   "name": "06042014",
    "file": "imp001.bin",
    "slot": 1,
    "saved_slot": 47,
@@ -1181,7 +1181,7 @@
    ]
   },
   {
-   "name": "l2",
+   "name": "l1",
    "file": "imp002.bin",
    "slot": 2,
    "saved_slot": 71,
@@ -4946,7 +4946,7 @@
    ]
   },
   {
-   "name": "acidrave3",
+   "name": "acidrave2",
    "file": "imp007.bin",
    "slot": 7,
    "saved_slot": 35,
@@ -19271,7 +19271,7 @@
    ]
   },
   {
-   "name": "glitch2",
+   "name": "glitch1",
    "file": "imp026.bin",
    "slot": 26,
    "saved_slot": 53,
@@ -20024,7 +20024,7 @@
    ]
   },
   {
-   "name": "glitch3",
+   "name": "glitch2",
    "file": "imp027.bin",
    "slot": 27,
    "saved_slot": 55,
@@ -20777,7 +20777,7 @@
    ]
   },
   {
-   "name": "glitch4",
+   "name": "glitch3",
    "file": "imp028.bin",
    "slot": 28,
    "saved_slot": 56,
@@ -21530,7 +21530,7 @@
    ]
   },
   {
-   "name": "glitch5",
+   "name": "glitch4",
    "file": "imp029.bin",
    "slot": 29,
    "saved_slot": 57,
@@ -22283,7 +22283,7 @@
    ]
   },
   {
-   "name": "glitch6",
+   "name": "glitch5",
    "file": "imp030.bin",
    "slot": 30,
    "saved_slot": 58,
@@ -23036,7 +23036,7 @@
    ]
   },
   {
-   "name": "glitch7",
+   "name": "glitch6",
    "file": "imp031.bin",
    "slot": 31,
    "saved_slot": 59,
@@ -23789,7 +23789,7 @@
    ]
   },
   {
-   "name": "glitch8",
+   "name": "glitch7",
    "file": "imp032.bin",
    "slot": 32,
    "saved_slot": 60,
@@ -25293,7 +25293,7 @@
    ]
   },
   {
-   "name": "1b2122211",
+   "name": "0b1011100",
    "file": "imp034.bin",
    "slot": 34,
    "saved_slot": 48,

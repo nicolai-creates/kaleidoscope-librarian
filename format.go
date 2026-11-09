@@ -126,7 +126,7 @@ var layout = []field{
 	{0x71, 1, "MIDI-mCHN", "mod env: 00 + n-1 = tr<n>"},
 	{slotOff, 1, "PRST-SLOT", "slot the preset was saved to"},
 	{0x74, 1, "MIDI-pCHN", "parameter channel: n-1 = mn<n>"},
-	{nameOff, nameLen, "name", "1-9,a-z (0 assumed); 00-padded"},
+	{nameOff, nameLen, "name", "00 blank, 01-0a 0-9, 0b-24 a-z; blank-padded"},
 	{0x8c, 16, "sSEQ-VALU", "16 step values, 0x40 + value (-36..36)"},
 }
 
@@ -336,13 +336,14 @@ func displayValue(label string, v byte) (s string, ok bool) {
 	return strconv.Itoa(int(v)), false
 }
 
-// Name charset: 01-09 = '1'-'9', 0a = '0', 0b-24 = 'a'-'z', 00 = padding.
+// Name charset (from vadjuse's preset manager, confirmed by device exports):
+// 00 = blank, 01-0a = '0'-'9', 0b-24 = 'a'-'z'. Trailing blanks are padding.
 func codeToChar(c byte) (rune, bool) {
 	switch {
-	case c >= 0x01 && c <= 0x09:
-		return rune('0' + c), true
-	case c == 0x0a:
-		return '0', true
+	case c == 0x00:
+		return ' ', true
+	case c >= 0x01 && c <= 0x0a:
+		return rune('0' + c - 0x01), true
 	case c >= 0x0b && c <= 0x24:
 		return rune('a' + c - 0x0b), true
 	}
@@ -351,10 +352,10 @@ func codeToChar(c byte) (rune, bool) {
 
 func charToCode(r rune) (byte, bool) {
 	switch {
-	case r >= '1' && r <= '9':
-		return byte(r - '0'), true
-	case r == '0':
-		return 0x0a, true
+	case r == ' ':
+		return 0x00, true
+	case r >= '0' && r <= '9':
+		return byte(r-'0') + 0x01, true
 	case r >= 'a' && r <= 'z':
 		return byte(r-'a') + 0x0b, true
 	}
@@ -364,21 +365,18 @@ func charToCode(r rune) (byte, bool) {
 func decodeName(b []byte) string {
 	var sb strings.Builder
 	for _, c := range b {
-		if c == 0 {
-			break
-		}
 		if r, ok := codeToChar(c); ok {
 			sb.WriteRune(r)
 		} else {
 			sb.WriteRune('?')
 		}
 	}
-	return sb.String()
+	return strings.TrimRight(sb.String(), " ")
 }
 
 func encodeName(s string) ([]byte, error) {
-	s = strings.ToLower(s)
-	if s == "" {
+	s = strings.TrimRight(strings.ToLower(s), " ")
+	if strings.TrimSpace(s) == "" {
 		return nil, errors.New("name is empty")
 	}
 	if len(s) > nameLen {
@@ -388,21 +386,25 @@ func encodeName(s string) ([]byte, error) {
 	for i, r := range s {
 		c, ok := charToCode(r)
 		if !ok {
-			return nil, fmt.Errorf("invalid character %q in name (allowed: a-z, 0-9)", r)
+			return nil, fmt.Errorf("invalid character %q in name (allowed: a-z, 0-9, space)", r)
 		}
 		out[i] = c
 	}
 	return out, nil
 }
 
+// nameToFile is the name as used in a filename: blanks become '_'.
+func nameToFile(name string) string { return strings.ReplaceAll(name, " ", "_") }
+
 // sanitizeName turns arbitrary text (e.g. a filename suffix) into a valid
-// preset name: lowercase, invalid characters dropped, truncated.
+// preset name: lowercase, '_' read as a blank, invalid characters dropped,
+// truncated.
 func sanitizeName(s string) string {
 	var sb strings.Builder
-	for _, r := range strings.ToLower(s) {
+	for _, r := range strings.ToLower(strings.ReplaceAll(s, "_", " ")) {
 		if _, ok := charToCode(r); ok && sb.Len() < nameLen {
 			sb.WriteRune(r)
 		}
 	}
-	return sb.String()
+	return strings.TrimRight(sb.String(), " ")
 }
