@@ -55,7 +55,7 @@ kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 kpm device                        print where the synth's drive (KLRU) is mounted
 kpm eject                         flush and eject the synth's drive
-kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
+kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 kpm export json|csv [dir]         decoded dump of all presets to stdout
 kpm stats [dir]                   per-byte statistics across all presets
@@ -64,7 +64,7 @@ kpm version                       print the version
 
 `-n` is a dry run. Without a directory, kpm uses the current directory, or `Factory Presets` if the current directory holds no `.bin` files.
 
-Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kpm import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. Neither overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
+Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kpm import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. `kpm request all` asks for every slot, a full backup of the synth; delete old `expNNN.bin` files from the drive first, as slots with an existing exp file are skipped. Neither command overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
 
 kpm finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request` and `import` use it when DIR is left out (`kpm request 1-10`, `kpm import mypreset.bin 12`). `KPM_DEVICE=/path` overrides the search.
 

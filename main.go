@@ -17,7 +17,7 @@
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 //	kpm device                        print where the synth's drive (KLRU) is mounted
 //	kpm eject                         flush and eject the synth's drive
-//	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
+//	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 //	kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
@@ -128,7 +128,7 @@ func usage() {
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
   kpm device                        print where the synth's drive (KLRU) is mounted
   kpm eject                         flush and eject the synth's drive
-  kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
+  kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
   kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets

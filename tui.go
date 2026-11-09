@@ -260,7 +260,7 @@ func (u *ui) handleRune(r rune) bool {
 	case 'S':
 		u.all("Strip names from all filenames", opStrip)
 	case 'e':
-		in, ok := u.prompt(fmt.Sprintf("request export of slots (e.g. 5, 1-10, 3,7; %d-%d): ", minSlot, maxSlot), "")
+		in, ok := u.prompt(fmt.Sprintf("request export of slots (e.g. 5, 1-10, 3,7, all; %d-%d): ", minSlot, maxSlot), "")
 		if !ok || strings.TrimSpace(in) == "" {
 			return true
 		}

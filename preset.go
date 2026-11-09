@@ -349,8 +349,16 @@ func opMove(p *Preset, slot int, all []*Preset) error {
 // ---------------------------------------------------------------------------
 // Transfers with the synth: export requests and imports into a slot.
 
-// parseSlots reads a slot list like "5", "1-10" or "3,7,9-12".
+// parseSlots reads a slot list like "5", "1-10" or "3,7,9-12", or "all"
+// for every slot (a full backup of the synth).
 func parseSlots(s string) ([]int, error) {
+	if strings.TrimSpace(s) == "all" {
+		var slots []int
+		for n := minSlot; n <= maxSlot; n++ {
+			slots = append(slots, n)
+		}
+		return slots, nil
+	}
 	seen := map[int]bool{}
 	var slots []int
 	for _, part := range strings.Split(s, ",") {
