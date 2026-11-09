@@ -307,11 +307,10 @@ func (u *ui) handleRune(r rune) bool {
 		if u.fetchDir == "" {
 			u.fetchDir = os.Getenv(fetchEnv)
 		}
-		to, ok := u.prompt("fetch exported presets to folder: ", u.fetchDir)
-		if !ok || strings.TrimSpace(to) == "" {
+		to, ok := u.askFolder("Fetch exported presets to folder:", u.fetchDir)
+		if !ok {
 			return true
 		}
-		to = expandHome(strings.TrimSpace(to))
 		u.fetchDir = to
 		fetch, skipped, err := targetFetch(u.dir, to)
 		if err == nil && len(fetch) == 0 {
@@ -332,11 +331,10 @@ func (u *ui) handleRune(r rune) bool {
 		if u.copyDir == "" {
 			u.copyDir, _ = findDevice()
 		}
-		dir, ok := u.prompt("copy to folder: ", u.copyDir)
-		if !ok || strings.TrimSpace(dir) == "" {
+		dir, ok := u.askFolder("Copy "+p.File()+" to folder:", u.copyDir)
+		if !ok {
 			return true
 		}
-		dir = expandHome(strings.TrimSpace(dir))
 		u.copyDir = dir
 		def := ""
 		if s, _, ok := p.Slot(); ok {
@@ -480,21 +478,55 @@ func (u *ui) prompt(label, initial string) (string, bool) {
 		if !ok {
 			continue
 		}
-		switch ev.Key() {
-		case tcell.KeyEscape, tcell.KeyCtrlC:
+		var done bool
+		if buf, done, ok = editLine(buf, ev); done {
 			u.s.HideCursor()
-			return "", false
-		case tcell.KeyEnter:
+			return string(buf), ok
+		}
+	}
+}
+
+// editLine applies a key to a line being typed: done is set on Enter
+// (ok true) and Esc (ok false).
+func editLine(buf []rune, ev *tcell.EventKey) (out []rune, done, ok bool) {
+	switch ev.Key() {
+	case tcell.KeyEscape, tcell.KeyCtrlC:
+		return nil, true, false
+	case tcell.KeyEnter:
+		return buf, true, true
+	case tcell.KeyBackspace, tcell.KeyBackspace2:
+		if len(buf) > 0 {
+			buf = buf[:len(buf)-1]
+		}
+	case tcell.KeyCtrlU:
+		buf = buf[:0]
+	case tcell.KeyRune:
+		buf = append(buf, ev.Rune())
+	}
+	return buf, false, false
+}
+
+// askFolder asks for a folder in a popup, starting with initial. Returns
+// false on Esc or an empty answer; ~/ is expanded.
+func (u *ui) askFolder(q, initial string) (string, bool) {
+	buf := []rune(initial)
+	for {
+		w, _ := u.s.Size()
+		fw := max(1, min(max(50, len(buf)+1), w-8)) // input width
+		shown := buf[max(0, len(buf)-(fw-1)):]
+		lines := []string{q, "", string(shown) + strings.Repeat(" ", fw-len(shown)), "", "Enter  ok   Esc  cancel   Ctrl-U  clear"}
+		x0, y0 := u.drawBox(lines)
+		u.s.ShowCursor(x0+2+len(shown), y0+3)
+		u.s.Show()
+		ev, ok := u.s.PollEvent().(*tcell.EventKey)
+		if !ok {
+			continue
+		}
+		var done bool
+		if buf, done, ok = editLine(buf, ev); done {
 			u.s.HideCursor()
-			return string(buf), true
-		case tcell.KeyBackspace, tcell.KeyBackspace2:
-			if len(buf) > 0 {
-				buf = buf[:len(buf)-1]
-			}
-		case tcell.KeyCtrlU:
-			buf = buf[:0]
-		case tcell.KeyRune:
-			buf = append(buf, ev.Rune())
+			dir := strings.TrimSpace(string(buf))
+			return expandHome(dir), ok && dir != ""
 		}
 	}
 }
@@ -529,8 +561,9 @@ func (u *ui) popup(lines []string) {
 	}
 }
 
-// drawBox draws the screen with lines in a centred box on top.
-func (u *ui) drawBox(lines []string) {
+// drawBox draws the screen with lines in a centred box on top and returns
+// the box's top left corner.
+func (u *ui) drawBox(lines []string) (x0, y0 int) {
 	u.draw()
 	w, h := u.s.Size()
 	bw := 0
@@ -538,7 +571,7 @@ func (u *ui) drawBox(lines []string) {
 		bw = max(bw, len([]rune(l)))
 	}
 	bw, bh := min(bw+4, w), min(len(lines)+2, h)
-	x0, y0 := (w-bw)/2, (h-bh)/2
+	x0, y0 = (w-bw)/2, (h-bh)/2
 	st := stWarn.Bold(true)
 	for y := y0; y < y0+bh; y++ {
 		for x := x0; x < x0+bw; x++ {
@@ -567,6 +600,7 @@ func (u *ui) drawBox(lines []string) {
 		}
 	}
 	u.s.Show()
+	return x0, y0
 }
 
 // listShort is how many items askList shows before "+ show all".
