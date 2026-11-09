@@ -7,6 +7,8 @@ Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, 
 - Export requests: `kpm request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) plus the `exp.bin` marker. Slots with an existing exp file are skipped.
 - Import into a slot: `kpm import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 
+- Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kpm device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KPM_DEVICE` overrides the search.
+
 ## 0.4 (2026-11-09)
 
 - **Names:** digits were decoded one too high. The charset is now `00` = blank, `01`-`0a` = `0`-`9`, `0b`-`24` = `a`-`z`, taken from vadjuse's preset manager (MIT) and confirmed by device exports. Factory names change: `17153125` → `06042014`, `l2` → `l1`, `acidrave3` → `acidrave2`, `glitch2`..`glitch8` → `glitch1`..`glitch7`. Filenames written by `name2file` with digits in the name now show as out of sync; run `n`/`N` (or `kpm name2file`) again.

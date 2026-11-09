@@ -101,6 +101,7 @@ var longHelp = []string{
 	"i                               create or remove the imp.bin import marker",
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
 	"c                               copy the preset to a folder for import into a slot",
+	"D                               open the synth's drive (KLRU)",
 	"g                               reload the folder",
 	"? h                             this help",
 	"q  Esc                          quit",
@@ -277,6 +278,9 @@ func (u *ui) handleRune(r rune) bool {
 		if p == nil || !p.Valid() {
 			return true
 		}
+		if u.copyDir == "" {
+			u.copyDir, _ = findDevice()
+		}
 		dir, ok := u.prompt("copy to folder: ", u.copyDir)
 		if !ok || strings.TrimSpace(dir) == "" {
 			return true
@@ -301,6 +305,15 @@ func (u *ui) handleRune(r rune) bool {
 			u.reload()
 		}
 		u.result(err, fmt.Sprintf("copied to %s, marker %s set", path, markerFile))
+	case 'D':
+		dir, err := findDevice()
+		if err != nil {
+			u.setErr(err.Error())
+			return true
+		}
+		u.dir = dir
+		u.reload()
+		u.setMsg("opened the synth's drive " + dir)
 	case 'm':
 		if p == nil {
 			return true

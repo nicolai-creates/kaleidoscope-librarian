@@ -15,13 +15,15 @@
 //	kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
 //	kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-//	kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
-//	kpm import [-n] FILE SLOT DIR     copy a preset to DIR for import into SLOT
+//	kpm device                        print where the synth's drive (KLRU) is mounted
+//	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
+//	kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
 //	kpm version                       print the version
 //
-// -n is a dry run. Without a dir, the current directory is used, or
+// -n is a dry run. request and import use the synth's drive if DIR is
+// omitted. Without a dir, the current directory is used, or
 // "Factory Presets" if the current directory holds no .bin files.
 package main
 
@@ -64,6 +66,11 @@ func main() {
 		err = cmdRename(args)
 	case "name2file", "file2name", "strip":
 		err = cmdBatch(cmd, args)
+	case "device":
+		var dir string
+		if dir, err = findDevice(); err == nil {
+			fmt.Println(dir)
+		}
 	case "request":
 		err = cmdRequest(args)
 	case "import":
@@ -84,7 +91,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "device", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -107,12 +114,13 @@ func usage() {
   kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
   kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-  kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
-  kpm import [-n] FILE SLOT DIR     copy a preset to DIR for import into SLOT
+  kpm device                        print where the synth's drive (KLRU) is mounted
+  kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
+  kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
   kpm version                       print the version
-  -n: dry run
+  -n: dry run; DIR defaults to the synth's drive
 
 `)
 	fmt.Fprintln(os.Stderr, strings.Join(warning, "\n"))
@@ -237,17 +245,29 @@ func cmdRename(args []string) error {
 	return nil
 }
 
+// dirOrDevice returns the folder given on the command line, or the synth's
+// drive if there is none.
+func dirOrDevice(args []string) (string, error) {
+	if len(args) > 0 {
+		return args[0], nil
+	}
+	return findDevice()
+}
+
 // cmdRequest creates empty expNNN.bin files and the exp.bin marker: the
 // synth fills them with the presets of those slots.
 func cmdRequest(args []string) error {
 	fs := flag.NewFlagSet("request", flag.ExitOnError)
 	dry := fs.Bool("n", false, "dry run")
 	fs.Parse(args)
-	if fs.NArg() != 2 {
-		return errors.New("usage: kpm request [-n] DIR SLOTS")
+	if fs.NArg() < 1 || fs.NArg() > 2 {
+		return errors.New("usage: kpm request [-n] [DIR] SLOTS")
 	}
-	dir := fs.Arg(0)
-	slots, err := parseSlots(fs.Arg(1))
+	dir, err := dirOrDevice(fs.Args()[:fs.NArg()-1])
+	if err != nil {
+		return err
+	}
+	slots, err := parseSlots(fs.Arg(fs.NArg() - 1))
 	if err != nil {
 		return err
 	}
@@ -276,15 +296,18 @@ func cmdImport(args []string) error {
 	fs := flag.NewFlagSet("import", flag.ExitOnError)
 	dry := fs.Bool("n", false, "dry run")
 	fs.Parse(args)
-	if fs.NArg() != 3 {
-		return errors.New("usage: kpm import [-n] FILE SLOT DIR")
+	if fs.NArg() < 2 || fs.NArg() > 3 {
+		return errors.New("usage: kpm import [-n] FILE SLOT [DIR]")
 	}
 	p := loadPreset(fs.Arg(0))
 	slot, err := strconv.Atoi(fs.Arg(1))
 	if err != nil {
 		return fmt.Errorf("not a slot: %q", fs.Arg(1))
 	}
-	dir := fs.Arg(2)
+	dir, err := dirOrDevice(fs.Args()[2:])
+	if err != nil {
+		return err
+	}
 	path, err := targetImport(p, dir, slot)
 	if err != nil {
 		return err
