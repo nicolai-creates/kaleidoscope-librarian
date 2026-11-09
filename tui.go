@@ -36,9 +36,18 @@ type ui struct {
 	statusErr bool
 }
 
+// Bar colors from nicolai-creates.art: white on dark blue for the header,
+// dark blue on orange for the footer.
+var (
+	colBlue   = tcell.NewHexColor(0x0232a0)
+	colOrange = tcell.NewHexColor(0xef9f00)
+	colErr    = tcell.NewHexColor(0x723400)
+)
+
 var (
 	stDefault = tcell.StyleDefault
-	stHeader  = stDefault.Reverse(true)
+	stHeader  = stDefault.Background(colBlue).Foreground(tcell.ColorWhite)
+	stFooter  = stDefault.Background(colOrange).Foreground(colBlue)
 	stSel     = stDefault.Reverse(true)
 	stDim     = stDefault.Foreground(tcell.ColorGray)
 	stBold    = stDefault.Bold(true)
@@ -324,9 +333,9 @@ func (u *ui) prompt(label, initial string) (string, bool) {
 	for {
 		u.draw()
 		w, h := u.s.Size()
-		u.clearRow(h-1, stDefault)
-		x := u.str(0, h-1, w, stBold, label)
-		x = u.str(x, h-1, w-x, stDefault, string(buf))
+		u.clearRow(h-1, stFooter)
+		x := u.str(0, h-1, w, stFooter.Bold(true), label)
+		x = u.str(x, h-1, w-x, stFooter, string(buf))
 		u.s.ShowCursor(x, h-1)
 		u.s.Show()
 		ev, ok := u.s.PollEvent().(*tcell.EventKey)
@@ -401,8 +410,8 @@ func (u *ui) confirm(q string) bool {
 	for {
 		u.draw()
 		w, h := u.s.Size()
-		u.clearRow(h-1, stDefault)
-		u.str(0, h-1, w, stWarn.Bold(true), q)
+		u.clearRow(h-1, stFooter)
+		u.str(0, h-1, w, stFooter.Bold(true), q)
 		u.s.Show()
 		ev, ok := u.s.PollEvent().(*tcell.EventKey)
 		if !ok {
@@ -500,14 +509,14 @@ func (u *ui) draw() {
 		u.drawInfo(p, lw+2, 1, w-lw-2, h-2)
 	}
 
-	u.clearRow(h-1, stDefault)
+	u.clearRow(h-1, stFooter)
 	switch {
 	case u.status == "":
-		u.str(0, h-1, w, stDim, shortHelp+viewHelp[u.view])
+		u.str(0, h-1, w, stFooter, shortHelp+viewHelp[u.view])
 	case u.statusErr:
-		u.str(0, h-1, w, stErr.Bold(true), u.status)
+		u.str(0, h-1, w, stFooter.Foreground(colErr).Bold(true), u.status)
 	default:
-		u.str(0, h-1, w, stOK, u.status)
+		u.str(0, h-1, w, stFooter.Bold(true), u.status)
 	}
 	s.Show()
 }
