@@ -16,6 +16,7 @@
 //	kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 //	kpm device                        print where the synth's drive (KLRU) is mounted
+//	kpm eject                         flush and eject the synth's drive
 //	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
 //	kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
@@ -71,6 +72,17 @@ func main() {
 		if dir, err = findDevice(); err == nil {
 			fmt.Println(dir)
 		}
+	case "eject":
+		var dir string
+		if dir, err = findDevice(); err == nil {
+			var note string
+			if note, err = ejectDevice(dir); err == nil {
+				fmt.Println("ejected", dir+": safe to unplug")
+				if note != "" {
+					fmt.Println("note:", note)
+				}
+			}
+		}
 	case "request":
 		err = cmdRequest(args)
 	case "import":
@@ -91,7 +103,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "device", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "device", "eject", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -115,6 +127,7 @@ func usage() {
   kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
   kpm device                        print where the synth's drive (KLRU) is mounted
+  kpm eject                         flush and eject the synth's drive
   kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7)
   kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
   kpm export json|csv [dir]         decoded dump of all presets to stdout

@@ -102,6 +102,7 @@ var longHelp = []string{
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
 	"c                               copy the preset to a folder for import into a slot",
 	"D                               open the synth's drive (KLRU)",
+	"E                               eject the synth's drive",
 	"g                               reload the folder",
 	"? h                             this help",
 	"q  Esc                          quit",
@@ -314,6 +315,20 @@ func (u *ui) handleRune(r rune) bool {
 		u.dir = dir
 		u.reload()
 		u.setMsg("opened the synth's drive " + dir)
+	case 'E':
+		dir, err := findDevice()
+		if err != nil {
+			u.setErr(err.Error())
+			return true
+		}
+		if !u.confirm("eject the synth's drive " + dir + "? (y/n)") {
+			return true
+		}
+		note, err := ejectDevice(dir)
+		if note != "" {
+			note = " (" + note + ")"
+		}
+		u.result(err, "ejected "+dir+": safe to unplug"+note)
 	case 'm':
 		if p == nil {
 			return true

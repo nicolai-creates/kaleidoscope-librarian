@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 )
@@ -29,4 +30,20 @@ func findDevice() (string, error) {
 		return "", errNoDevice
 	}
 	return dir, nil
+}
+
+// ejectWarning is returned by ejectVolume when the drive is safe to unplug
+// but a last step failed (e.g. powering off a drive that cannot be).
+type ejectWarning struct{ error }
+
+// ejectDevice flushes and ejects the drive holding dir, so the synth sees
+// complete files (ejectVolume in device_<os>.go). A non-empty note is a
+// warning about an eject that still succeeded.
+func ejectDevice(dir string) (note string, err error) {
+	err = ejectVolume(dir)
+	var w ejectWarning
+	if errors.As(err, &w) {
+		return w.Error(), nil
+	}
+	return "", err
 }

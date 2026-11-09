@@ -8,6 +8,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, 
 - Import into a slot: `kpm import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 
 - Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kpm device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KPM_DEVICE` overrides the search.
+- Eject the synth's drive: `kpm eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
 
 ## 0.4 (2026-11-09)
 

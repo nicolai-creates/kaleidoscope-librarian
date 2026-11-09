@@ -3,10 +3,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
+	"syscall"
 )
 
 type mount struct{ dir, source string }
@@ -63,4 +66,46 @@ func findVolume(label string) (string, bool) {
 		}
 	}
 	return "", false
+}
+
+// mountOf returns the mount that holds dir (the longest matching mount point).
+func mountOf(dir string) (mount, bool) {
+	abs, err := filepath.Abs(dir)
+	if err != nil {
+		return mount{}, false
+	}
+	var best mount
+	for _, m := range mounts() {
+		if (abs == m.dir || strings.HasPrefix(abs, strings.TrimSuffix(m.dir, "/")+"/")) && len(m.dir) > len(best.dir) {
+			best = m
+		}
+	}
+	return best, best.dir != ""
+}
+
+// ejectVolume unmounts the drive with udisksctl and powers it off. Without
+// udisks it only flushes the data.
+func ejectVolume(dir string) error {
+	syscall.Sync()
+	m, ok := mountOf(dir)
+	if !ok || !strings.HasPrefix(m.source, "/dev/") {
+		return fmt.Errorf("%s: no mounted drive found", dir)
+	}
+	if _, err := exec.LookPath("udisksctl"); err != nil {
+		return fmt.Errorf("data flushed, but udisksctl is not installed: unmount %s in your file manager", m.dir)
+	}
+	run := func(verb string) error {
+		out, err := exec.Command("udisksctl", verb, "--no-user-interaction", "-b", m.source).CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("udisksctl %s %s: %s", verb, m.source, strings.TrimSpace(string(out)))
+		}
+		return nil
+	}
+	if err := run("unmount"); err != nil {
+		return err
+	}
+	if err := run("power-off"); err != nil {
+		return ejectWarning{fmt.Errorf("power-off failed: %v", err)}
+	}
+	return nil
 }
