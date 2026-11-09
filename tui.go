@@ -100,6 +100,7 @@ var longHelp = []string{
 	"m                               move the preset to another slot",
 	"i                               create or remove the imp.bin import marker",
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
+	"X                               delete export files (expNNN.bin, exp.bin, expc.bin)",
 	"c                               copy the preset to a folder for import into a slot",
 	"D                               open the synth's drive (KLRU)",
 	"E                               eject the synth's drive",
@@ -269,12 +270,37 @@ func (u *ui) handleRune(r rune) bool {
 			u.setErr(err.Error())
 			return true
 		}
+		if old, err := targetClean(u.dir); err == nil && len(old) > 0 {
+			switch u.askList([]string{"Delete old export files first?", "Slots with an export file are not requested again."},
+				old, "y  delete first   n  keep   Esc  cancel", "yn") {
+			case 'y':
+				if err := opClean(u.dir, old); err != nil {
+					u.reload()
+					u.setErr(err.Error())
+					return true
+				}
+			case 0:
+				return true
+			}
+		}
 		create, skipped, err := targetRequests(u.dir, slots)
 		if err == nil {
 			err = opRequests(u.dir, create)
 		}
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export requests created, %d skipped (exist); marker %s set", len(create), len(skipped), expMarkerFile))
+	case 'X':
+		files, err := targetClean(u.dir)
+		if err != nil || len(files) == 0 {
+			u.result(err, "no export files in "+u.dir)
+			return true
+		}
+		if u.askList([]string{"Delete these export files from " + u.dir + "?"}, files, "y  delete   n  keep", "yn") != 'y' {
+			return true
+		}
+		err = opClean(u.dir, files)
+		u.reload()
+		u.result(err, fmt.Sprintf("%d export files deleted", len(files)))
 	case 'c':
 		if p == nil || !p.Valid() {
 			return true
@@ -517,6 +543,79 @@ func (u *ui) drawBox(lines []string) {
 		}
 	}
 	u.s.Show()
+}
+
+// listShort is how many items askList shows before "+ show all".
+const listShort = 5
+
+// askList shows head, a list of items and foot in a popup. It shows the first
+// few items; + shows all of them, scrolled with ↑↓ PgUp PgDn. It returns the
+// key pressed from keys, or 0 for Esc. With keys empty, any other key
+// returns 0.
+func (u *ui) askList(head, items []string, foot, keys string) rune {
+	all, off := false, 0
+	for {
+		_, h := u.s.Size()
+		rows := min(len(items), listShort)
+		if all {
+			rows = max(1, min(len(items), h-len(head)-6))
+		}
+		off = max(0, min(off, len(items)-rows))
+		if !all {
+			off = 0
+		}
+		lines := append(append([]string{}, head...), "")
+		for _, it := range items[off : off+rows] {
+			lines = append(lines, "  "+it)
+		}
+		switch {
+		case all && rows < len(items):
+			lines = append(lines, fmt.Sprintf("  %d-%d of %d   ↑↓ scroll   + fewer", off+1, off+rows, len(items)))
+		case all:
+			lines = append(lines, "  + fewer")
+		case rows < len(items):
+			lines = append(lines, fmt.Sprintf("  … %d more   + show all", len(items)-rows))
+		}
+		u.drawBox(append(lines, "", foot))
+		ev, ok := u.s.PollEvent().(*tcell.EventKey)
+		if !ok {
+			continue
+		}
+		switch ev.Key() {
+		case tcell.KeyEscape, tcell.KeyCtrlC:
+			return 0
+		case tcell.KeyUp:
+			off--
+			continue
+		case tcell.KeyDown:
+			off++
+			continue
+		case tcell.KeyPgUp:
+			off -= rows
+			continue
+		case tcell.KeyPgDn:
+			off += rows
+			continue
+		case tcell.KeyRune:
+			r := ev.Rune()
+			switch {
+			case r == '+' && len(items) > listShort:
+				all, off = !all, 0
+				continue
+			case r == 'k':
+				off--
+				continue
+			case r == 'j':
+				off++
+				continue
+			case strings.ContainsRune(keys, r):
+				return r
+			}
+		}
+		if keys == "" {
+			return 0
+		}
+	}
 }
 
 // confirm asks a yes/no question in a popup; Esc means no.

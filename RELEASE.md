@@ -7,6 +7,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, 
 - Export requests: `kpm request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) or all slots (`all`, a full backup) plus the `exp.bin` marker. Slots with an existing exp file are skipped.
 - Import into a slot: `kpm import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 
+- `kpm clean` (TUI `X`) deletes old export files after listing them. TUI `e` offers to delete old export files before requesting, in a popup that lists them (`+` shows all).
 - Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kpm device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KPM_DEVICE` overrides the search.
 - Eject the synth's drive: `kpm eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
 

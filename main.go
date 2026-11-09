@@ -18,13 +18,14 @@
 //	kpm device                        print where the synth's drive (KLRU) is mounted
 //	kpm eject                         flush and eject the synth's drive
 //	kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
+//	kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
 //	kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
 //	kpm version                       print the version
 //
-// -n is a dry run. request and import use the synth's drive if DIR is
-// omitted. Without a dir, the current directory is used, or
+// -n is a dry run. request, import and clean use the synth's drive if DIR
+// is omitted. Without a dir, the current directory is used, or
 // "Factory Presets" if the current directory holds no .bin files.
 package main
 
@@ -87,6 +88,8 @@ func main() {
 		err = cmdRequest(args)
 	case "import":
 		err = cmdImport(args)
+	case "clean":
+		err = cmdClean(args)
 	case "export":
 		err = cmdExport(args)
 	case "stats":
@@ -103,7 +106,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "device", "eject", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "device", "eject", "request", "import", "clean", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -129,6 +132,7 @@ func usage() {
   kpm device                        print where the synth's drive (KLRU) is mounted
   kpm eject                         flush and eject the synth's drive
   kpm request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
+  kpm clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
   kpm import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
@@ -300,6 +304,48 @@ func cmdRequest(args []string) error {
 		}
 	}
 	fmt.Printf("export requests: %s (marker %s)\n", strings.Join(create, " "), expMarkerFile)
+	if len(skipped) > 0 {
+		fmt.Println("note: skipped slots keep their old export; kpm clean deletes old exports first")
+	}
+	return nil
+}
+
+// cmdClean deletes the export files from DIR after asking, so new export
+// requests are not skipped for slots with an old export.
+func cmdClean(args []string) error {
+	fs := flag.NewFlagSet("clean", flag.ExitOnError)
+	dry := fs.Bool("n", false, "dry run")
+	yes := fs.Bool("y", false, "do not ask")
+	fs.Parse(args)
+	if fs.NArg() > 1 {
+		return errors.New("usage: kpm clean [-n] [-y] [DIR]")
+	}
+	dir, err := dirOrDevice(fs.Args())
+	if err != nil {
+		return err
+	}
+	files, err := targetClean(dir)
+	if err != nil || len(files) == 0 {
+		return err
+	}
+	for _, f := range files {
+		fmt.Println(filepath.Join(dir, f))
+	}
+	if *dry {
+		return nil
+	}
+	if !*yes {
+		fmt.Printf("delete these %d files? [y/N] ", len(files))
+		var a string
+		fmt.Scanln(&a)
+		if a != "y" && a != "Y" {
+			return errors.New("nothing deleted")
+		}
+	}
+	if err := opClean(dir, files); err != nil {
+		return err
+	}
+	fmt.Printf("%d files deleted\n", len(files))
 	return nil
 }
 

@@ -477,3 +477,37 @@ func opImport(p *Preset, dir string, slot int) (string, error) {
 	}
 	return path, createMarker(dir, markerFile)
 }
+
+// expTransferFile is a transfer file the synth leaves on its drive; vadjuse's
+// manager deletes it on clean (meaning not documented).
+const expTransferFile = "expc.bin"
+
+// targetClean returns the export files in dir that clean deletes: exported
+// presets and requests (expNNN.bin, also with a name), the export marker and
+// expc.bin. Imports are left alone.
+func targetClean(dir string) ([]string, error) {
+	es, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	var files []string
+	for _, e := range es {
+		n := e.Name()
+		if e.Type().IsRegular() && (strings.EqualFold(n, expMarkerFile) || strings.EqualFold(n, expTransferFile) ||
+			(&Preset{Path: n}).Kind() == "exp") {
+			files = append(files, n)
+		}
+	}
+	sort.Strings(files)
+	return files, nil
+}
+
+// opClean deletes the files (from targetClean) in dir.
+func opClean(dir string, files []string) error {
+	for _, f := range files {
+		if err := os.Remove(filepath.Join(dir, f)); err != nil {
+			return err
+		}
+	}
+	return nil
+}
