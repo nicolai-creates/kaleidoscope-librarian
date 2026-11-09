@@ -307,18 +307,16 @@ func (u *ui) handleRune(r rune) bool {
 		}
 		u.result(err, fmt.Sprintf("copied to %s, marker %s set", path, markerFile))
 	case 'D':
-		dir, err := findDevice()
-		if err != nil {
-			u.setErr(err.Error())
+		dir, ok := u.device()
+		if !ok {
 			return true
 		}
 		u.dir = dir
 		u.reload()
 		u.setMsg("opened the synth's drive " + dir)
 	case 'E':
-		dir, err := findDevice()
-		if err != nil {
-			u.setErr(err.Error())
+		dir, ok := u.device()
+		if !ok {
 			return true
 		}
 		if !u.confirm("eject the synth's drive " + dir + "? (y/n)") {
@@ -452,6 +450,25 @@ func (u *ui) prompt(label, initial string) (string, bool) {
 }
 
 // popup shows lines in a centered box until a key is pressed.
+// device finds the synth's drive, or explains in a popup why it can't.
+func (u *ui) device() (string, bool) {
+	dir, err := findDevice()
+	switch {
+	case err == errNoDevice:
+		u.popup([]string{
+			"Synth not found",
+			"",
+			"No drive named " + deviceLabel + " is mounted.",
+			"Connect the synth via USB, or set " + deviceEnv + " to its folder.",
+			"",
+			"Press any key to continue.",
+		})
+	case err != nil:
+		u.popup([]string{"Synth not found", "", err.Error(), "", "Press any key to continue."})
+	}
+	return dir, err == nil
+}
+
 func (u *ui) popup(lines []string) {
 	for {
 		u.draw()
