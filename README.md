@@ -5,7 +5,7 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 > **Experimental.** The preset format is only partly known, and kpm writes and renames files in place. Things might break. Keep a backup of your presets before using it.
 
 ```
- kpm 0.3.2 · Factory Presets · 39 presets · import marker imp.bin present · view: device
+ kpm 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
  001  06042014       imp001.bin           │ name   spacehunt    ·  imp003.bin
  002  l1             imp002.bin           │ slot   003          ·  saved to 11
  003  spacehunt      imp003.bin           │

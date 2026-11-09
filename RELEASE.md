@@ -2,7 +2,7 @@
 
 Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, a minor version (0.x) may change output formats.
 
-## Unreleased
+## 0.4 (2026-11-09)
 
 - **Names:** digits were decoded one too high. The charset is now `00` = blank, `01`-`0a` = `0`-`9`, `0b`-`24` = `a`-`z`, taken from vadjuse's preset manager (MIT) and confirmed by device exports. Factory names change: `17153125` → `06042014`, `l2` → `l1`, `acidrave3` → `acidrave2`, `glitch2`..`glitch8` → `glitch1`..`glitch7`. Filenames written by `name2file` with digits in the name now show as out of sync; run `n`/`N` (or `kpm name2file`) again.
 - Names may contain spaces (`space 3`). A space is `_` in filenames: `imp100_space_3.bin`.
