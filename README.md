@@ -2,6 +2,8 @@
 
 A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) Kaleidoscope synthesizer: inspect presets, rename them, keep preset names and filenames in sync, move presets between slots.
 
+**Vision:** kpm is a librarian for the Kaleidoscope: it organizes preset files on your computer and moves presets and firmware to and from the synth through its USB drive. (Firmware transfer is not there yet.)
+
 > **Experimental.** The preset format is only partly known, and kpm writes and renames files in place. Things might break. Keep a backup of your presets before using it.
 
 ```
