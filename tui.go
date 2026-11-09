@@ -132,7 +132,7 @@ func runTUI(dir string) error {
 	if len(ps) == 0 {
 		u.setErr("no .bin files in " + dir)
 	}
-	u.popup(append(warning, "", "Press any key to continue."))
+	u.popup(append(append([]string{title + " " + version, byline, ""}, warning...), "", "Press any key to continue."))
 	for {
 		u.draw()
 		switch ev := s.PollEvent().(type) {
