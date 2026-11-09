@@ -66,12 +66,10 @@ var (
 	stDefault = tcell.StyleDefault
 	stHeader  = stDefault.Background(colBlue).Foreground(tcell.ColorWhite)
 	stFooter  = stDefault.Background(colOrange).Foreground(colBlue)
-	stSel     = stDefault.Reverse(true)
 	stDim     = stDefault.Foreground(tcell.ColorGray)
 	stBold    = stDefault.Bold(true)
 	stErr     = stDefault.Foreground(tcell.ColorRed)
 	stWarn    = stDefault.Foreground(tcell.ColorYellow)
-	stOK      = stDefault.Foreground(tcell.ColorGreen)
 	stName    = stDefault.Foreground(tcell.ColorGreen).Bold(true)
 	stMagic   = stDefault.Foreground(tcell.ColorBlue)
 	stFieldA  = stDefault.Foreground(tcell.ColorAqua)
