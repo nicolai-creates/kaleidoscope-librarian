@@ -33,7 +33,7 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | Waveform | ADTV, SUBT (SBTV in the manual), FREQ, MAST |
 | Volume envelope | vENV, vSEQ, vMX1, vMX2 |
 | Modulation envelope | mENV, mSEQ, mMX1, mMX2 |
-| Configuration | MIDI, INTF, PRST, SCOP |
+| Configuration | MIDI, INTF, PRST, SCOP (scope, display only: nothing stored, kpm leaves it out) |
 | External modulators 1 | aMX, aENV, fMX, fENV |
 | External modulators 2 | kMX, kENV, wMX, bMX |
 | Step modulator (v76) | sSEQ, sMX |

@@ -207,7 +207,6 @@ var synthGroups = []synthGroup{
 		pg("MIDI", "vCHN", "mCHN", "pCHN"),
 		pg("INTF", "BPM", "TSEL", "WSEL", "WSYN"),
 		{"PRST", []string{"PRST-SLOT", "name"}},
-		pg("SCOP"),
 	}},
 	{"External modulators 1", []synthPage{mx("aMX"), env("aENV"), mx("fMX"), env("fENV")}},
 	{"External modulators 2", []synthPage{mx("kMX"), env("kENV"), mx("wMX"), mx("bMX")}},
