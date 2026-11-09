@@ -8,7 +8,7 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 
 ```
  kalib 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
- 001  06042014       imp001.bin           │ 003 · spacehunt  (imp003.bin)
+ 001  06042014       imp001.bin           │ 003 · spacehunt    (imp003.bin)
  002  l1             imp002.bin           │
  003  spacehunt      imp003.bin           │ 1 Waveform
  004  motokick       imp004.bin           │ ADTV  MIDL 64       MULT 127      MIX  13       DRIV 91

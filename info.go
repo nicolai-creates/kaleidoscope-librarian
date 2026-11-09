@@ -10,7 +10,8 @@ import (
 // ---------------------------------------------------------------------------
 // Info rendering (shared by CLI and TUI)
 
-// summaryLines is the header of a preset: "018 · iamwhoami  (imp018_iamwhoami.bin)",
+// summaryLines is the header of a preset, "018 · iamwhoami    (imp018_iamwhoami.bin)"
+// with the name padded to its maximum length so the filename stays in place,
 // then a line per problem (error, request, name mismatch, slot, magic).
 func summaryLines(p *Preset) []string {
 	slot := "---"
@@ -18,7 +19,7 @@ func summaryLines(p *Preset) []string {
 	if ok {
 		slot = fmt.Sprintf("%03d", s)
 	}
-	l := []string{fmt.Sprintf("%s · %s  (%s)", slot, p.Name(), p.File())}
+	l := []string{fmt.Sprintf("%s · %-*s  (%s)", slot, nameLen, p.Name(), p.File())}
 	switch {
 	case p.Request():
 		return append(l, "export request: the synth writes this slot into the file")
