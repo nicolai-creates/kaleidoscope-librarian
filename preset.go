@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -15,8 +16,13 @@ import (
 // ---------------------------------------------------------------------------
 // Preset files
 
-// fileRe matches impNNN.bin and impNNN_<name>.bin (also '-', ' ' or '.' as separator).
-var fileRe = regexp.MustCompile(`(?i)^imp(\d{3})(?:[_ .-](.*))?\.bin$`)
+// fileRe matches impNNN.bin and impNNN_<name>.bin (also '-', ' ' or '.' as
+// separator), and the same with exp: presets exported by the synth.
+var fileRe = regexp.MustCompile(`(?i)^(imp|exp)(\d{3})(?:[_ .-](.*))?\.bin$`)
+
+// errRequest marks an empty expNNN.bin: an export request the synth has not
+// answered yet.
+var errRequest = errors.New("export request, not exported yet")
 
 type Preset struct {
 	Path string
@@ -27,7 +33,9 @@ type Preset struct {
 func loadPreset(path string) *Preset {
 	p := &Preset{Path: path}
 	p.Data, p.Err = os.ReadFile(path)
-	if p.Err == nil && len(p.Data) != presetSize {
+	if p.Err == nil && len(p.Data) == 0 && p.Kind() == "exp" {
+		p.Err = errRequest
+	} else if p.Err == nil && len(p.Data) != presetSize {
 		p.Err = fmt.Errorf("size %d, want %d", len(p.Data), presetSize)
 	}
 	return p
@@ -35,6 +43,9 @@ func loadPreset(path string) *Preset {
 
 func (p *Preset) File() string { return filepath.Base(p.Path) }
 func (p *Preset) Valid() bool  { return p.Err == nil }
+
+// Request reports whether the file is an unanswered export request.
+func (p *Preset) Request() bool { return p.Err == errRequest }
 
 func (p *Preset) Name() string {
 	if !p.Valid() {
@@ -53,9 +64,29 @@ func (p *Preset) Slot() (slot int, suffix string, ok bool) {
 	if m == nil {
 		return -1, "", false
 	}
-	slot, _ = strconv.Atoi(m[1])
-	return slot, m[2], true
+	slot, _ = strconv.Atoi(m[2])
+	return slot, m[3], true
 }
+
+// Kind is the filename prefix: "imp" (preset for the synth), "exp" (exported
+// by the synth) or "" (not a preset filename).
+func (p *Preset) Kind() string {
+	m := fileRe.FindStringSubmatch(p.File())
+	if m == nil {
+		return ""
+	}
+	return strings.ToLower(m[1])
+}
+
+// fileName builds impNNN.bin / impNNN_<suffix>.bin with the preset's prefix.
+func (p *Preset) fileName(slot int, suffix string) string {
+	if suffix == "" {
+		return fmt.Sprintf("%s%03d.bin", p.Kind(), slot)
+	}
+	return fmt.Sprintf("%s%03d_%s.bin", p.Kind(), slot, suffix)
+}
+
+const errNotPresetName = "%s: filename is not impNNN[_name].bin or expNNN[_name].bin"
 
 func slotOK(s int) bool { return s >= minSlot && s <= maxSlot }
 
@@ -120,14 +151,35 @@ func (p *Preset) renameFile(base string) error {
 }
 
 // markerFile is the empty file that tells the synth to import the presets
-// in its folder. The synth deletes it after the import.
-const markerFile = "imp.bin"
+// in its folder. The synth deletes it after the import. expMarkerFile does
+// the same for the export requests (empty expNNN.bin).
+const (
+	markerFile    = "imp.bin"
+	expMarkerFile = "exp.bin"
+)
 
-func isMarker(path string) bool { return strings.EqualFold(filepath.Base(path), markerFile) }
+func isMarker(path string) bool {
+	b := filepath.Base(path)
+	return strings.EqualFold(b, markerFile) || strings.EqualFold(b, expMarkerFile)
+}
 
-func hasMarker(dir string) bool {
-	_, err := os.Stat(filepath.Join(dir, markerFile))
+func hasFile(dir, name string) bool {
+	_, err := os.Stat(filepath.Join(dir, name))
 	return err == nil
+}
+
+func hasMarker(dir string) bool { return hasFile(dir, markerFile) }
+
+// markers describes the markers present in dir.
+func markers(dir string) []string {
+	var l []string
+	if hasMarker(dir) {
+		l = append(l, "import marker "+markerFile)
+	}
+	if hasFile(dir, expMarkerFile) {
+		l = append(l, "export marker "+expMarkerFile)
+	}
+	return l
 }
 
 // toggleMarker creates the import marker, or removes it if present and empty.
@@ -179,20 +231,20 @@ func sortPresets(ps []*Preset) {
 func targetNameToFile(p *Preset) (string, error) {
 	slot, _, ok := p.Slot()
 	if !ok {
-		return "", fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+		return "", fmt.Errorf(errNotPresetName, p.File())
 	}
 	if p.Name() == "" {
 		return "", fmt.Errorf("%s: preset has no name", p.File())
 	}
-	return fmt.Sprintf("imp%03d_%s.bin", slot, nameToFile(p.Name())), nil
+	return p.fileName(slot, nameToFile(p.Name())), nil
 }
 
 func targetStrip(p *Preset) (string, error) {
 	slot, _, ok := p.Slot()
 	if !ok {
-		return "", fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+		return "", fmt.Errorf(errNotPresetName, p.File())
 	}
-	return fmt.Sprintf("imp%03d.bin", slot), nil
+	return p.fileName(slot, ""), nil
 }
 
 func targetFileToName(p *Preset) (string, error) {
@@ -276,19 +328,15 @@ func opMove(p *Preset, slot int, all []*Preset) error {
 	}
 	cur, suf, ok := p.Slot()
 	if !ok {
-		return fmt.Errorf("%s: filename is not impNNN[_name].bin", p.File())
+		return fmt.Errorf(errNotPresetName, p.File())
 	}
 	if cur == slot {
 		return nil
 	}
 	for _, o := range all {
-		if s, _, ok := o.Slot(); ok && s == slot && o != p {
+		if s, _, ok := o.Slot(); ok && s == slot && o.Kind() == p.Kind() && o != p {
 			return fmt.Errorf("slot %03d is used by %s", slot, o.File())
 		}
 	}
-	base := fmt.Sprintf("imp%03d.bin", slot)
-	if suf != "" {
-		base = fmt.Sprintf("imp%03d_%s.bin", slot, suf)
-	}
-	return p.renameFile(base)
+	return p.renameFile(p.fileName(slot, suf))
 }

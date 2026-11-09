@@ -37,6 +37,7 @@ go build -o kpm .
 - One preset per file, `impNNN.bin`, 256 bytes. `NNN` is the slot, 001-126. Slot 127 is the init preset and always loads as an empty preset on the synth.
 - The preset name is stored inside the file: up to 11 characters, `a`-`z`, digits and spaces. In filenames kpm writes a space as `_`.
 - An empty `imp.bin` in the folder is the import marker: it tells the synth to import the presets in that folder. The synth deletes it after the import.
+- Exports from the synth are `expNNN.bin`, the preset of slot NNN. An empty `expNNN.bin` together with an empty `exp.bin` (export marker) asks the synth to export that slot. kpm lists exported presets like `imp` files (renaming, name in filename, move all work) and shows unanswered requests dimmed.
 
 kpm can add the preset name to the filename (`imp003.bin` → `imp003_spacehunt.bin`) to make a folder easier to browse. The synth probably expects plain `impNNN.bin` names, so strip the names again (`S` in the TUI, `kpm strip`) before handing the folder back to the synth.
 

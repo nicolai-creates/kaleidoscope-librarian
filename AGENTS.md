@@ -11,6 +11,7 @@ kpm is a Go TUI/CLI for Vadjuse Kaleidoscope preset files. See README.md for usa
 ## Domain facts
 - Presets are `impNNN.bin`, 256 bytes. Usable slots 1-126; 127 is the init preset (always empty on the synth).
 - An empty `imp.bin` is the import marker, not a preset: the synth imports the folder and deletes it.
+- `expNNN.bin` is a preset exported by the synth (same format); empty, it is an export request (with the marker `exp.bin`). Filename operations keep the `imp`/`exp` prefix.
 - Names: 11 bytes at 0x80, `00` = blank (trailing = padding), `01`-`0a` = 0-9, `0b`-`24` = a-z (from vadjuse's manager, confirmed by device exports). `_` in a filename stands for a blank.
 - 0x00-0x7f is indexed by MIDI CC number (byte n = parameter with CC n, from the manual's MIDI parameter table); unstored CCs are `ff`. Labels are `PAGE-PARM` as on the display.
 - There is no checksum (0x72 is PRST-SLOT, CC 114). Renames touch only 0x80-0x8a.

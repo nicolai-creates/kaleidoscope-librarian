@@ -171,12 +171,16 @@ func cmdList(args []string) error {
 		fmt.Println(listLine(p))
 	}
 	for _, a := range args {
-		if st, e := os.Stat(a); e == nil && st.IsDir() && hasMarker(a) {
-			fmt.Printf("(%s: import marker %s present)\n", a, markerFile)
+		if st, e := os.Stat(a); e == nil && st.IsDir() {
+			for _, m := range markers(a) {
+				fmt.Printf("(%s: %s present)\n", a, m)
+			}
 		}
 	}
-	if len(args) == 0 && hasMarker(defaultDir("")) {
-		fmt.Printf("(import marker %s present)\n", markerFile)
+	if len(args) == 0 {
+		for _, m := range markers(defaultDir("")) {
+			fmt.Printf("(%s present)\n", m)
+		}
 	}
 	return err
 }

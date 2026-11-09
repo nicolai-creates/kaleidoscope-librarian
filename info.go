@@ -12,6 +12,10 @@ import (
 
 func summaryLines(p *Preset) []string {
 	l := []string{"file   " + p.File()}
+	if p.Request() {
+		s, _, _ := p.Slot()
+		return append(l, fmt.Sprintf("state  export request: the synth writes slot %03d into this file", s))
+	}
 	if !p.Valid() {
 		return append(l, "error  "+p.Err.Error())
 	}
@@ -24,7 +28,7 @@ func summaryLines(p *Preset) []string {
 	}
 	sufState := map[string]string{"": "none", "=": "matches name", "!": "differs from name"}[p.SuffixState()]
 	l = append(l,
-		"slot   "+slot,
+		"slot   "+slot+map[string]string{"exp": ", exported from the synth"}[p.Kind()],
 		"name   "+p.Name(),
 		"fname  "+sufState,
 		fmt.Sprintf("saved  to slot %d (PRST-SLOT, 0x%02x)", p.Data[slotOff], slotOff),

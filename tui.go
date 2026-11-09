@@ -464,8 +464,8 @@ func (u *ui) draw() {
 
 	u.clearRow(0, stHeader)
 	marker := "no import marker"
-	if hasMarker(u.dir) {
-		marker = "import marker " + markerFile + " present"
+	if m := markers(u.dir); len(m) > 0 {
+		marker = strings.Join(m, ", ") + " present"
 	}
 	view := viewNames[u.view]
 	if u.view == viewParams && u.dec {
@@ -487,6 +487,8 @@ func (u *ui) draw() {
 		p := u.ps[idx]
 		st := stDefault
 		switch {
+		case p.Request():
+			st = stDim
 		case !p.Valid():
 			st = stErr
 		case p.SuffixState() == "!" || !p.MagicOK() || !p.SlotOK():
