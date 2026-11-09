@@ -195,6 +195,10 @@ func toggleMarker(dir string) (created bool, err error) {
 	return false, os.Remove(path)
 }
 
+// firmwareFile is a firmware waiting to be installed by the synth, not a
+// preset.
+const firmwareFile = "blink.bin"
+
 func scanDir(dir string) ([]*Preset, error) {
 	paths, err := filepath.Glob(filepath.Join(dir, "*.bin"))
 	if err != nil {
@@ -202,7 +206,7 @@ func scanDir(dir string) ([]*Preset, error) {
 	}
 	var ps []*Preset
 	for _, path := range paths {
-		if !isMarker(path) {
+		if !isMarker(path) && !strings.EqualFold(filepath.Base(path), firmwareFile) {
 			ps = append(ps, loadPreset(path))
 		}
 	}
