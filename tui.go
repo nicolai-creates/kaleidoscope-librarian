@@ -244,21 +244,21 @@ func (u *ui) handleRune(r rune) bool {
 	case 'n':
 		u.single(p, opNameToFile, "name added to filename")
 	case 'N':
-		u.all("add preset name to all filenames", opNameToFile)
+		u.all("Add preset name to all filenames", opNameToFile)
 	case 'f':
 		if p != nil && p.Valid() {
 			if t, err := targetFileToName(p); err == nil && t != p.Name() &&
-				!u.confirm(fmt.Sprintf("set name %q -> %q? (y/n)", p.Name(), t)) {
+				!u.confirm(fmt.Sprintf("Set name %q -> %q?", p.Name(), t)) {
 				return true
 			}
 		}
 		u.single(p, opFileToName, "name taken from filename")
 	case 'F':
-		u.all("set stored name from filename for all files", opFileToName)
+		u.all("Set stored name from filename for all files", opFileToName)
 	case 's':
 		u.single(p, opStrip, "filename reset to impNNN.bin")
 	case 'S':
-		u.all("strip names from all filenames", opStrip)
+		u.all("Strip names from all filenames", opStrip)
 	case 'e':
 		in, ok := u.prompt(fmt.Sprintf("request export of slots (e.g. 5, 1-10, 3,7; %d-%d): ", minSlot, maxSlot), "")
 		if !ok || strings.TrimSpace(in) == "" {
@@ -319,7 +319,7 @@ func (u *ui) handleRune(r rune) bool {
 		if !ok {
 			return true
 		}
-		if !u.confirm("eject the synth's drive " + dir + "? (y/n)") {
+		if !u.confirm("Eject the synth's drive " + dir + "?") {
 			return true
 		}
 		note, err := ejectDevice(dir)
@@ -362,7 +362,7 @@ func (u *ui) single(p *Preset, op func(*Preset) error, ok string) {
 }
 
 func (u *ui) all(what string, op func(*Preset) error) {
-	if !u.confirm(what + "? (y/n)") {
+	if !u.confirm(what + "?") {
 		return
 	}
 	var errs []string
@@ -469,57 +469,60 @@ func (u *ui) device() (string, bool) {
 	return dir, err == nil
 }
 
+// popup shows lines in a box until a key is pressed.
 func (u *ui) popup(lines []string) {
 	for {
-		u.draw()
-		w, h := u.s.Size()
-		bw := 0
-		for _, l := range lines {
-			bw = max(bw, len([]rune(l)))
-		}
-		bw, bh := min(bw+4, w), min(len(lines)+2, h)
-		x0, y0 := (w-bw)/2, (h-bh)/2
-		st := stWarn.Bold(true)
-		for y := y0; y < y0+bh; y++ {
-			for x := x0; x < x0+bw; x++ {
-				top, bottom, left, right := y == y0, y == y0+bh-1, x == x0, x == x0+bw-1
-				r := ' '
-				switch {
-				case top && left:
-					r = '┌'
-				case top && right:
-					r = '┐'
-				case bottom && left:
-					r = '└'
-				case bottom && right:
-					r = '┘'
-				case top || bottom:
-					r = '─'
-				case left || right:
-					r = '│'
-				}
-				u.s.SetContent(x, y, r, nil, st)
-			}
-		}
-		for i, l := range lines {
-			if 1+i < bh-1 {
-				u.str(x0+2, y0+1+i, bw-4, st, l)
-			}
-		}
-		u.s.Show()
+		u.drawBox(lines)
 		if _, ok := u.s.PollEvent().(*tcell.EventKey); ok {
 			return
 		}
 	}
 }
 
+// drawBox draws the screen with lines in a centred box on top.
+func (u *ui) drawBox(lines []string) {
+	u.draw()
+	w, h := u.s.Size()
+	bw := 0
+	for _, l := range lines {
+		bw = max(bw, len([]rune(l)))
+	}
+	bw, bh := min(bw+4, w), min(len(lines)+2, h)
+	x0, y0 := (w-bw)/2, (h-bh)/2
+	st := stWarn.Bold(true)
+	for y := y0; y < y0+bh; y++ {
+		for x := x0; x < x0+bw; x++ {
+			top, bottom, left, right := y == y0, y == y0+bh-1, x == x0, x == x0+bw-1
+			r := ' '
+			switch {
+			case top && left:
+				r = '┌'
+			case top && right:
+				r = '┐'
+			case bottom && left:
+				r = '└'
+			case bottom && right:
+				r = '┘'
+			case top || bottom:
+				r = '─'
+			case left || right:
+				r = '│'
+			}
+			u.s.SetContent(x, y, r, nil, st)
+		}
+	}
+	for i, l := range lines {
+		if 1+i < bh-1 {
+			u.str(x0+2, y0+1+i, bw-4, st, l)
+		}
+	}
+	u.s.Show()
+}
+
+// confirm asks a yes/no question in a popup; Esc means no.
 func (u *ui) confirm(q string) bool {
 	for {
-		u.draw()
-		w, h := u.s.Size()
-		u.clearRow(h-1, stFooter)
-		u.str(0, h-1, w, stFooter.Bold(true), q)
-		u.s.Show()
+		u.drawBox([]string{q, "", "y  yes      n  no"})
 		ev, ok := u.s.PollEvent().(*tcell.EventKey)
 		if !ok {
 			continue
