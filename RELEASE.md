@@ -9,6 +9,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kpm is experimental: before 1.0, 
 - TUI: header white on dark blue, status line dark blue on orange.
 - Exported presets (`expNNN.bin`) are recognised like `impNNN.bin`; renames and moves keep the prefix. Empty `expNNN.bin` files show as export requests, and `exp.bin` as the export marker, instead of size errors.
 - A firmware file `blink.bin` in the folder is no longer listed as a broken preset.
+- Info header: two lines instead of five (`name · file`, `slot · saved to`), with name and slot padded so the columns stay put. The filename state is only mentioned when it differs from the name.
 
 ## 0.3.2 (2026-10-30)
 

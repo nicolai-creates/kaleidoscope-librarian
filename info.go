@@ -19,20 +19,26 @@ func summaryLines(p *Preset) []string {
 	if !p.Valid() {
 		return append(l, "error  "+p.Err.Error())
 	}
-	slot := "-"
+	// Two lines: name with its file, slot with the slot it was saved to. Name
+	// and slot are padded to the name's maximum length so the filename and
+	// saved slot stay in place.
+	// The filename state only gets a mention when it disagrees.
+	name := fmt.Sprintf("name   %-*s  ·  %s", nameLen, p.Name(), p.File())
+	if p.SuffixState() == "!" {
+		name += "  (name in filename differs)"
+	}
+	slot, note := "-", ""
 	if s, _, ok := p.Slot(); ok {
 		slot = fmt.Sprintf("%03d", s)
+		if p.Kind() == "exp" {
+			note += "  (exported from the synth)"
+		}
 		if !slotOK(s) {
-			slot += fmt.Sprintf(" (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
+			note += fmt.Sprintf("  (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
 		}
 	}
-	sufState := map[string]string{"": "none", "=": "matches name", "!": "differs from name"}[p.SuffixState()]
-	l = append(l,
-		"slot   "+slot+map[string]string{"exp": ", exported from the synth"}[p.Kind()],
-		"name   "+p.Name(),
-		"fname  "+sufState,
-		fmt.Sprintf("saved  to slot %d (PRST-SLOT, 0x%02x)", p.Data[slotOff], slotOff),
-	)
+	slot = fmt.Sprintf("slot   %-*s  ·  saved to %d%s", nameLen, slot, p.Data[slotOff], note)
+	l = append(l[:0], name, slot)
 	if !p.MagicOK() { // only worth a line when wrong
 		l = append(l, "magic  BAD "+hexBytes(p.Data[:4]))
 	}
