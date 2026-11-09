@@ -84,7 +84,10 @@ const shortHelp = "↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit
 var viewHelp = [numViews]string{"  1-7 group", "  d dec  0-7 section", ""}
 
 var longHelp = []string{
-	"kalib keys",
+	title + " " + version,
+	byline,
+	"",
+	"keys",
 	"",
 	"↑ ↓  j k  PgUp PgDn  Home End   move in the preset list",
 	"Tab  v                          next view: device, parameters, hex dump",

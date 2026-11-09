@@ -43,6 +43,12 @@ import (
 // version is the kalib release; override with -ldflags "-X main.version=...".
 var version = "0.4"
 
+// title and byline head the help, as in README.md.
+const (
+	title  = "Kaleidoscope Librarian (kalib)"
+	byline = "by @nicolai-creates"
+)
+
 // ---------------------------------------------------------------------------
 // CLI
 
@@ -123,7 +129,7 @@ var warning = []string{
 }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "kalib %s - Kaleidoscope Librarian\n\n", version)
+	fmt.Fprintf(os.Stderr, "%s %s\n%s\n\n", title, version, byline)
 	fmt.Fprint(os.Stderr, `usage:
   kalib [dir]                         interactive TUI
   kalib list [dir]                    one line per preset
