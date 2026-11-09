@@ -8,20 +8,20 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 
 ```
  kalib 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
- 001  06042014       imp001.bin           │ name   spacehunt    ·  imp003.bin
- 002  l1             imp002.bin           │ slot   003          ·  saved to 11
- 003  spacehunt      imp003.bin           │
- 004  motokick       imp004.bin           │ 1 Waveform
- 005  neurokick      imp005.bin           │ ADTV  MIDL 64       MULT 127      MIX  13       DRIV 91
- 006  pwmdron        imp006.bin           │ SUBT  FILT C2h      RESO 46       DELA 5        FEDB 92
- 007  acidrave2      imp007.bin           │ FREQ  TRAN 0        FINE 68       GLID 36       SCAL OFF
- 008  sineburn       imp008.bin           │ MAST  VOLU 127      FMVO 26       FMSR 1···     SEND 1234
- 009  ash            imp009.bin           │
- 010  scratch        imp010.bin           │ 2 Volume envelope
- 011  melanholia     imp011.bin           │ vENV  SHAP 0        PERI 36       SUST 36       RELE 61
- 012  energycore     imp012.bin           │ vSEQ  EOC  0        LINK 1···     PATN 255      PSIZ 7
- 013  lostinspacy    imp013.bin           │ vMX1  PARM FREQ     DEST tr1      DEPT 16       ALIA ·
- 014  unstable       imp014.bin           │ vMX2  PARM FILT     DEST tr1      DEPT 50       ALIA ·
+ 001  06042014       imp001.bin           │ 003 · spacehunt  (imp003.bin)
+ 002  l1             imp002.bin           │
+ 003  spacehunt      imp003.bin           │ 1 Waveform
+ 004  motokick       imp004.bin           │ ADTV  MIDL 64       MULT 127      MIX  13       DRIV 91
+ 005  neurokick      imp005.bin           │ SUBT  FILT C2h      RESO 46       DELA 5        FEDB 92
+ 006  pwmdron        imp006.bin           │ FREQ  TRAN 0        FINE 68       GLID 36       SCAL OFF
+ 007  acidrave2      imp007.bin           │ MAST  VOLU 127      FMVO 26       FMSR 1···     SEND 1234
+ 008  sineburn       imp008.bin           │
+ 009  ash            imp009.bin           │ 2 Volume envelope
+ 010  scratch        imp010.bin           │ vENV  SHAP 0        PERI 36       SUST 36       RELE 61
+ 011  melanholia     imp011.bin           │ vSEQ  EOC  0        LINK 1···     PATN 255      PSIZ 7
+ 012  energycore     imp012.bin           │ vMX1  PARM FREQ     DEST tr1      DEPT 16       ALIA ·
+ 013  lostinspacy    imp013.bin           │ vMX2  PARM FILT     DEST tr1      DEPT 50       ALIA ·
+ 014  unstable       imp014.bin           │
  ...
 ↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit  1-7 group
 ```

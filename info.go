@@ -10,40 +10,33 @@ import (
 // ---------------------------------------------------------------------------
 // Info rendering (shared by CLI and TUI)
 
+// summaryLines is the header of a preset: "018 · iamwhoami  (imp018_iamwhoami.bin)",
+// then a line per problem (error, request, name mismatch, slot, magic).
 func summaryLines(p *Preset) []string {
-	l := []string{"file   " + p.File()}
-	if p.Request() {
-		s, _, _ := p.Slot()
-		return append(l, fmt.Sprintf("state  export request: the synth writes slot %03d into this file", s))
-	}
-	if !p.Valid() {
-		return append(l, "error  "+p.Err.Error())
-	}
-	// Two lines: name with its file, slot with the slot it was saved to. Name
-	// and slot are padded to the name's maximum length so the filename and
-	// saved slot stay in place.
-	// The filename state only gets a mention when it disagrees.
-	name := fmt.Sprintf("name   %-*s  ·  %s", nameLen, p.Name(), p.File())
-	if p.SuffixState() == "!" {
-		name += "  (name in filename differs)"
-	}
-	slot, note := "-", ""
-	if s, _, ok := p.Slot(); ok {
+	slot := "---"
+	s, _, ok := p.Slot()
+	if ok {
 		slot = fmt.Sprintf("%03d", s)
-		if p.Kind() == "exp" {
-			note += "  (exported from the synth)"
-		}
-		switch {
-		case !slotOK(s):
-			note += fmt.Sprintf("  (outside %d-%d, not loadable on the synth)", minSlot, maxSlot)
-		case s == initSlot:
-			note += "  (init preset slot: loads as an empty preset on the synth)"
-		}
 	}
-	slot = fmt.Sprintf("slot   %-*s  ·  saved to %d%s", nameLen, slot, p.Data[slotOff], note)
-	l = append(l[:0], name, slot)
-	if !p.MagicOK() { // only worth a line when wrong
-		l = append(l, "magic  BAD "+hexBytes(p.Data[:4]))
+	l := []string{fmt.Sprintf("%s · %s  (%s)", slot, p.Name(), p.File())}
+	switch {
+	case p.Request():
+		return append(l, "export request: the synth writes this slot into the file")
+	case !p.Valid():
+		return append(l, "error: "+p.Err.Error())
+	}
+	if p.SuffixState() == "!" {
+		l = append(l, "name in filename differs")
+	}
+	switch {
+	case !ok:
+	case !slotOK(s):
+		l = append(l, fmt.Sprintf("slot outside %d-%d, not loadable on the synth", minSlot, maxSlot))
+	case s == initSlot:
+		l = append(l, "init preset slot: loads as an empty preset on the synth")
+	}
+	if !p.MagicOK() {
+		l = append(l, "magic BAD: "+hexBytes(p.Data[:4]))
 	}
 	return l
 }
