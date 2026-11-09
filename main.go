@@ -16,6 +16,7 @@
 //	kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 //	kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 //	kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
+//	kpm import [-n] FILE SLOT DIR     copy a preset to DIR for import into SLOT
 //	kpm export json|csv [dir]         decoded dump of all presets to stdout
 //	kpm stats [dir]                   per-byte statistics across all presets
 //	kpm version                       print the version
@@ -30,6 +31,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -64,6 +66,8 @@ func main() {
 		err = cmdBatch(cmd, args)
 	case "request":
 		err = cmdRequest(args)
+	case "import":
+		err = cmdImport(args)
 	case "export":
 		err = cmdExport(args)
 	case "stats":
@@ -80,7 +84,7 @@ func main() {
 
 func isCommand(s string) bool {
 	switch s {
-	case "list", "info", "rename", "name2file", "file2name", "strip", "request", "export", "stats", "version", "--version", "help", "-h", "--help":
+	case "list", "info", "rename", "name2file", "file2name", "strip", "request", "import", "export", "stats", "version", "--version", "help", "-h", "--help":
 		return true
 	}
 	return false
@@ -104,6 +108,7 @@ func usage() {
   kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
   kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
   kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
+  kpm import [-n] FILE SLOT DIR     copy a preset to DIR for import into SLOT
   kpm export json|csv [dir]         decoded dump of all presets to stdout
   kpm stats [dir]                   per-byte statistics across all presets
   kpm version                       print the version
@@ -262,6 +267,34 @@ func cmdRequest(args []string) error {
 		}
 	}
 	fmt.Printf("export requests: %s (marker %s)\n", strings.Join(create, " "), expMarkerFile)
+	return nil
+}
+
+// cmdImport copies a preset to DIR as impNNN.bin and sets the imp.bin
+// marker, so the synth loads it into SLOT.
+func cmdImport(args []string) error {
+	fs := flag.NewFlagSet("import", flag.ExitOnError)
+	dry := fs.Bool("n", false, "dry run")
+	fs.Parse(args)
+	if fs.NArg() != 3 {
+		return errors.New("usage: kpm import [-n] FILE SLOT DIR")
+	}
+	p := loadPreset(fs.Arg(0))
+	slot, err := strconv.Atoi(fs.Arg(1))
+	if err != nil {
+		return fmt.Errorf("not a slot: %q", fs.Arg(1))
+	}
+	dir := fs.Arg(2)
+	path, err := targetImport(p, dir, slot)
+	if err != nil {
+		return err
+	}
+	if !*dry {
+		if _, err := opImport(p, dir, slot); err != nil {
+			return err
+		}
+	}
+	fmt.Printf("%s -> %s (marker %s)\n", p.File(), path, markerFile)
 	return nil
 }
 

@@ -4,6 +4,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -34,6 +36,22 @@ type ui struct {
 	lw        int // width of the preset list, set by draw
 	status    string
 	statusErr bool
+	copyDir   string // last target folder of 'c'
+}
+
+func expandHome(p string) string {
+	if rest, ok := strings.CutPrefix(p, "~/"); ok {
+		if h, err := os.UserHomeDir(); err == nil {
+			return filepath.Join(h, rest)
+		}
+	}
+	return p
+}
+
+func sameDir(a, b string) bool {
+	x, err1 := filepath.Abs(a)
+	y, err2 := filepath.Abs(b)
+	return err1 == nil && err2 == nil && x == y
 }
 
 // Bar colors from nicolai-creates.art: white on dark blue for the header,
@@ -84,6 +102,7 @@ var longHelp = []string{
 	"m                               move the preset to another slot",
 	"i                               create or remove the imp.bin import marker",
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
+	"c                               copy the preset to a folder for import into a slot",
 	"g                               reload the folder",
 	"? h                             this help",
 	"q  Esc                          quit",
@@ -256,6 +275,34 @@ func (u *ui) handleRune(r rune) bool {
 		}
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export requests created, %d skipped (exist); marker %s set", len(create), len(skipped), expMarkerFile))
+	case 'c':
+		if p == nil || !p.Valid() {
+			return true
+		}
+		dir, ok := u.prompt("copy to folder: ", u.copyDir)
+		if !ok || strings.TrimSpace(dir) == "" {
+			return true
+		}
+		dir = expandHome(strings.TrimSpace(dir))
+		u.copyDir = dir
+		def := ""
+		if s, _, ok := p.Slot(); ok {
+			def = strconv.Itoa(s)
+		}
+		in, ok := u.prompt(fmt.Sprintf("import into slot (%d-%d): ", minSlot, maxSlot), def)
+		if !ok {
+			return true
+		}
+		n, err := strconv.Atoi(strings.TrimSpace(in))
+		if err != nil {
+			u.setErr("not a number: " + in)
+			return true
+		}
+		path, err := opImport(p, dir, n)
+		if err == nil && sameDir(dir, u.dir) {
+			u.reload()
+		}
+		u.result(err, fmt.Sprintf("copied to %s, marker %s set", path, markerFile))
 	case 'm':
 		if p == nil {
 			return true

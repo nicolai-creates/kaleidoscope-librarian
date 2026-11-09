@@ -347,7 +347,7 @@ func opMove(p *Preset, slot int, all []*Preset) error {
 }
 
 // ---------------------------------------------------------------------------
-// Transfers with the synth: export requests.
+// Transfers with the synth: export requests and imports into a slot.
 
 // parseSlots reads a slot list like "5", "1-10" or "3,7,9-12".
 func parseSlots(s string) ([]int, error) {
@@ -433,4 +433,39 @@ func createMarker(dir, name string) error {
 		return nil
 	}
 	return os.WriteFile(filepath.Join(dir, name), nil, 0o644)
+}
+
+// targetImport returns the path the preset is copied to for an import into
+// slot: dir/impNNN.bin. It refuses if dir already holds an import for slot.
+func targetImport(p *Preset, dir string, slot int) (string, error) {
+	if err := checkValid(p); err != nil {
+		return "", err
+	}
+	if !slotOK(slot) {
+		return "", fmt.Errorf("slot %d out of range %d-%d", slot, minSlot, maxSlot)
+	}
+	if st, err := os.Stat(dir); err != nil || !st.IsDir() {
+		return "", fmt.Errorf("%s is not a folder", dir)
+	}
+	used, err := usedSlots(dir, "imp")
+	if err != nil {
+		return "", err
+	}
+	if f, ok := used[slot]; ok {
+		return "", fmt.Errorf("slot %03d is used by %s in %s", slot, f, dir)
+	}
+	return filepath.Join(dir, fmt.Sprintf("imp%03d.bin", slot)), nil
+}
+
+// opImport copies the preset unchanged to dir/impNNN.bin and sets the
+// import marker, so the synth loads it into slot on the next import.
+func opImport(p *Preset, dir string, slot int) (string, error) {
+	path, err := targetImport(p, dir, slot)
+	if err != nil {
+		return "", err
+	}
+	if err := writeAtomic(path, p.Data); err != nil {
+		return "", err
+	}
+	return path, createMarker(dir, markerFile)
 }

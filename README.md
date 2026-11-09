@@ -52,6 +52,7 @@ kpm name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
 kpm file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 kpm strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
 kpm request [-n] DIR SLOTS        ask the synth to export slots (5, 1-10, 3,7)
+kpm import [-n] FILE SLOT DIR     copy a preset to DIR for import into SLOT
 kpm export json|csv [dir]         decoded dump of all presets to stdout
 kpm stats [dir]                   per-byte statistics across all presets
 kpm version                       print the version
@@ -59,7 +60,7 @@ kpm version                       print the version
 
 `-n` is a dry run. Without a directory, kpm uses the current directory, or `Factory Presets` if the current directory holds no `.bin` files.
 
-Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. Existing requests or exports for a slot are skipped.
+Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/media/$USER/KLRU 1-10` creates export requests on the synth's drive; after the synth has exported, the presets are `exp001.bin`..`exp010.bin` there. `kpm import mypreset.bin 12 /run/media/$USER/KLRU` copies a preset to the drive as `imp012.bin` and sets the import marker. Neither overwrites an existing file for the same slot. The preset is copied unchanged, including its saved-slot byte.
 
 ### TUI keys
 
@@ -73,6 +74,7 @@ Transfers with the synth (as in vadjuse's preset manager): `kpm request /run/med
 | `m` | move the preset to another slot |
 | `i` | create or remove the `imp.bin` import marker |
 | `e` | ask the synth to export slots: empty `expNNN.bin` files plus `exp.bin` |
+| `c` | copy the preset to a folder (e.g. the synth's drive) as `impNNN.bin` for import into a slot, plus `imp.bin` |
 | `v` / Tab | switch view: device, parameters, hex dump |
 | `d` | parameters view: decimal values on/off (on by default) |
 | `1`-`7` | jump to a page group (parameters and device view) |
