@@ -9,7 +9,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0
 - Import into a slot: `kalib import FILE SLOT DIR` (TUI `c`) copies a preset unchanged to a folder (e.g. the synth's drive) as `impNNN.bin` and sets the `imp.bin` marker. It refuses if the folder already holds an import for that slot.
 
 - Full backup: `kalib clean` (TUI `X`) deletes old export files after listing them, `kalib request all` asks for every slot, `kalib fetch TARGET` (TUI `b`) copies the exported presets to a folder (`$KALIB_FETCH_DIR` if TARGET is omitted). TUI `e` offers to delete old export files before requesting, in a popup that lists them (`+` shows all).
-- TUI: the folder questions of `c` (copy for import) and `b` (fetch) open in a popup.
+- TUI: all questions open in a popup: rename, slots (`e`, `m`, `c`) and folders (`c`, `b`).
 - Finds the synth's drive (`KLRU`) on Linux, macOS and Windows (macOS and Windows untested): `kalib device`, TUI `D`; `request` and `import` use it when DIR is omitted, and `c` suggests it. `KALIB_DEVICE` overrides the search.
 - Eject the synth's drive: `kalib eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
 

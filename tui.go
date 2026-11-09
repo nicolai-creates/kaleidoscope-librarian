@@ -238,7 +238,7 @@ func (u *ui) handleRune(r rune) bool {
 		if p == nil || !p.Valid() {
 			return true
 		}
-		name, ok := u.prompt("new name (a-z 0-9 space, max 11): ", p.Name())
+		name, ok := u.ask([]string{"Rename " + p.File() + ":", "a-z, 0-9 and space, up to 11 characters"}, p.Name())
 		if !ok || name == p.Name() {
 			return true
 		}
@@ -263,7 +263,7 @@ func (u *ui) handleRune(r rune) bool {
 	case 'S':
 		u.all("Strip names from all filenames", opStrip)
 	case 'e':
-		in, ok := u.prompt(fmt.Sprintf("request export of slots (e.g. 5, 1-10, 3,7, all; %d-%d): ", minSlot, maxSlot), "")
+		in, ok := u.ask([]string{"Request export of slots:", fmt.Sprintf("e.g. 5, 1-10, 3,7 or all (%d-%d)", minSlot, maxSlot)}, "")
 		if !ok || strings.TrimSpace(in) == "" {
 			return true
 		}
@@ -340,7 +340,7 @@ func (u *ui) handleRune(r rune) bool {
 		if s, _, ok := p.Slot(); ok {
 			def = strconv.Itoa(s)
 		}
-		in, ok := u.prompt(fmt.Sprintf("import into slot (%d-%d): ", minSlot, maxSlot), def)
+		in, ok := u.ask([]string{"Import " + p.File() + " into slot:", fmt.Sprintf("%d-%d", minSlot, maxSlot)}, def)
 		if !ok {
 			return true
 		}
@@ -379,7 +379,7 @@ func (u *ui) handleRune(r rune) bool {
 		if p == nil {
 			return true
 		}
-		in, ok := u.prompt(fmt.Sprintf("move to slot (%d-%d): ", minSlot, maxSlot), "")
+		in, ok := u.ask([]string{"Move " + p.File() + " to slot:", fmt.Sprintf("%d-%d", minSlot, maxSlot)}, "")
 		if !ok {
 			return true
 		}
@@ -463,29 +463,6 @@ func (u *ui) reload() {
 	u.setMsg(fmt.Sprintf("reloaded %d files", len(ps)))
 }
 
-// prompt reads a line on the bottom row. Returns false on Esc.
-func (u *ui) prompt(label, initial string) (string, bool) {
-	buf := []rune(initial)
-	for {
-		u.draw()
-		w, h := u.s.Size()
-		u.clearRow(h-1, stFooter)
-		x := u.str(0, h-1, w, stFooter.Bold(true), label)
-		x = u.str(x, h-1, w-x, stFooter, string(buf))
-		u.s.ShowCursor(x, h-1)
-		u.s.Show()
-		ev, ok := u.s.PollEvent().(*tcell.EventKey)
-		if !ok {
-			continue
-		}
-		var done bool
-		if buf, done, ok = editLine(buf, ev); done {
-			u.s.HideCursor()
-			return string(buf), ok
-		}
-	}
-}
-
 // editLine applies a key to a line being typed: done is set on Enter
 // (ok true) and Esc (ok false).
 func editLine(buf []rune, ev *tcell.EventKey) (out []rune, done, ok bool) {
@@ -506,17 +483,17 @@ func editLine(buf []rune, ev *tcell.EventKey) (out []rune, done, ok bool) {
 	return buf, false, false
 }
 
-// askFolder asks for a folder in a popup, starting with initial. Returns
-// false on Esc or an empty answer; ~/ is expanded.
-func (u *ui) askFolder(q, initial string) (string, bool) {
+// ask asks for a line of text in a popup: head, then an input line starting
+// with initial. Returns false on Esc.
+func (u *ui) ask(head []string, initial string) (string, bool) {
 	buf := []rune(initial)
 	for {
 		w, _ := u.s.Size()
 		fw := max(1, min(max(50, len(buf)+1), w-8)) // input width
 		shown := buf[max(0, len(buf)-(fw-1)):]
-		lines := []string{q, "", string(shown) + strings.Repeat(" ", fw-len(shown)), "", "Enter  ok   Esc  cancel   Ctrl-U  clear"}
+		lines := append(append([]string{}, head...), "", string(shown)+strings.Repeat(" ", fw-len(shown)), "", "Enter  ok   Esc  cancel   Ctrl-U  clear")
 		x0, y0 := u.drawBox(lines)
-		u.s.ShowCursor(x0+2+len(shown), y0+3)
+		u.s.ShowCursor(x0+2+len(shown), y0+2+len(head))
 		u.s.Show()
 		ev, ok := u.s.PollEvent().(*tcell.EventKey)
 		if !ok {
@@ -525,10 +502,17 @@ func (u *ui) askFolder(q, initial string) (string, bool) {
 		var done bool
 		if buf, done, ok = editLine(buf, ev); done {
 			u.s.HideCursor()
-			dir := strings.TrimSpace(string(buf))
-			return expandHome(dir), ok && dir != ""
+			return string(buf), ok
 		}
 	}
+}
+
+// askFolder asks for a folder in a popup, starting with initial. Returns
+// false on Esc or an empty answer; ~/ is expanded.
+func (u *ui) askFolder(q, initial string) (string, bool) {
+	in, ok := u.ask([]string{q}, initial)
+	dir := strings.TrimSpace(in)
+	return expandHome(dir), ok && dir != ""
 }
 
 // popup shows lines in a centered box until a key is pressed.
