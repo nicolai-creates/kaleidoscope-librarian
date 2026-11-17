@@ -2,7 +2,9 @@
 
 Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0, a minor version (0.x) may change output formats.
 
-## Unreleased
+## 0.85 (2026-11-17)
+
+The version jumps from 0.4 to 0.85 to match the synth firmware v85 it was tested with.
 
 - **Renamed** from kpm (Kaleidoscope Preset Manager) to kalib (Kaleidoscope Librarian): the command is `kalib`, the environment variable `KPM_DEVICE` is now `KALIB_DEVICE`. The repository is now https://github.com/nicolai-creates/kaleidoscope-librarian. Older entries below use the old name.
 - Export requests: `kalib request DIR SLOTS` (TUI `e`) creates empty `expNNN.bin` files for single slots, ranges or lists (`5`, `1-10`, `3,7`) or all slots (`all`, a full backup) plus the `exp.bin` marker. Slots with an existing exp file are skipped.

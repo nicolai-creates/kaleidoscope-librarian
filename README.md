@@ -7,7 +7,7 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 > **Experimental.** The preset format is only partly known, and kalib writes and renames files in place. Things might break. Keep a backup of your presets before using it.
 
 ```
- kalib 0.4 · Factory Presets · 39 presets · import marker imp.bin present · view: device
+ kalib 0.85 · Factory Presets · 39 presets · import marker imp.bin present · view: device
  001  06042014       imp001.bin           │ 003 · spacehunt    (imp003.bin)
  002  l1             imp002.bin           │
  003  spacehunt      imp003.bin           │ 1 Waveform

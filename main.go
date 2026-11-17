@@ -44,7 +44,7 @@ import (
 )
 
 // version is the kalib release; override with -ldflags "-X main.version=...".
-var version = "0.4"
+var version = "0.85"
 
 // title and byline head the help, as in README.md.
 const (
