@@ -23,7 +23,7 @@ const (
 	numViews
 )
 
-var viewNames = [numViews]string{"device", "parameters", "hex dump"}
+var viewNames = [numViews]string{"as on device", "long form", "hex dump"}
 
 type ui struct {
 	s         tcell.Screen
@@ -31,8 +31,7 @@ type ui struct {
 	ps        []*Preset
 	cur, top  int
 	view      int
-	dec       bool // parameters view: decimal after hex
-	jump      int  // section to scroll to on the next draw: 0 = File, 1-7 = group, -1 = none
+	jump      int // section to scroll to on the next draw: 0 = File, 1-7 = group, -1 = none
 	scroll    int
 	lw        int // width of the preset list, set by draw
 	status    string
@@ -82,7 +81,7 @@ var (
 // shortHelp is the status line; viewHelp adds the keys of the current view.
 const shortHelp = "↑↓ move  Tab/v view  J/K scroll  r rename  ? help  q quit"
 
-var viewHelp = [numViews]string{"  1-7 group", "  d dec  0-7 section", ""}
+var viewHelp = [numViews]string{"  1-7 group", "  0-7 section", ""}
 
 var longHelp = []string{
 	title + " " + version,
@@ -91,12 +90,11 @@ var longHelp = []string{
 	"keys",
 	"",
 	"↑ ↓  j k  PgUp PgDn  Home End   move in the preset list",
-	"Tab  v                          next view: device, parameters, hex dump",
+	"Tab  v                          next view: as on device, long form, hex dump",
 	"J  K                            scroll the info pane",
 	"mouse wheel                     scrolls the pane under the pointer",
-	"d                               parameters view: decimal values on/off",
-	"1-7                             jump to a page group (parameters, device)",
-	"0                               jump to bytes outside any page (parameters)",
+	"1-7                             jump to a page group (as on device, long form)",
+	"0                               jump to bytes outside any page (long form)",
 	"",
 	"r                               rename the preset",
 	"n / N                           add the preset name to the filename (selected / all)",
@@ -132,7 +130,7 @@ func runTUI(dir string) error {
 	}
 	defer s.Fini()
 	s.EnableMouse(tcell.MouseButtonEvents)
-	u := &ui{s: s, dir: dir, ps: ps, dec: true, jump: -1}
+	u := &ui{s: s, dir: dir, ps: ps, jump: -1}
 	if len(ps) == 0 {
 		u.setErr("no .bin files in " + dir)
 	}
@@ -242,8 +240,6 @@ func (u *ui) handleRune(r rune) bool {
 		u.scroll++
 	case 'v':
 		u.view, u.scroll = (u.view+1)%numViews, 0
-	case 'd':
-		u.dec = !u.dec
 	case '0', '1', '2', '3', '4', '5', '6', '7':
 		u.jump = int(r - '0')
 	case '?', 'h':
@@ -822,9 +818,6 @@ func (u *ui) draw() {
 		marker = strings.Join(m, ", ") + " present"
 	}
 	view := viewNames[u.view]
-	if u.view == viewParams && u.dec {
-		view += " +dec"
-	}
 	head := fmt.Sprintf("kalib %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, view)
 	if u.dir == "" {
 		head = fmt.Sprintf("kalib %s · no folder open (D opens the synth's drive) · view: %s", version, view)
@@ -912,7 +905,7 @@ func (u *ui) drawInfo(p *Preset, x0, y0, w, h int) {
 	if p.Valid() {
 		switch u.view {
 		case viewParams:
-			groupStart = paramLines(p, u.dec, &lines)
+			groupStart = paramLines(p, &lines)
 		case viewDevice:
 			groupStart = deviceLines(p, w, &lines)
 		case viewDump:
@@ -926,7 +919,7 @@ func (u *ui) drawInfo(p *Preset, x0, y0, w, h int) {
 		}
 	}
 
-	// groupStart holds the groups, then (parameters view) the File section.
+	// groupStart holds the groups, then (long form) the File section.
 	switch j := u.jump; {
 	case j == 0 && len(groupStart) > len(synthGroups):
 		u.scroll = groupStart[len(synthGroups)]
@@ -971,29 +964,12 @@ func dumpLines(p *Preset, perRow int) []styledLine {
 
 // paramLines appends the parameters in display order (group, page, encoder),
 // then the fields outside any page, and returns where each group starts.
-func paramLines(p *Preset, dec bool, lines *[]styledLine) (groupStart []int) {
-	val := func(f field) string {
-		b := p.Data[f.Off : f.Off+f.Len]
-		if f.Len > 1 {
-			return hexBytes(b)
-		}
-		if dec {
-			return fmt.Sprintf("%02x %-6s", b[0], fmt.Sprintf("(%d)", b[0]))
-		}
-		return fmt.Sprintf("%02x", b[0])
-	}
-	bytesW := 2 // hex byte width in multi-byte rows, 3 to line up with decimals
-	if dec {
-		bytesW = 3
-	}
+// Values are shown in hex and decimal.
+func paramLines(p *Preset, lines *[]styledLine) (groupStart []int) {
 	add := func(page string, f field) {
 		off := fmt.Sprintf("0x%02x", f.Off)
 		if f.Len > 1 {
 			off += fmt.Sprintf("-0x%02x", f.Off+f.Len-1)
-		}
-		width := 2
-		if dec {
-			width = 9
 		}
 		segs := []styledSeg{
 			{stBold, fmt.Sprintf("  %-5s %-5s ", page, paramName(f.Label))},
@@ -1003,7 +979,7 @@ func paramLines(p *Preset, dec bool, lines *[]styledLine) (groupStart []int) {
 			*lines = append(*lines, styledLine{append(segs, styledSeg{stDim, f.Note})})
 			b := p.Data[f.Off : f.Off+f.Len]
 			steps := f.Label == "sSEQ-VALU"
-			w := bytesW
+			w := 3 // hex byte width, lined up with the decimals below
 			if steps {
 				w = 4 // room for a sign and three digits, see the value row
 			}
@@ -1012,13 +988,7 @@ func paramLines(p *Preset, dec bool, lines *[]styledLine) (groupStart []int) {
 				l += "   \"" + p.Name() + "\""
 			}
 			*lines = append(*lines, line(stDefault, l))
-			if dec {
-				ds := decBytes(b)
-				if steps {
-					ds = padInts(b, w, func(c byte) int { return int(c) })
-				}
-				*lines = append(*lines, line(stDefault, "              "+ds))
-			}
+			*lines = append(*lines, line(stDefault, "              "+padInts(b, w, func(c byte) int { return int(c) })))
 			if steps {
 				vals := padInts(b, w, func(c byte) int { return int(int8(c - 0x40)) })
 				st := stDefault
@@ -1029,7 +999,8 @@ func paramLines(p *Preset, dec bool, lines *[]styledLine) (groupStart []int) {
 			}
 			return
 		}
-		segs = append(segs, styledSeg{stDefault, fmt.Sprintf("%-*s  ", width, val(f))}, styledSeg{stDim, f.Note})
+		v := p.Data[f.Off]
+		segs = append(segs, styledSeg{stDefault, fmt.Sprintf("%02x %-6s  ", v, fmt.Sprintf("(%d)", v))}, styledSeg{stDim, f.Note})
 		*lines = append(*lines, styledLine{segs})
 	}
 	for gi, g := range synthGroups {

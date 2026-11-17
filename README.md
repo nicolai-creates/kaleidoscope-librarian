@@ -7,7 +7,7 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
 > **Experimental.** The preset format is only partly known, and kalib writes and renames files in place. Things might break. Keep a backup of your presets before using it.
 
 ```
- kalib 0.85 · Factory Presets · 39 presets · import marker imp.bin present · view: device
+ kalib 0.85 · Factory Presets · 39 presets · import marker imp.bin present · view: as on device
  001  06042014       imp001.bin           │ 003 · spacehunt    (imp003.bin)
  002  l1             imp002.bin           │
  003  spacehunt      imp003.bin           │ 1 Waveform
@@ -100,10 +100,9 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `D` | open the synth's drive; offers to mount it if it is connected but not mounted |
 | `E` | eject the synth's drive; if it is the open folder, the list is cleared |
 | `c` | copy the preset to a folder (e.g. the synth's drive) as `impNNN.bin` for import into a slot, plus `imp.bin` |
-| `v` / Tab | switch view: device, parameters, hex dump |
-| `d` | parameters view: decimal values on/off (on by default) |
-| `1`-`7` | jump to a page group (parameters and device view) |
-| `0` | parameters view: jump to the bytes outside any page |
+| `v` / Tab | switch view: as on device, long form, hex dump |
+| `1`-`7` | jump to a page group (as on device, long form) |
+| `0` | long form: jump to the bytes outside any page |
 | mouse wheel | scroll the pane under the pointer |
 | `?` / `h` | show all keys |
 | `J` / `K` | scroll the info pane |
@@ -111,7 +110,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `q` / Esc | quit |
 | Ctrl-Z | suspend to the shell (`fg` to return) |
 
-The **device** view (the default) shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **parameters** view lists every stored value with its byte offset, ordered like the synth: page group, page, encoder. The **hex dump** colours the bytes by field.
+The **as on device** view (the default) shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **long form** lists every stored value in hex and decimal with its byte offset, ordered like the synth: page group, page, encoder. The **hex dump** colours the bytes by field.
 
 Actions on all presets ask for confirmation first. In the list, yellow marks a preset whose filename name differs from the stored name, whose slot is 127 (init preset), or whose magic bytes are wrong.
 
