@@ -27,9 +27,33 @@ func findDevice() (string, error) {
 	}
 	dir, ok := findVolume(deviceLabel)
 	if !ok {
+		if dev, ok := unmountedVolume(deviceLabel); ok {
+			return "", notMountedError{dev}
+		}
 		return "", errNoDevice
 	}
 	return dir, nil
+}
+
+// notMountedError is returned by findDevice when the synth's drive is
+// connected but not mounted (Linux only; macOS and Windows mount it
+// themselves). mountDevice mounts it.
+type notMountedError struct{ dev string }
+
+func (e notMountedError) Error() string {
+	return fmt.Sprintf("no drive named %s is mounted, but the synth's drive was found at %s", deviceLabel, e.dev)
+}
+
+// mountDevice mounts the synth's drive dev (mountVolume in device_<os>.go)
+// and returns its folder.
+func mountDevice(dev string) (string, error) {
+	if err := mountVolume(dev); err != nil {
+		return "", err
+	}
+	if dir, ok := findVolume(deviceLabel); ok {
+		return dir, nil
+	}
+	return "", fmt.Errorf("%s was mounted, but its folder was not found", dev)
 }
 
 // ejectWarning is returned by ejectVolume when the drive is safe to unplug

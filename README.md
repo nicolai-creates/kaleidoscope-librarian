@@ -55,7 +55,7 @@ kalib rename FILE NAME              set the stored preset name
 kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
 kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-kalib device                        print where the synth's drive (KLRU) is mounted
+kalib device                        print where the synth's drive (KLRU) is mounted; offers to mount it
 kalib eject                         flush and eject the synth's drive
 kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
@@ -73,6 +73,8 @@ Transfers with the synth (as in vadjuse's preset manager): `kalib request /run/m
 A full backup of the synth: `kalib clean` deletes old export files from the drive (`expNNN.bin`, `exp.bin`, `expc.bin`; it lists them and asks first, `-y` skips the question), `kalib request all` asks for every slot, and after the synth has exported, `kalib fetch ~/kaleidoscope/backup-2026-11-09` copies the exported presets (non-empty `expNNN.bin`) unchanged to that folder, creating it if needed. Without TARGET, fetch uses `$KALIB_FETCH_DIR`. It skips slots that already have an exp file in the target, so use a new folder per backup. Old exports matter because `request` skips slots that have an exp file; in the TUI, `e` offers to delete them first.
 
 kalib finds the synth by its drive name `KLRU`: on Linux in the mount table (`/run/media/$USER/KLRU`, `/media/$USER/KLRU`), on macOS under `/Volumes`, on Windows by drive label. `request`, `import`, `fetch` and `clean` use it when DIR is left out (`kalib request 1-10`, `kalib import mypreset.bin 12`). `KALIB_DEVICE=/path` overrides the search.
+
+On Linux, if the drive is connected but not mounted, kalib asks whether to mount it (`kalib device`, the commands above, TUI `D`) and mounts it with `udisksctl` under `/run/media/$USER/KLRU`, as a desktop's automount would. Without a terminal it only prints the `udisksctl mount` command. `kalib eject` on an unmounted drive just says it is safe to unplug.
 
 `kalib eject` (TUI `E`) flushes and ejects the drive, so the synth sees complete files: on Linux with `udisksctl` (unmount, then power off), on macOS with `diskutil eject`, on Windows directly through the drive (flush, lock, dismount, eject). Close shells and file managers that have the drive open first.
 
@@ -92,7 +94,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `e` | ask the synth to export slots: empty `expNNN.bin` files plus `exp.bin`; offers to delete old export files first |
 | `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KALIB_FETCH_DIR` |
 | `X` | delete export files (`expNNN.bin`, `exp.bin`, `expc.bin`) after showing them |
-| `D` | open the synth's drive |
+| `D` | open the synth's drive; offers to mount it if it is connected but not mounted |
 | `E` | eject the synth's drive |
 | `c` | copy the preset to a folder (e.g. the synth's drive) as `impNNN.bin` for import into a slot, plus `imp.bin` |
 | `v` / Tab | switch view: device, parameters, hex dump |

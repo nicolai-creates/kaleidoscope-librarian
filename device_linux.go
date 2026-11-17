@@ -68,6 +68,34 @@ func findVolume(label string) (string, bool) {
 	return "", false
 }
 
+// unmountedVolume returns the device of the filesystem with the given label
+// if it is connected but not mounted.
+func unmountedVolume(label string) (string, bool) {
+	dev, err := filepath.EvalSymlinks("/dev/disk/by-label/" + label)
+	if err != nil {
+		return "", false
+	}
+	for _, m := range mounts() {
+		if m.source == dev {
+			return "", false
+		}
+	}
+	return dev, true
+}
+
+// mountVolume mounts dev with udisksctl, as a desktop's automount does
+// (under /run/media/$USER).
+func mountVolume(dev string) error {
+	if _, err := exec.LookPath("udisksctl"); err != nil {
+		return fmt.Errorf("udisksctl is not installed: mount %s in your file manager", dev)
+	}
+	out, err := exec.Command("udisksctl", "mount", "--no-user-interaction", "-b", dev).CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("udisksctl mount %s: %s", dev, strings.TrimSpace(string(out)))
+	}
+	return nil
+}
+
 // mountOf returns the mount that holds dir (the longest matching mount point).
 func mountOf(dir string) (mount, bool) {
 	abs, err := filepath.Abs(dir)

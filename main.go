@@ -15,7 +15,7 @@
 //	kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
 //	kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
 //	kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-//	kalib device                        print where the synth's drive (KLRU) is mounted
+//	kalib device                        print where the synth's drive (KLRU) is mounted; offers to mount it
 //	kalib eject                         flush and eject the synth's drive
 //	kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 //	kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
@@ -38,6 +38,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"golang.org/x/term"
 )
 
 // version is the kalib release; override with -ldflags "-X main.version=...".
@@ -77,12 +79,16 @@ func main() {
 		err = cmdBatch(cmd, args)
 	case "device":
 		var dir string
-		if dir, err = findDevice(); err == nil {
+		if dir, err = deviceDir(); err == nil {
 			fmt.Println(dir)
 		}
 	case "eject":
 		var dir string
-		if dir, err = findDevice(); err == nil {
+		var nm notMountedError
+		if dir, err = findDevice(); errors.As(err, &nm) {
+			fmt.Printf("%s (%s) is not mounted: safe to unplug\n", deviceLabel, nm.dev)
+			err = nil
+		} else if err == nil {
 			var note string
 			if note, err = ejectDevice(dir); err == nil {
 				fmt.Println("ejected", dir+": safe to unplug")
@@ -138,7 +144,7 @@ func usage() {
   kalib name2file [-n] FILE|DIR...    imp003.bin -> imp003_spacehunt.bin
   kalib file2name [-n] FILE|DIR...    imp003_foo.bin -> stored name "foo"
   kalib strip [-n] FILE|DIR...        imp003_spacehunt.bin -> imp003.bin
-  kalib device                        print where the synth's drive (KLRU) is mounted
+  kalib device                        print where the synth's drive (KLRU) is mounted; offers to mount it
   kalib eject                         flush and eject the synth's drive
   kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
   kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
@@ -278,7 +284,30 @@ func dirOrDevice(args []string) (string, error) {
 	if len(args) > 0 {
 		return args[0], nil
 	}
-	return findDevice()
+	return deviceDir()
+}
+
+// deviceDir finds the synth's drive like findDevice. If the drive is
+// connected but not mounted, it asks on the terminal whether to mount it.
+func deviceDir() (string, error) {
+	dir, err := findDevice()
+	var nm notMountedError
+	if !errors.As(err, &nm) {
+		return dir, err
+	}
+	if !term.IsTerminal(int(os.Stdin.Fd())) {
+		return "", fmt.Errorf("%v (mount it with: udisksctl mount -b %s)", err, nm.dev)
+	}
+	fmt.Fprintf(os.Stderr, "%v. Mount it? [y/N] ", err)
+	var a string
+	fmt.Scanln(&a)
+	if a != "y" && a != "Y" {
+		return "", errors.New("not mounted")
+	}
+	if dir, err = mountDevice(nm.dev); err == nil {
+		fmt.Fprintln(os.Stderr, "mounted", nm.dev, "at", dir)
+	}
+	return dir, err
 }
 
 // cmdRequest creates empty expNNN.bin files and the exp.bin marker: the

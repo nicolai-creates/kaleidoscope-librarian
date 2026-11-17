@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -107,7 +108,7 @@ var longHelp = []string{
 	"b                               fetch exported presets (expNNN.bin) to a folder, e.g. a backup",
 	"X                               delete export files (expNNN.bin, exp.bin, expc.bin)",
 	"c                               copy the preset to a folder for import into a slot",
-	"D                               open the synth's drive (KLRU)",
+	"D                               open the synth's drive (KLRU); offers to mount it",
 	"E                               eject the synth's drive",
 	"g                               reload the folder",
 	"? h                             this help",
@@ -366,6 +367,11 @@ func (u *ui) handleRune(r rune) bool {
 		u.reload()
 		u.setMsg("opened the synth's drive " + dir)
 	case 'E':
+		var nm notMountedError
+		if _, err := findDevice(); errors.As(err, &nm) {
+			u.setMsg(deviceLabel + " (" + nm.dev + ") is not mounted: safe to unplug")
+			return true
+		}
 		dir, ok := u.device()
 		if !ok {
 			return true
@@ -519,9 +525,21 @@ func (u *ui) askFolder(q, initial string) (string, bool) {
 }
 
 // popup shows lines in a centered box until a key is pressed.
-// device finds the synth's drive, or explains in a popup why it can't.
+// device finds the synth's drive, or explains in a popup why it can't. If
+// the drive is connected but not mounted, it offers to mount it.
 func (u *ui) device() (string, bool) {
 	dir, err := findDevice()
+	var nm notMountedError
+	if errors.As(err, &nm) {
+		if !u.confirm(deviceLabel + " is not mounted, but the synth's drive was found at " + nm.dev + ". Mount it?") {
+			return "", false
+		}
+		if dir, err = mountDevice(nm.dev); err != nil {
+			u.popup([]string{"Mount failed", "", err.Error(), "", "Press any key to continue."})
+			return "", false
+		}
+		u.setMsg("mounted " + nm.dev + " at " + dir)
+	}
 	switch {
 	case err == errNoDevice:
 		u.popup([]string{
