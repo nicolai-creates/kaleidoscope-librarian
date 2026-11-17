@@ -408,13 +408,20 @@ func usedSlots(dir, kind string) (map[int]string, error) {
 }
 
 // targetRequests returns the export request files to create in dir and the
-// slots skipped because a file for them exists already.
+// slots skipped because a file for them exists already. The init slot is
+// left out: it is always empty.
 func targetRequests(dir string, slots []int) (create []string, skipped []string, err error) {
 	used, err := usedSlots(dir, "exp")
 	if err != nil {
 		return nil, nil, err
 	}
 	for _, s := range slots {
+		if s == initSlot {
+			if len(slots) == 1 {
+				return nil, nil, fmt.Errorf("slot %d is the init preset, always empty: not requested", initSlot)
+			}
+			continue
+		}
 		if f, ok := used[s]; ok {
 			skipped = append(skipped, f)
 		} else {

@@ -18,6 +18,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0
 - TUI `E`: the result shows in a popup (ejected, failed, or not mounted). If the open folder was on the ejected drive, the list and the header are cleared.
 - Delete files: TUI `x` deletes the selected file; TUI `Z` and `kalib clean -empty` delete empty `impNNN.bin` / `expNNN.bin`: 0-byte files (unanswered requests) and the synth's exports of empty slots (an exact match of its init patch named `empty`, so a preset you named `empty` stays). The markers stay.
 - Progress bar for bulk operations: export requests, deleting, fetching, and changes to all presets (TUI popup; CLI line when run in a terminal).
+- Export requests leave out slot 127, the init preset (always empty). `kalib request 127` alone is refused.
 - **Labels** follow the firmware v84 display: `vSEQ-PTRN`, `mSEQ-PTRN` (were `PATN`), `INTF-tSEL`, `INTF-wSEL`, `INTF-wSYN` (were `TSEL`, `WSEL`, `WSYN`). This changes the labels in `export` and `stats` output.
 
 ## 0.4 (2026-11-09)
