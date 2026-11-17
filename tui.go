@@ -113,6 +113,7 @@ var longHelp = []string{
 	"g                               reload the folder",
 	"? h                             this help",
 	"q  Esc                          quit",
+	"Ctrl-Z                          suspend (fg to return)",
 }
 
 func runTUI(dir string) error {
@@ -136,7 +137,7 @@ func runTUI(dir string) error {
 	u.popup(append(append([]string{title + " " + version, byline, ""}, warning...), "", "Press any key to continue."))
 	for {
 		u.draw()
-		switch ev := s.PollEvent().(type) {
+		switch ev := u.poll().(type) {
 		case *tcell.EventKey:
 			if !u.handleKey(ev) {
 				return nil
@@ -145,6 +146,18 @@ func runTUI(dir string) error {
 			u.handleMouse(ev)
 		}
 	}
+}
+
+// poll waits for the next event. Ctrl-Z suspends kalib; after fg it returns
+// a resize event, so the caller's loop redraws the screen.
+func (u *ui) poll() tcell.Event {
+	ev := u.s.PollEvent()
+	if k, ok := ev.(*tcell.EventKey); ok && k.Key() == tcell.KeyCtrlZ {
+		suspend(u.s)
+		w, h := u.s.Size()
+		return tcell.NewEventResize(w, h)
+	}
+	return ev
 }
 
 // handleMouse scrolls the pane under the pointer with the wheel: the preset
@@ -504,7 +517,7 @@ func (u *ui) ask(head []string, initial string) (string, bool) {
 		x0, y0 := u.drawBox(lines)
 		u.s.ShowCursor(x0+2+len(shown), y0+2+len(head))
 		u.s.Show()
-		ev, ok := u.s.PollEvent().(*tcell.EventKey)
+		ev, ok := u.poll().(*tcell.EventKey)
 		if !ok {
 			continue
 		}
@@ -560,7 +573,7 @@ func (u *ui) device() (string, bool) {
 func (u *ui) popup(lines []string) {
 	for {
 		u.drawBox(lines)
-		if _, ok := u.s.PollEvent().(*tcell.EventKey); ok {
+		if _, ok := u.poll().(*tcell.EventKey); ok {
 			return
 		}
 	}
@@ -640,7 +653,7 @@ func (u *ui) askList(head, items []string, foot, keys string) rune {
 			lines = append(lines, fmt.Sprintf("  … %d more   + show all", len(items)-rows))
 		}
 		u.drawBox(append(lines, "", foot))
-		ev, ok := u.s.PollEvent().(*tcell.EventKey)
+		ev, ok := u.poll().(*tcell.EventKey)
 		if !ok {
 			continue
 		}
@@ -685,7 +698,7 @@ func (u *ui) askList(head, items []string, foot, keys string) rune {
 func (u *ui) confirm(q string) bool {
 	for {
 		u.drawBox([]string{q, "", "y  yes      n  no"})
-		ev, ok := u.s.PollEvent().(*tcell.EventKey)
+		ev, ok := u.poll().(*tcell.EventKey)
 		if !ok {
 			continue
 		}

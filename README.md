@@ -106,6 +106,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `J` / `K` | scroll the info pane |
 | `g` | reload the folder |
 | `q` / Esc | quit |
+| Ctrl-Z | suspend to the shell (`fg` to return) |
 
 The **device** view (the default) shows one line per page and one column per encoder, with values converted to what the synth displays (e.g. `C2h`, `tr2`, `-128`, the step sequence as bars). Values whose encoding is not known yet are shown dimmed as raw numbers. The **parameters** view lists every stored value with its byte offset, ordered like the synth: page group, page, encoder. The **hex dump** colours the bytes by field.
 
