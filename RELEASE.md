@@ -16,6 +16,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0
 - Mount the synth's drive (Linux): if `KLRU` is connected but not mounted, `kalib device`, `request`, `import`, `fetch`, `clean` and TUI `D` ask whether to mount it, then mount it with `udisksctl`.
 - TUI: Ctrl-Z suspends kalib to the shell (`fg` returns); before, the key was swallowed.
 - TUI `E`: the result shows in a popup (ejected, failed, or not mounted). If the open folder was on the ejected drive, the list and the header are cleared.
+- Delete files: TUI `x` deletes the selected file; TUI `Z` and `kalib clean -empty` delete empty `impNNN.bin` / `expNNN.bin`: 0-byte files (unanswered requests) and the synth's exports of empty slots (an exact match of its init patch named `empty`, so a preset you named `empty` stays). The markers stay.
 - **Labels** follow the firmware v84 display: `vSEQ-PTRN`, `mSEQ-PTRN` (were `PATN`), `INTF-tSEL`, `INTF-wSEL`, `INTF-wSYN` (were `TSEL`, `WSEL`, `WSYN`). This changes the labels in `export` and `stats` output.
 
 ## 0.4 (2026-11-09)

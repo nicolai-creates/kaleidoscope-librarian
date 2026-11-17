@@ -20,6 +20,7 @@
 //	kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
 //	kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
 //	kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+//	kalib clean -empty [-n] [-y] [DIR]  delete empty imp/exp files: 0 bytes or empty-slot exports
 //	kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 //	kalib export json|csv [dir]         decoded dump of all presets to stdout
 //	kalib stats [dir]                   per-byte statistics across all presets
@@ -149,6 +150,7 @@ func usage() {
   kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7, all)
   kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
   kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+  kalib clean -empty [-n] [-y] [DIR]  delete empty imp/exp files: 0 bytes or empty-slot exports
   kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
   kalib export json|csv [dir]         decoded dump of all presets to stdout
   kalib stats [dir]                   per-byte statistics across all presets
@@ -399,15 +401,20 @@ func cmdClean(args []string) error {
 	fs := flag.NewFlagSet("clean", flag.ExitOnError)
 	dry := fs.Bool("n", false, "dry run")
 	yes := fs.Bool("y", false, "do not ask")
+	empty := fs.Bool("empty", false, "only empty impNNN.bin and expNNN.bin files: 0 bytes or empty-slot exports")
 	fs.Parse(args)
 	if fs.NArg() > 1 {
-		return errors.New("usage: kalib clean [-n] [-y] [DIR]")
+		return errors.New("usage: kalib clean [-n] [-y] [-empty] [DIR]")
 	}
 	dir, err := dirOrDevice(fs.Args())
 	if err != nil {
 		return err
 	}
-	files, err := targetClean(dir)
+	target := targetClean
+	if *empty {
+		target = targetEmpty
+	}
+	files, err := target(dir)
 	if err != nil || len(files) == 0 {
 		return err
 	}

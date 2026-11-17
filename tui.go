@@ -106,7 +106,9 @@ var longHelp = []string{
 	"i                               create or remove the imp.bin import marker",
 	"e                               ask the synth to export slots (empty expNNN.bin + exp.bin)",
 	"b                               fetch exported presets (expNNN.bin) to a folder, e.g. a backup",
+	"x                               delete the selected file",
 	"X                               delete export files (expNNN.bin, exp.bin, expc.bin)",
+	"Z                               delete empty imp/exp files: 0 bytes or empty-slot exports",
 	"c                               copy the preset to a folder for import into a slot",
 	"D                               open the synth's drive (KLRU); offers to mount it",
 	"E                               eject the synth's drive",
@@ -223,7 +225,7 @@ func (u *ui) handleKey(ev *tcell.EventKey) bool {
 
 func (u *ui) handleRune(r rune) bool {
 	p := u.selected()
-	if u.dir == "" && strings.ContainsRune("gieXb", r) {
+	if u.dir == "" && strings.ContainsRune("gieXZb", r) {
 		u.setErr("no folder open: D opens the synth's drive")
 		return true
 	}
@@ -312,6 +314,28 @@ func (u *ui) handleRune(r rune) bool {
 		}
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export requests created, %d skipped (exist); marker %s set", len(create), len(skipped), expMarkerFile))
+	case 'x':
+		if p == nil {
+			return true
+		}
+		if !u.confirm("Delete " + p.File() + "?") {
+			return true
+		}
+		err := os.Remove(p.Path)
+		u.reload()
+		u.result(err, "deleted "+p.File())
+	case 'Z':
+		files, err := targetEmpty(u.dir)
+		if err != nil || len(files) == 0 {
+			u.result(err, "no empty imp/exp files in "+u.dir)
+			return true
+		}
+		if u.askList([]string{"Delete these empty files from " + u.dir + "?", "0-byte files and the synth's exports of empty slots; the markers stay."}, files, "y  delete   n  keep", "yn") != 'y' {
+			return true
+		}
+		err = opClean(u.dir, files)
+		u.reload()
+		u.result(err, fmt.Sprintf("%d empty files deleted", len(files)))
 	case 'X':
 		files, err := targetClean(u.dir)
 		if err != nil || len(files) == 0 {

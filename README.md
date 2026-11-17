@@ -61,6 +61,7 @@ kalib request [-n] [DIR] SLOTS      ask the synth to export slots (5, 1-10, 3,7,
 kalib import [-n] FILE SLOT [DIR]   copy a preset to DIR for import into SLOT
 kalib fetch [-n] [TARGET [DIR]]     copy exported presets to TARGET (backup)
 kalib clean [-n] [-y] [DIR]         delete export files (expNNN.bin, exp.bin, expc.bin)
+kalib clean -empty [-n] [-y] [DIR]  delete empty imp/exp files: 0 bytes or empty-slot exports
 kalib export json|csv [dir]         decoded dump of all presets to stdout
 kalib stats [dir]                   per-byte statistics across all presets
 kalib version                       print the version
@@ -93,7 +94,9 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `i` | create or remove the `imp.bin` import marker |
 | `e` | ask the synth to export slots: empty `expNNN.bin` files plus `exp.bin`; offers to delete old export files first |
 | `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KALIB_FETCH_DIR` |
+| `x` | delete the selected file (asks first) |
 | `X` | delete export files (`expNNN.bin`, `exp.bin`, `expc.bin`) after showing them |
+| `Z` | delete empty `impNNN.bin` / `expNNN.bin`: 0-byte files (unanswered requests) and exports of empty slots (the synth exports them as its init patch named `empty`; only an exact match counts, so your own preset named `empty` stays); the markers stay |
 | `D` | open the synth's drive; offers to mount it if it is connected but not mounted |
 | `E` | eject the synth's drive; if it is the open folder, the list is cleared |
 | `c` | copy the preset to a folder (e.g. the synth's drive) as `impNNN.bin` for import into a slot, plus `imp.bin` |

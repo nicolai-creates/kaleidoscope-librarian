@@ -502,7 +502,36 @@ func targetClean(dir string) ([]string, error) {
 	return files, nil
 }
 
-// opClean deletes the files (from targetClean) in dir.
+// targetEmpty returns the empty impNNN.bin and expNNN.bin files in dir:
+// files of 0 bytes (e.g. unanswered export requests) and the synth's
+// exports of empty slots (isEmptyPatch; a preset merely named "empty" is
+// kept). The markers imp.bin and exp.bin are kept.
+func targetEmpty(dir string) ([]string, error) {
+	es, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	var files []string
+	for _, e := range es {
+		if !e.Type().IsRegular() {
+			continue
+		}
+		if k := (&Preset{Path: e.Name()}).Kind(); k != "imp" && k != "exp" {
+			continue
+		}
+		info, err := e.Info()
+		if err != nil {
+			continue
+		}
+		if info.Size() == 0 || (info.Size() == presetSize && isEmptyPatch(loadPreset(filepath.Join(dir, e.Name())))) {
+			files = append(files, e.Name())
+		}
+	}
+	sort.Strings(files)
+	return files, nil
+}
+
+// opClean deletes the files (from targetClean or targetEmpty) in dir.
 func opClean(dir string, files []string) error {
 	for _, f := range files {
 		if err := os.Remove(filepath.Join(dir, f)); err != nil {
