@@ -340,7 +340,7 @@ func cmdRequest(args []string) error {
 		return nil
 	}
 	if !*dry {
-		if err := opRequests(dir, create); err != nil {
+		if err := opRequests(dir, create, cliProgress("creating requests", len(create))); err != nil {
 			return err
 		}
 	}
@@ -385,7 +385,7 @@ func cmdFetch(args []string) error {
 		return fmt.Errorf("nothing to fetch from %s", dir)
 	}
 	if !*dry {
-		if err := opFetch(to, fetch); err != nil {
+		if err := opFetch(to, fetch, cliProgress("copying", len(fetch))); err != nil {
 			return err
 		}
 	}
@@ -432,7 +432,7 @@ func cmdClean(args []string) error {
 			return errors.New("nothing deleted")
 		}
 	}
-	if err := opClean(dir, files); err != nil {
+	if err := opClean(dir, files, cliProgress("deleting", len(files))); err != nil {
 		return err
 	}
 	fmt.Printf("%d files deleted\n", len(files))

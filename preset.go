@@ -425,13 +425,14 @@ func targetRequests(dir string, slots []int) (create []string, skipped []string,
 }
 
 // opRequests creates the empty export requests and the export marker.
-func opRequests(dir string, create []string) error {
-	for _, f := range create {
+func opRequests(dir string, create []string, prog progressFn) error {
+	for i, f := range create {
 		fh, err := os.OpenFile(filepath.Join(dir, f), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o644)
 		if err != nil {
 			return err
 		}
 		fh.Close()
+		prog.step(i + 1)
 	}
 	return createMarker(dir, expMarkerFile)
 }
@@ -532,11 +533,12 @@ func targetEmpty(dir string) ([]string, error) {
 }
 
 // opClean deletes the files (from targetClean or targetEmpty) in dir.
-func opClean(dir string, files []string) error {
-	for _, f := range files {
+func opClean(dir string, files []string, prog progressFn) error {
+	for i, f := range files {
 		if err := os.Remove(filepath.Join(dir, f)); err != nil {
 			return err
 		}
+		prog.step(i + 1)
 	}
 	return nil
 }
@@ -575,14 +577,15 @@ func targetFetch(dir, to string) (fetch []*Preset, skipped []string, err error) 
 
 // opFetch copies the presets unchanged, under the same filename, to the
 // folder to, which it creates if needed.
-func opFetch(to string, fetch []*Preset) error {
+func opFetch(to string, fetch []*Preset, prog progressFn) error {
 	if err := os.MkdirAll(to, 0o755); err != nil {
 		return err
 	}
-	for _, p := range fetch {
+	for i, p := range fetch {
 		if err := writeAtomic(filepath.Join(to, p.File()), p.Data); err != nil {
 			return err
 		}
+		prog.step(i + 1)
 	}
 	return nil
 }

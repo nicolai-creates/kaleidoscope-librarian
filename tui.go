@@ -299,7 +299,7 @@ func (u *ui) handleRune(r rune) bool {
 			switch u.askList([]string{"Delete old export files first?", "Slots with an export file are not requested again."},
 				old, "y  delete first   n  keep   Esc  cancel", "yn") {
 			case 'y':
-				if err := opClean(u.dir, old); err != nil {
+				if err := opClean(u.dir, old, u.progress("Deleting old export files", len(old))); err != nil {
 					u.reload()
 					u.setErr(err.Error())
 					return true
@@ -310,7 +310,7 @@ func (u *ui) handleRune(r rune) bool {
 		}
 		create, skipped, err := targetRequests(u.dir, slots)
 		if err == nil {
-			err = opRequests(u.dir, create)
+			err = opRequests(u.dir, create, u.progress("Creating export requests", len(create)))
 		}
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export requests created, %d skipped (exist); marker %s set", len(create), len(skipped), expMarkerFile))
@@ -333,7 +333,7 @@ func (u *ui) handleRune(r rune) bool {
 		if u.askList([]string{"Delete these empty files from " + u.dir + "?", "0-byte files and the synth's exports of empty slots; the markers stay."}, files, "y  delete   n  keep", "yn") != 'y' {
 			return true
 		}
-		err = opClean(u.dir, files)
+		err = opClean(u.dir, files, u.progress("Deleting empty files", len(files)))
 		u.reload()
 		u.result(err, fmt.Sprintf("%d empty files deleted", len(files)))
 	case 'X':
@@ -345,7 +345,7 @@ func (u *ui) handleRune(r rune) bool {
 		if u.askList([]string{"Delete these export files from " + u.dir + "?"}, files, "y  delete   n  keep", "yn") != 'y' {
 			return true
 		}
-		err = opClean(u.dir, files)
+		err = opClean(u.dir, files, u.progress("Deleting export files", len(files)))
 		u.reload()
 		u.result(err, fmt.Sprintf("%d export files deleted", len(files)))
 	case 'b':
@@ -362,7 +362,7 @@ func (u *ui) handleRune(r rune) bool {
 			err = fmt.Errorf("nothing to fetch from %s", u.dir)
 		}
 		if err == nil {
-			err = opFetch(to, fetch)
+			err = opFetch(to, fetch, u.progress("Copying presets to "+to, len(fetch)))
 		}
 		if err == nil && len(skipped) > 0 {
 			u.askList([]string{fmt.Sprintf("%d presets copied to %s, %d skipped:", len(fetch), to, len(skipped))},
@@ -477,15 +477,16 @@ func (u *ui) all(what string, op func(*Preset) error) {
 	}
 	var errs []string
 	n := 0
-	for _, p := range u.ps {
-		if !p.Valid() {
-			continue
+	prog := u.progress(what, len(u.ps))
+	for i, p := range u.ps {
+		if p.Valid() {
+			if err := op(p); err != nil {
+				errs = append(errs, err.Error())
+			} else {
+				n++
+			}
 		}
-		if err := op(p); err != nil {
-			errs = append(errs, err.Error())
-		} else {
-			n++
-		}
+		prog.step(i + 1)
 	}
 	u.resort()
 	if len(errs) > 0 {
@@ -610,6 +611,17 @@ func (u *ui) device() (string, bool) {
 		u.popup([]string{"Synth not found", "", err.Error(), "", "Press any key to continue."})
 	}
 	return dir, err == nil
+}
+
+// progress shows a popup with title and a progress bar for total steps
+// and returns the progressFn that advances it. The screen does not take
+// keys meanwhile; the popup goes away with the next redraw.
+func (u *ui) progress(title string, total int) progressFn {
+	show := func(done int) {
+		u.drawBox([]string{title, "", progressBar(done, total, 40)})
+	}
+	show(0)
+	return throttle(total, show)
 }
 
 // within reports whether path is dir or lies inside it.
