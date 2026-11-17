@@ -24,9 +24,9 @@ The manual's MIDI parameter table gives every parameter a CC number. **The byte 
 - Every `ff` byte in 0x04-0x7f (identical in all 39 files) is a CC that stores no value: the ALIA parameters of the nine modulation matrices (CC 37, 47, 51, 55, 63, 69, 75, 79, 83; ALIA only mirrors the modulated parameter), and the unused CCs 26, 85-111, 115, 117-127. Firmware v81 also writes 85-92 (see Device tests).
 - Every other byte in that range is a parameter from the table, except 0x70 and 0x71 (CC 112, 113), which the manual does not list.
 - The two "records" of the earlier analysis are the modulation matrices. The CC order puts DEPT first in vMX/mMX (`DEPT, PARM, DEST`) and last in aMX/fMX/kMX/wMX/bMX (`PARM, DEST, DEPT`). The 5-byte records are the aftertouch, velocity and keytrack matrices followed by RISE and FALL of their smoothing page; mod wheel and pitch bend have no smoothing page, hence 3 bytes.
-- Values sit where the manual's ranges put the midpoint: MIDL `40` (0.5), every DEPT `40` (0), TRAN and FINE `3f`, mENV-SHAP `40`. BPM is `78` = 120 in 33 files, `5a` = 90, `8c` = 140. Both pattern fields default to PSIZ `07` (8 steps, 0-based) with PATN `ff` (all steps on).
+- Values sit where the manual's ranges put the midpoint: MIDL `40` (0.5), every DEPT `40` (0), TRAN and FINE `3f`, mENV-SHAP `40`. BPM is `78` = 120 in 33 files, `5a` = 90, `8c` = 140. Both pattern fields default to PSIZ `07` (8 steps, 0-based) with PTRN `ff` (all steps on).
 
-Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed FOLD to MULT (v76) and SBTV to SUBT (v80). The display also shows pMX as bMX and the MIDI channels as vCHN, mCHN, pCHN. The pages are grouped as on the page selector (8 groups of 4 pages; group 7 holds the step modulator since v76, group 8 is empty):
+Labels are `PAGE-PARM` as on the synth display with firmware v84, which renamed FOLD to MULT (v76), SBTV to SUBT (v80), and PTSZ to PSIZ on vSEQ/mSEQ and sSEL, sSYN to wSEL, wSYN on INTF (v84). The display also shows pMX as bMX and the MIDI channels as vCHN, mCHN, pCHN. The pages are grouped as on the page selector (8 groups of 4 pages; group 7 holds the step modulator since v76, group 8 is empty):
 
 | Group | Pages |
 |---|---|
@@ -41,7 +41,7 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | Offset | CC | Label | Observed in the factory presets |
 |---|---|---|---|
 | 0x04 | 4 | vSEQ-PSIZ | `07` in 35 files; `02` motor, aliengirl; `03` acidrave2; `04` punchface |
-| 0x05 | 5 | vSEQ-PATN | `ff` in 35 files; `0f`, `1b`, `15` in the same four |
+| 0x05 | 5 | vSEQ-PTRN | `ff` in 35 files; `0f`, `1b`, `15` in the same four |
 | 0x06 | 6 | FREQ-FINE | 31-116, `3f` in 14 |
 | 0x07 | 7 | ADTV-DRIV | 29-94 |
 | 0x08 | 8 | vENV-PERI | 24-98 |
@@ -71,17 +71,17 @@ Labels are `PAGE-PARM` as on the synth display with firmware v81, which renamed 
 | 0x21 | 33 | mENV-QNT1 | 0-19 |
 | 0x22 | 34 | MAST-FMVO | 16-112, `40` in 13 |
 | 0x23 | 35 | vENV-RELE | 0-103 |
-| 0x24 | 36 | INTF-TSEL | `00` (HOLD), `01` (DRONE) motor, aliengirl |
+| 0x24 | 36 | INTF-tSEL | `00` (HOLD), `01` (DRONE) motor, aliengirl |
 | 0x26 | 38 | INTF-BPM | 120, 90, 140 |
 | 0x27 | 39 | FREQ-SCAL | `00` (26), `0f` (10), `01`-`03` |
-| 0x28 | 40 | INTF-WSEL | `0f` (35), `ff` (4) |
-| 0x29 | 41 | INTF-WSYN | `00` (33), `ff` (4), `03` (2) |
+| 0x28 | 40 | INTF-wSEL | `0f` (35), `ff` (4) |
+| 0x29 | 41 | INTF-wSYN | `00` (33), `ff` (4), `03` (2) |
 | 0x2a | 42 | cc42 | `04` in every file and in the v81 exports; the manual's CC for mCH, but the channel is stored at 0x71 |
 | 0x2b | 43 | cc43 | `04` everywhere; the manual's CC for vCH, stored at 0x70 |
 | 0x2c-0x2e | 44-46 | mMX2-DEPT, PARM, DEST | |
 | 0x30-0x32 | 48-50 | vMX1-DEPT, PARM, DEST | |
 | 0x34-0x36 | 52-54 | vMX2-DEPT, PARM, DEST | |
-| 0x38 | 56 | mSEQ-PATN | `ff` in 37; `07` acidrave2, `0f` punchface |
+| 0x38 | 56 | mSEQ-PTRN | `ff` in 37; `07` acidrave2, `0f` punchface |
 | 0x39 | 57 | mSEQ-PSIZ | `07` in 37; `04` acidrave2, `02` punchface |
 | 0x3a-0x3e | 58-62 | aMX-PARM, DEST, DEPT, aENV-RISE, FALL | default `00 00 40 3c 3c` |
 | 0x40-0x44 | 64-68 | fMX-PARM, DEST, DEPT, fENV-RISE, FALL | default `00 00 40 3c 3c` |
@@ -103,7 +103,7 @@ Test files in `refactoring-01/` and `refactoring-02/`, exported from a Kaleidosc
 |---|---|
 | exp100.bin | spacehunt loaded into track 3 and saved unchanged; tracks set to channel = track number |
 | exp101.bin | spacehunt loaded into track 2 and saved unchanged |
-| exp102.bin | empty patch, then DEST, LINK, FMSR, SEND, SCAL, TSEL, BPM changed |
+| exp102.bin | empty patch, then DEST, LINK, FMSR, SEND, SCAL, tSEL, BPM changed |
 | exp103.bin | empty patch, then parameters set to their minimum or maximum |
 | exp104.bin | empty patch, step modulator: length 5, steps +5/-5, RAND 7, sMX PARM FILT, DEST tr2, TSRC mENV |
 | exp105.bin | as exp104, then ROTA turned one click |
@@ -112,7 +112,7 @@ Confirmed:
 - PRST-SLOT is the slot the preset was saved to (100-103).
 - vMX/mMX DEST is the track, 0-based: displayed 2, 3, 4 are stored as `01`, `02`, `03`.
 - LINK, FMSR and SEND are track bit masks, bit 0 = track 1: tracks 1+3 = `05`, track 2 = `02`, output 1 = `01`.
-- TSEL EDIT = `02`, SCAL nMAJ = `01`, BPM is stored as is (200 = `c8`).
+- tSEL EDIT = `02`, SCAL nMAJ = `01`, BPM is stored as is (200 = `c8`).
 - Minimum is `00` and maximum `7f` for MIDL, vENV-PERI, FILT, RESO, TRAN, mENV-PERI and GLID.
 - TRAN: displayed value + 63 (12 = `4b`, the empty patch default; maximum = `7f`).
 - DEPT: `40` + depth, wrapping at 8 bits. Display minimum -128 = `c0`, maximum 128 = `bf`. This explains the factory values above 127.
@@ -198,8 +198,8 @@ The name charset and the device files come from the manufacturer's code. The man
 
 What that means in practice:
 - **Field positions** (which byte is which parameter) are well supported: the CC numbering explains every byte of the parameter area, and every device test hit the expected byte.
-- **Value encodings** are confirmed only for the parameters listed under Device tests: track numbers and masks, TSEL, BPM, TRAN, DEPT, FILT, the MIDI channels, the step modulator and the PARM list. For MIDL, RESO, vENV-PERI, mENV-PERI and GLID only the end points are known (`00` = minimum, `7f` = maximum).
-- **Not decoded:** how raw values map to displayed values for the time parameters (PERI, RELE, RISE, FALL, and GLID, which needs a separate look), SHAP, SUST, MULT, MIX, DRIV (its lookup table changed in v76), FEDB, DELA (rhythmic range 0-35 vs. notes), FINE, VOLU, FMVO, and the QNT modes added in v76 (sample & hold, envelope follower). Also undecoded: SCAL beyond OFF and nMAJ, and TSEL beyond EDIT (1HOT since v76).
+- **Value encodings** are confirmed only for the parameters listed under Device tests: track numbers and masks, tSEL, BPM, TRAN, DEPT, FILT, the MIDI channels, the step modulator and the PARM list. For MIDL, RESO, vENV-PERI, mENV-PERI and GLID only the end points are known (`00` = minimum, `7f` = maximum).
+- **Not decoded:** how raw values map to displayed values for the time parameters (PERI, RELE, RISE, FALL, and GLID, which needs a separate look), SHAP, SUST, MULT, MIX, DRIV (its lookup table changed in v76), FEDB, DELA (rhythmic range 0-35 vs. notes), FINE, VOLU, FMVO, and the QNT modes added in v76 (sample & hold, envelope follower). Also undecoded: SCAL beyond OFF and nMAJ, and tSEL beyond EDIT (1HOT since v76).
 - **Firmware:** everything from the device was tested on v81 only. Other versions may store values differently, and presets from before v76 have no step modulator data (see Device tests).
 - **Tail (0x8b-0xff):** apart from the step values at 0x8c-0x9b, treated as leftover data, not verified.
 - **kalib** only reads parameters. It changes nothing but the name (0x80-0x8a) and filenames.

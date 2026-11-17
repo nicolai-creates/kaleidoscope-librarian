@@ -18,7 +18,7 @@ A terminal tool for managing preset files of the [Vadjuse](https://vadjuse.ru) K
  008  sineburn       imp008.bin           │
  009  ash            imp009.bin           │ 2 Volume envelope
  010  scratch        imp010.bin           │ vENV  SHAP 0        PERI 36       SUST 36       RELE 61
- 011  melanholia     imp011.bin           │ vSEQ  EOC  0        LINK 1···     PATN 255      PSIZ 7
+ 011  melanholia     imp011.bin           │ vSEQ  EOC  0        LINK 1···     PTRN 255      PSIZ 7
  012  energycore     imp012.bin           │ vMX1  PARM FREQ     DEST tr1      DEPT 16       ALIA ·
  013  lostinspacy    imp013.bin           │ vMX2  PARM FILT     DEST tr1      DEPT 50       ALIA ·
  014  unstable       imp014.bin           │

@@ -48,7 +48,7 @@ const slotOff = 0x72
 var layout = []field{
 	{0x00, 4, "magic", "ff ff ff ff"},
 	{0x04, 1, "vSEQ-PSIZ", "pattern size"},
-	{0x05, 1, "vSEQ-PATN", "pattern mask"},
+	{0x05, 1, "vSEQ-PTRN", "pattern mask"},
 	{0x06, 1, "FREQ-FINE", "fine tuning"},
 	{0x07, 1, "ADTV-DRIV", "overdrive"},
 	{0x08, 1, "vENV-PERI", "attack-decay period"},
@@ -78,11 +78,11 @@ var layout = []field{
 	{0x21, 1, "mENV-QNT1", "quantize 1"},
 	{0x22, 1, "MAST-FMVO", "FM amplitude"},
 	{0x23, 1, "vENV-RELE", "release"},
-	{0x24, 1, "INTF-TSEL", "track selector mode"},
+	{0x24, 1, "INTF-tSEL", "track selector mode"},
 	{0x26, 1, "INTF-BPM", "tempo in BPM"},
 	{0x27, 1, "FREQ-SCAL", "note quantize scale"},
-	{0x28, 1, "INTF-WSEL", "scope tracks"},
-	{0x29, 1, "INTF-WSYN", "scope sync track"},
+	{0x28, 1, "INTF-wSEL", "scope tracks"},
+	{0x29, 1, "INTF-wSYN", "scope sync track"},
 	{0x2a, 1, "cc42", "mCH in the manual; always 04"},
 	{0x2b, 1, "cc43", "vCH in the manual; always 04"},
 	{0x2c, 1, "mMX2-DEPT", "modulation depth, 0x40 = 0, wraps"},
@@ -94,7 +94,7 @@ var layout = []field{
 	{0x34, 1, "vMX2-DEPT", "modulation depth, 0x40 = 0, wraps"},
 	{0x35, 1, "vMX2-PARM", "parameter (PARM list)"},
 	{0x36, 1, "vMX2-DEST", "destination track, 0-based"},
-	{0x38, 1, "mSEQ-PATN", "pattern mask"},
+	{0x38, 1, "mSEQ-PTRN", "pattern mask"},
 	{0x39, 1, "mSEQ-PSIZ", "pattern size"},
 	{0x3a, 1, "aMX-PARM", "aftertouch: parameter (PARM list)"},
 	{0x3b, 1, "aMX-DEST", "aftertouch: destination track, 0-based"},
@@ -184,8 +184,9 @@ func pg(name string, params ...string) synthPage {
 func mx(name string) synthPage  { return pg(name, "PARM", "DEST", "DEPT", "ALIA") }
 func env(name string) synthPage { return pg(name, "RISE", "FALL") }
 
-// synthGroups is the page layout of firmware v81. The step sequence length
-// is set with CURS, so sSEQ-LEN sits in its place.
+// synthGroups is the page layout of firmware v81, with the labels of v84
+// (PTRN, tSEL, wSEL, wSYN). The step sequence length is set with CURS, so
+// sSEQ-LEN sits in its place.
 var synthGroups = []synthGroup{
 	{"Waveform", []synthPage{
 		pg("ADTV", "MIDL", "MULT", "MIX", "DRIV"),
@@ -195,17 +196,17 @@ var synthGroups = []synthGroup{
 	}},
 	{"Volume envelope", []synthPage{
 		pg("vENV", "SHAP", "PERI", "SUST", "RELE"),
-		pg("vSEQ", "EOC", "LINK", "PATN", "PSIZ"),
+		pg("vSEQ", "EOC", "LINK", "PTRN", "PSIZ"),
 		mx("vMX1"), mx("vMX2"),
 	}},
 	{"Modulation envelope", []synthPage{
 		pg("mENV", "SHAP", "PERI", "QNT1", "QNT2"),
-		pg("mSEQ", "EOC", "LINK", "PATN", "PSIZ"),
+		pg("mSEQ", "EOC", "LINK", "PTRN", "PSIZ"),
 		mx("mMX1"), mx("mMX2"),
 	}},
 	{"Configuration", []synthPage{
 		pg("MIDI", "vCHN", "mCHN", "pCHN"),
-		pg("INTF", "BPM", "TSEL", "WSEL", "WSYN"),
+		pg("INTF", "BPM", "tSEL", "wSEL", "wSYN"),
 		{"PRST", []string{"PRST-SLOT", "name"}},
 	}},
 	{"External modulators 1", []synthPage{mx("aMX"), env("aENV"), mx("fMX"), env("fENV")}},
@@ -300,7 +301,7 @@ func displayValue(label string, v byte) (s string, ok bool) {
 		s, ok = lookup(parmNames, v)
 	case "TSRC":
 		s, ok = lookup(tsrcNames, v)
-	case "TSEL":
+	case "tSEL":
 		s, ok = lookup(tselNames, v)
 	case "SCAL":
 		s, ok = lookup(scalNames, v)

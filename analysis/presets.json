@@ -14,7 +14,7 @@
    "note": "pattern size"
   },
   {
-   "label": "vSEQ-PATN",
+   "label": "vSEQ-PTRN",
    "offset": "0x05-0x05",
    "note": "pattern mask"
   },
@@ -164,7 +164,7 @@
    "note": "release"
   },
   {
-   "label": "INTF-TSEL",
+   "label": "INTF-tSEL",
    "offset": "0x24-0x24",
    "note": "track selector mode"
   },
@@ -179,12 +179,12 @@
    "note": "note quantize scale"
   },
   {
-   "label": "INTF-WSEL",
+   "label": "INTF-wSEL",
    "offset": "0x28-0x28",
    "note": "scope tracks"
   },
   {
-   "label": "INTF-WSYN",
+   "label": "INTF-wSYN",
    "offset": "0x29-0x29",
    "note": "scope sync track"
   },
@@ -244,7 +244,7 @@
    "note": "destination track, 0-based"
   },
   {
-   "label": "mSEQ-PATN",
+   "label": "mSEQ-PTRN",
    "offset": "0x38-0x38",
    "note": "pattern mask"
   },
@@ -461,7 +461,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -671,7 +671,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -692,14 +692,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -783,7 +783,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -1209,7 +1209,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -1419,7 +1419,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -1440,14 +1440,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -1531,7 +1531,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -1964,7 +1964,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -2174,7 +2174,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -2195,14 +2195,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       255
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       255
@@ -2286,7 +2286,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -2718,7 +2718,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -2928,7 +2928,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -2949,14 +2949,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       255
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       255
@@ -3040,7 +3040,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -3473,7 +3473,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -3683,7 +3683,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -3704,14 +3704,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       255
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       255
@@ -3795,7 +3795,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -4226,7 +4226,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -4436,7 +4436,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -4457,14 +4457,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -4548,7 +4548,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -4981,7 +4981,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       27
@@ -5191,7 +5191,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -5212,14 +5212,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -5303,7 +5303,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       7
@@ -5735,7 +5735,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -5945,7 +5945,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -5966,14 +5966,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -6057,7 +6057,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -6484,7 +6484,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -6694,7 +6694,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -6715,14 +6715,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -6806,7 +6806,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -7237,7 +7237,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -7447,7 +7447,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -7468,14 +7468,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -7559,7 +7559,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -7993,7 +7993,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -8203,7 +8203,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -8224,14 +8224,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -8315,7 +8315,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -8749,7 +8749,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -8959,7 +8959,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -8980,14 +8980,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -9071,7 +9071,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -9506,7 +9506,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -9716,7 +9716,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -9737,14 +9737,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -9828,7 +9828,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -10260,7 +10260,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -10470,7 +10470,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -10491,14 +10491,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -10582,7 +10582,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -11012,7 +11012,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -11222,7 +11222,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -11243,14 +11243,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -11334,7 +11334,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -11766,7 +11766,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -11976,7 +11976,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -11997,14 +11997,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       255
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       255
@@ -12088,7 +12088,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -12522,7 +12522,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -12732,7 +12732,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -12753,14 +12753,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -12844,7 +12844,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -13277,7 +13277,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -13487,7 +13487,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -13508,14 +13508,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -13599,7 +13599,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -14029,7 +14029,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -14239,7 +14239,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -14260,14 +14260,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -14351,7 +14351,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -14780,7 +14780,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       15
@@ -14990,7 +14990,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       1
@@ -15011,14 +15011,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -15102,7 +15102,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -15536,7 +15536,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -15746,7 +15746,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -15767,14 +15767,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -15858,7 +15858,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -16292,7 +16292,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -16502,7 +16502,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -16523,14 +16523,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -16614,7 +16614,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -17045,7 +17045,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -17255,7 +17255,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -17276,14 +17276,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       3
@@ -17367,7 +17367,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -17797,7 +17797,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -18007,7 +18007,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -18028,14 +18028,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -18119,7 +18119,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -18551,7 +18551,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -18761,7 +18761,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -18782,14 +18782,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       3
@@ -18873,7 +18873,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -19304,7 +19304,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -19514,7 +19514,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -19535,14 +19535,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -19626,7 +19626,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -20057,7 +20057,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -20267,7 +20267,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -20288,14 +20288,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -20379,7 +20379,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -20810,7 +20810,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -21020,7 +21020,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -21041,14 +21041,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -21132,7 +21132,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -21563,7 +21563,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -21773,7 +21773,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -21794,14 +21794,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -21885,7 +21885,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -22316,7 +22316,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -22526,7 +22526,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -22547,14 +22547,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -22638,7 +22638,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -23069,7 +23069,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -23279,7 +23279,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -23300,14 +23300,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -23391,7 +23391,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -23822,7 +23822,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -24032,7 +24032,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -24053,14 +24053,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -24144,7 +24144,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -24573,7 +24573,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -24783,7 +24783,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -24804,14 +24804,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -24895,7 +24895,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -25328,7 +25328,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -25538,7 +25538,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -25559,14 +25559,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -25650,7 +25650,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -26083,7 +26083,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       21
@@ -26293,7 +26293,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -26314,14 +26314,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -26405,7 +26405,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       15
@@ -26836,7 +26836,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -27046,7 +27046,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -27067,14 +27067,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -27158,7 +27158,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -27589,7 +27589,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -27799,7 +27799,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -27820,14 +27820,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -27911,7 +27911,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -28345,7 +28345,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       255
@@ -28555,7 +28555,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       0
@@ -28576,14 +28576,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -28667,7 +28667,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
@@ -29100,7 +29100,7 @@
      ]
     },
     {
-     "label": "vSEQ-PATN",
+     "label": "vSEQ-PTRN",
      "offset": "0x05-0x05",
      "bytes": [
       15
@@ -29310,7 +29310,7 @@
      ]
     },
     {
-     "label": "INTF-TSEL",
+     "label": "INTF-tSEL",
      "offset": "0x24-0x24",
      "bytes": [
       1
@@ -29331,14 +29331,14 @@
      ]
     },
     {
-     "label": "INTF-WSEL",
+     "label": "INTF-wSEL",
      "offset": "0x28-0x28",
      "bytes": [
       15
      ]
     },
     {
-     "label": "INTF-WSYN",
+     "label": "INTF-wSYN",
      "offset": "0x29-0x29",
      "bytes": [
       0
@@ -29422,7 +29422,7 @@
      ]
     },
     {
-     "label": "mSEQ-PATN",
+     "label": "mSEQ-PTRN",
      "offset": "0x38-0x38",
      "bytes": [
       255
