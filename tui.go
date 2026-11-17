@@ -107,7 +107,7 @@ var longHelp = []string{
 	"x                               delete the selected file",
 	"X                               delete export files (expNNN.bin, exp.bin, expc.bin)",
 	"Z                               delete empty imp/exp files: 0 bytes or empty-slot exports",
-	"c                               copy the preset to a folder for import into a slot",
+	"c                               copy the preset to a folder for import into a slot (as impNNN.bin)",
 	"D                               open the synth's drive (KLRU); offers to mount it",
 	"E                               eject the synth's drive",
 	"g                               reload the folder",
@@ -372,7 +372,7 @@ func (u *ui) handleRune(r rune) bool {
 		if u.copyDir == "" {
 			u.copyDir, _ = findDevice()
 		}
-		dir, ok := u.askFolder("Copy "+p.File()+" to folder:", u.copyDir)
+		dir, ok := u.askFolder("Copy "+p.File()+" for import (as impNNN.bin) to folder:", u.copyDir)
 		if !ok {
 			return true
 		}
@@ -381,7 +381,7 @@ func (u *ui) handleRune(r rune) bool {
 		if s, _, ok := p.Slot(); ok {
 			def = strconv.Itoa(s)
 		}
-		in, ok := u.ask([]string{"Import " + p.File() + " into slot:", fmt.Sprintf("%d-%d", minSlot, maxSlot)}, def)
+		in, ok := u.ask([]string{"Import " + p.File() + " into slot:", fmt.Sprintf("%d-%d; the copy is named impNNN.bin", minSlot, maxSlot)}, def)
 		if !ok {
 			return true
 		}
@@ -394,7 +394,7 @@ func (u *ui) handleRune(r rune) bool {
 		if err == nil && sameDir(dir, u.dir) {
 			u.reload()
 		}
-		u.result(err, fmt.Sprintf("copied to %s, marker %s set", path, markerFile))
+		u.result(err, fmt.Sprintf("%s copied as %s to %s, marker %s set", p.File(), filepath.Base(path), dir, markerFile))
 	case 'D':
 		dir, ok := u.device()
 		if !ok {

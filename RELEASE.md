@@ -23,6 +23,7 @@ The version jumps from 0.4 to 0.85 to match the synth firmware v85 it was tested
 - Export requests leave out slot 127, the init preset (always empty). `kalib request 127` alone is refused.
 - **Labels** follow the firmware v84 display: `vSEQ-PTRN`, `mSEQ-PTRN` (were `PATN`), `INTF-tSEL`, `INTF-wSEL`, `INTF-wSYN` (were `TSEL`, `WSEL`, `WSYN`). This changes the labels in `export` and `stats` output.
 - TUI views renamed: "as on device" (was device), "long form" (was parameters), "hex dump". The long form always shows decimal values; the `d` key is gone.
+- TUI `c` names the copy in its prompts and result (`exp003.bin copied as imp003.bin to …`): it is always saved as `impNNN.bin`, also from an `exp` file.
 
 ## 0.4 (2026-11-09)
 
