@@ -2,6 +2,10 @@
 
 Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0, a minor version (0.x) may change output formats.
 
+## Unreleased
+
+- README: an animated recording of the TUI in colour (`demo/kalib.svg`) replaces the text sample. `demo/record.sh` re-records it on a temporary copy of `Factory Presets/`: it plays the script `demo/kalib.tape` (vhs tape syntax) into kalib in tmux, records with asciinema and converts with `demo/cast2svg.py` (standard library only).
+
 ## 0.85 (2026-11-17)
 
 The version jumps from 0.4 to 0.85 to match the synth firmware v85 it was tested with.

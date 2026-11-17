@@ -26,4 +26,4 @@ Kaleidoscope Librarian (short name and binary: kalib, repo: https://github.com/n
   `./kalib export csv "Factory Presets" > analysis/presets.csv`,
   `./kalib stats "Factory Presets" > analysis/stats.txt`,
   and update analysis/FORMAT.md.
-- For releases: bump `version` in main.go (and the sample screen in README.md), add an entry to RELEASE.md, tag `vX.Y.Z`.
+- For releases: bump `version` in main.go, re-record the README demo with `demo/record.sh` (plays `demo/kalib.tape` in tmux, records with asciinema 3, converts to SVG; needs `Factory Presets/`), add an entry to RELEASE.md, tag `vX.Y.Z`.
