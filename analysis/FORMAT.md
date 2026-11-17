@@ -21,8 +21,8 @@ A preset holds the parameters of one track (the synth has 4). The user manual (K
 
 ## Parameters are indexed by MIDI CC number
 The manual's MIDI parameter table gives every parameter a CC number. **The byte at offset n holds the parameter with CC n.** This explains every byte of the old positional layout:
-- Every `ff` byte in 0x04-0x7f (identical in all 39 files) is a CC that stores no value: the ALIA parameters of the nine modulation matrices (CC 37, 47, 51, 55, 63, 69, 75, 79, 83; ALIA only mirrors the modulated parameter), and the unused CCs 26, 85-111, 115, 117-127. Firmware v81 also writes 85-92 (see Device tests).
-- Every other byte in that range is a parameter from the table, except 0x70 and 0x71 (CC 112, 113), which the manual does not list.
+- Every `ff` byte in 0x04-0x7f (identical in all 39 files) is a CC that stores no value: the ALIA parameters of the nine modulation matrices (CC 37, 47, 51, 55, 63, 69, 75, 79, 83; ALIA only mirrors the modulated parameter), and the unused CCs 26, 93-111, 115, 117-127. CC 85-92 belong to the step modulator (added in v76): v81 writes 85-87 and 90-92, while 88 (sMX-ALIA) and 89 (sSEQ-VALU) stay `ff` (see Device tests).
+- Every other byte in that range is a parameter from the table, except 0x70 and 0x71 (CC 112, 113), which the manual does not list. The manual gives vCH and mCH the CCs 43 and 42 instead (see 0x2a/0x2b); the manufacturer confirmed that all MIDI channels can be set by MIDI, but not which CC numbers do it.
 - The two "records" of the earlier analysis are the modulation matrices. The CC order puts DEPT first in vMX/mMX (`DEPT, PARM, DEST`) and last in aMX/fMX/kMX/wMX/bMX (`PARM, DEST, DEPT`). The 5-byte records are the aftertouch, velocity and keytrack matrices followed by RISE and FALL of their smoothing page; mod wheel and pitch bend have no smoothing page, hence 3 bytes.
 - Values sit where the manual's ranges put the midpoint: MIDL `40` (0.5), every DEPT `40` (0), TRAN and FINE `3f`, mENV-SHAP `40`. BPM is `78` = 120 in 33 files, `5a` = 90, `8c` = 140. Both pattern fields default to PSIZ `07` (8 steps, 0-based) with PTRN `ff` (all steps on).
 
@@ -122,13 +122,13 @@ The channel bytes identify the track a preset was saved from: vCH `12`, mCH `02`
 
 Loading spacehunt into track 2 or 3 makes all its track references point to that track (the display showed DEST = own track). On save they are stored as DEST `05` (track 2) / `0a` (track 3) and LINK, FMSR `12` / `24`. The low 2 bits of DEST and the low 4 bits of LINK/FMSR give the track; the extra high bits are not understood. pondfish has the same values as exp100, so it was probably saved from track 3.
 
-Bytes written by v81 but `ff` or tail in the factory presets (step modulator, added in v76, has no CC numbers in the manual):
+Bytes written by v81 but `ff` or tail in the factory presets (step modulator, added in v76; the manual predates it, but per the manufacturer its parameters are controllable by CC like the rest, except the step values, see Manufacturer's answers):
 | Offset | Label | Encoding (confirmed with exp104/105) |
 |---|---|---|
 | 0x55 | sMX-PARM | see PARM list |
 | 0x56 | sMX-DEST | track, 0-based |
 | 0x57 | sMX-TSRC | 0 OFF, 1 vENV, 2 mENV; smEN and TSEL presumably 3 and 4 |
-| 0x58, 0x59 | - | `ff`: presumably sMX-ALIA and sSEQ-VALU, which have no single value |
+| 0x58, 0x59 | - | `ff`: CC 88, 89 by encoder order sMX-ALIA and sSEQ-VALU, which have no single value to store (the step values have no CC, per the manufacturer) |
 | 0x5a | sSEQ-LEN | sequence length 1-16 (set by holding CURS) |
 | 0x5b | sSEQ-ROTA | rotation offset; one click = `0f`. Rotating does not move the step bytes |
 | 0x5c | sSEQ-RAND | 0-32 |
@@ -187,6 +187,14 @@ The synth talks to the computer through files in the root of its USB drive (`KLR
 
 vadjuse's manager accepts slots 0-127 for import and export; kalib does the same.
 
+## Manufacturer's answers (2026-11-12)
+vadjuse answered four questions about MIDI CC control (in a chat with the author; summarized here, not quoted):
+
+- **Step modulator CCs:** the parameters added after the manual (July 2025) are controllable by MIDI CC too; the manual is just not updated yet. This fits the rule byte n = CC n for the stored ones: 85-87 sMX-PARM, DEST, TSRC and 90-92 sSEQ-LEN, ROTA, RAND (the CC numbers themselves are inferred from the byte positions, not stated by him). 88 and 89 are `ff`, by encoder order sMX-ALIA and sSEQ-VALU.
+- **Step values:** the 16 step values (0x8c-0x9b) have no CC. He would rather not spend 16 CCs on them; if added, probably as one CC for the cursor and one for the value at the cursor, as in the sequencer.
+- **CC ranges:** a CC has only 128 values, so parameters with a wider range are mapped onto a part of it. His figures: DEPT -64..64 by CC (the display goes to -128..128, see DEPT above), BPM 40..168 (the file stores the BPM as is, up to 200), FILT 0..128 for the cutoff (stored in bits 0-6 of the file, so at most 127). These ranges have 129 values each, so one end is presumably not reachable; the exact mapping is not confirmed. The filter type (bit 7 in the file) can only be chosen on the synth; a separate CC for it is a possible addition. So file values are not CC values: the file holds the full internal range.
+- **MIDI channels:** all of them (vCHN, mCHN, pCHN) can be set by MIDI. The question named CC 112/113, but the answer did not confirm CC numbers, and the manual lists vCH/mCH as CC 43/42.
+
 ## Limits of this analysis
 This is a reverse-engineering result, not a specification. It is based on:
 - the 39 factory presets, saved with firmware older than v76,
@@ -194,7 +202,7 @@ This is a reverse-engineering result, not a specification. It is based on:
 - six presets exported from one device running firmware v81 (beta), with known parameter changes,
 - vadjuse's preset manager (the manufacturer's own code) for the name charset and the files on the device.
 
-The name charset and the device files come from the manufacturer's code. The manufacturer has not reviewed or confirmed anything else.
+The name charset and the device files come from the manufacturer's code. The manufacturer also answered four questions about MIDI CCs (see Manufacturer's answers). He has not reviewed or confirmed anything else.
 
 What that means in practice:
 - **Field positions** (which byte is which parameter) are well supported: the CC numbering explains every byte of the parameter area, and every device test hit the expected byte.
@@ -206,7 +214,7 @@ What that means in practice:
 
 ## Open questions
 - The rule behind the track-dependent values (`05`/`0a`, `12`/`24`) when saving from tracks 2-4, i.e. the high bits of DEST/LINK/FMSR.
-- What 0x2a/0x2b (`04` everywhere) are.
+- What 0x2a/0x2b (`04` everywhere) are, and which CCs set the MIDI channels: the manual's 42/43 (vCH/mCH) or 112/113 (where they are stored).
 - How vCH encodes polyphonic channels, and mCH `04`/`14` in the factory presets.
 - Whether the other PARM fields use the same numbering as sMX (very likely).
 - TSRC codes for smEN and TSEL.
