@@ -95,7 +95,7 @@ Finding and ejecting are tested on Linux only so far; macOS and Windows are unte
 | `b` | fetch exported presets (non-empty `expNNN.bin`) to a folder, e.g. a backup; suggests `$KALIB_FETCH_DIR` |
 | `X` | delete export files (`expNNN.bin`, `exp.bin`, `expc.bin`) after showing them |
 | `D` | open the synth's drive; offers to mount it if it is connected but not mounted |
-| `E` | eject the synth's drive |
+| `E` | eject the synth's drive; if it is the open folder, the list is cleared |
 | `c` | copy the preset to a folder (e.g. the synth's drive) as `impNNN.bin` for import into a slot, plus `imp.bin` |
 | `v` / Tab | switch view: device, parameters, hex dump |
 | `d` | parameters view: decimal values on/off (on by default) |

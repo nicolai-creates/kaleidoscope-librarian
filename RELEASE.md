@@ -15,6 +15,7 @@ Newest first. Each release is tagged `vX.Y.Z`. kalib is experimental: before 1.0
 - Eject the synth's drive: `kalib eject`, TUI `E`. Linux via udisksctl, macOS via diskutil, Windows directly (flush, lock, dismount, eject); macOS and Windows untested.
 - Mount the synth's drive (Linux): if `KLRU` is connected but not mounted, `kalib device`, `request`, `import`, `fetch`, `clean` and TUI `D` ask whether to mount it, then mount it with `udisksctl`.
 - TUI: Ctrl-Z suspends kalib to the shell (`fg` returns); before, the key was swallowed.
+- TUI `E`: the result shows in a popup (ejected, failed, or not mounted). If the open folder was on the ejected drive, the list and the header are cleared.
 - **Labels** follow the firmware v84 display: `vSEQ-PTRN`, `mSEQ-PTRN` (were `PATN`), `INTF-tSEL`, `INTF-wSEL`, `INTF-wSYN` (were `TSEL`, `WSEL`, `WSYN`). This changes the labels in `export` and `stats` output.
 
 ## 0.4 (2026-11-09)

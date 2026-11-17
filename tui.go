@@ -223,6 +223,10 @@ func (u *ui) handleKey(ev *tcell.EventKey) bool {
 
 func (u *ui) handleRune(r rune) bool {
 	p := u.selected()
+	if u.dir == "" && strings.ContainsRune("gieXb", r) {
+		u.setErr("no folder open: D opens the synth's drive")
+		return true
+	}
 	switch r {
 	case 'q':
 		return false
@@ -382,7 +386,7 @@ func (u *ui) handleRune(r rune) bool {
 	case 'E':
 		var nm notMountedError
 		if _, err := findDevice(); errors.As(err, &nm) {
-			u.setMsg(deviceLabel + " (" + nm.dev + ") is not mounted: safe to unplug")
+			u.popup([]string{"Not mounted", "", deviceLabel + " (" + nm.dev + ") is not mounted: safe to unplug.", "", "Press any key to continue."})
 			return true
 		}
 		dir, ok := u.device()
@@ -392,11 +396,23 @@ func (u *ui) handleRune(r rune) bool {
 		if !u.confirm("Eject the synth's drive " + dir + "?") {
 			return true
 		}
+		onDrive := within(u.dir, dir)
 		note, err := ejectDevice(dir)
-		if note != "" {
-			note = " (" + note + ")"
+		if err != nil {
+			u.setErr(err.Error())
+			u.popup([]string{"Eject failed", "", err.Error(), "", "Press any key to continue."})
+			return true
 		}
-		u.result(err, "ejected "+dir+": safe to unplug"+note)
+		if onDrive {
+			// The folder is gone with the drive.
+			u.dir, u.ps, u.cur, u.top, u.scroll = "", nil, 0, 0, 0
+		}
+		lines := []string{"Drive ejected", "", "The synth's drive " + dir + " was ejected: safe to unplug."}
+		if note != "" {
+			lines = append(lines, "Note: "+note)
+		}
+		u.popup(append(lines, "", "Press any key to continue."))
+		u.setMsg("ejected " + dir)
 	case 'm':
 		if p == nil {
 			return true
@@ -467,6 +483,9 @@ func (u *ui) resort() {
 }
 
 func (u *ui) reload() {
+	if u.dir == "" {
+		return
+	}
 	var path string
 	if p := u.selected(); p != nil {
 		path = p.Path
@@ -567,6 +586,20 @@ func (u *ui) device() (string, bool) {
 		u.popup([]string{"Synth not found", "", err.Error(), "", "Press any key to continue."})
 	}
 	return dir, err == nil
+}
+
+// within reports whether path is dir or lies inside it.
+func within(path, dir string) bool {
+	if path == "" {
+		return false
+	}
+	a, err1 := filepath.Abs(path)
+	b, err2 := filepath.Abs(dir)
+	if err1 != nil || err2 != nil {
+		return false
+	}
+	rel, err := filepath.Rel(b, a)
+	return err == nil && rel != ".." && !strings.HasPrefix(rel, ".."+string(filepath.Separator))
 }
 
 // popup shows lines in a box until a key is pressed.
@@ -749,14 +782,18 @@ func (u *ui) draw() {
 
 	u.clearRow(0, stHeader)
 	marker := "no import marker"
-	if m := markers(u.dir); len(m) > 0 {
+	if m := markers(u.dir); u.dir != "" && len(m) > 0 {
 		marker = strings.Join(m, ", ") + " present"
 	}
 	view := viewNames[u.view]
 	if u.view == viewParams && u.dec {
 		view += " +dec"
 	}
-	u.str(1, 0, w-2, stHeader, fmt.Sprintf("kalib %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, view))
+	head := fmt.Sprintf("kalib %s · %s · %d presets · %s · view: %s", version, u.dir, len(u.ps), marker, view)
+	if u.dir == "" {
+		head = fmt.Sprintf("kalib %s · no folder open (D opens the synth's drive) · view: %s", version, view)
+	}
+	u.str(1, 0, w-2, stHeader, head)
 
 	lw := min(listWidth, w/2)
 	u.lw = lw
